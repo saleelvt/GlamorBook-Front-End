@@ -1,0 +1,133 @@
+
+.main{
+   
+    background-color: antiquewhite; 
+  }
+#input{
+    height: 35px;
+    width: 340px;
+    border: 1px solid #888686;
+    border-radius: 4px;
+    border-color: #a1a0a0; 
+    margin-top: 30px;
+position: relative;
+z-index: 1;
+ 
+}
+
+#input::placeholder{
+  position:absolute;
+  left: 10px;
+  
+  background-color: white;
+  color: #252525; 
+  font-size: 11px;
+  z-index: 1;
+  font-style:inherit;
+
+}
+.is-invalid {
+  border-color: #dc3545 !important;
+  color: red;
+}
+.parent{
+    height: 700px;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+
+
+}
+.form{
+   background-color: rgb(255, 255, 255);
+   height: 300px;
+   width: 350px;
+   margin-left: 50PX;
+}
+#button{
+    height: 30px;
+    width: 340px;
+    font-size: 11px;
+    
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #5e5cd6;
+}
+#button:hover{
+    background-color: #4a317c;
+    cursor: pointer;
+}
+#buttonP{
+
+    height: 30px;
+    border-radius: 10px;
+    border-color: #f3eeee;
+    
+}
+
+.img {
+    background-color: rgb(183, 196, 228);
+    height: 480px;
+    width: 361px;
+    margin: 0 auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    border-radius: 14px;
+    box-shadow: #888686;
+    margin-top: 120px;
+    margin-right: 500px;
+  }
+  
+  .fixed-image {
+    height: 480px;
+    width: auto;
+    border-radius: 14px;
+  }
+
+  .fixed-signup-image{
+    height: 450px;
+    width: 300px;
+    border-radius: 14px;
+
+  }
+  .img-singnup{
+    background-color: rgb(183, 196, 228);
+    height: 450px;
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    border-radius: 14px;
+    box-shadow: #888686;
+    margin-top: 30px;
+    margin-left: 30px;
+
+  }
+  #buttonP:hover {
+    border-color: #173775;
+    cursor: pointer; 
+  }
+
+  #ptag{
+    font-size: 0.875rem;
+    margin-left: 120px;
+  }
+  #normal-page{
+    font-style:inherit;
+    font-size: 13px;
+    color: #7b7a7a;
+  }
+  #terms-ptag{
+    font-style:inherit;
+    font-size: 11px;
+    color: #000000;
+    font-weight:600;
+  }
+  #buttonP{
+
+    height: 30px;
+    border-radius: 10px;
+    font-weight:700;
+    font-size: 12px;
+    
+}
