@@ -1,17 +1,18 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import "../../../CSS/signup.css";
 import { Button } from "@nextui-org/react"; // Importing NextUI Button
 import { UserSignupdata } from "../../../interfaces/user/UserSignupdata";
 import { validateSignup } from "../../../validations/user/formi";
 import { useNavigate } from "react-router-dom";
-import { useDispatch,  } from "react-redux";
-import { AppDispatch,  } from "../../../reduxKit/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../reduxKit/store";
 import { signUpUser } from "../../../reduxKit/actions/user/userActions";
+import Swal from "sweetalert2";
 
-
-
-import Swal from 'sweetalert2';
 const SignUp: React.FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   type CustomError = {
     response?: {
@@ -21,10 +22,9 @@ const SignUp: React.FC = () => {
     };
   };
 
-
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  // const { loading, error } = useSelector((state: RootState) => state.user)
+
   const formik = useFormik<UserSignupdata>({
     initialValues: {
       userName: "",
@@ -41,18 +41,17 @@ const SignUp: React.FC = () => {
         .then(() => {
           navigate("/UserEmailverify");
         })
-
         .catch((error: CustomError) => {
           console.error("Signup failed:", error);
           Swal.fire({
             icon: "error",
             title: "Signup failed",
-            text: error.response?.data?.message || "An unexpected error occurred",
+            text:
+              error.response?.data?.message || "An unexpected error occurred",
           });
         });
     },
   });
-
 
   return (
     <section>
@@ -99,10 +98,10 @@ const SignUp: React.FC = () => {
                 ) : null}
               </div>
 
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <input
                   id="signup-input"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
                   className={`form-control ${
                     formik.errors.password && formik.touched.password
@@ -111,6 +110,18 @@ const SignUp: React.FC = () => {
                   }`}
                   {...formik.getFieldProps("password")}
                 />
+                <label
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showPassword ? "👁️" :"🙈"}
+                </label>
                 {formik.touched.password && formik.errors.password ? (
                   <div className="text-danger text-smaller">
                     {formik.errors.password}
@@ -118,10 +129,10 @@ const SignUp: React.FC = () => {
                 ) : null}
               </div>
 
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <input
                   id="signup-input"
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   className={`form-control ${
                     formik.errors.confirmPassword &&
@@ -131,6 +142,20 @@ const SignUp: React.FC = () => {
                   }`}
                   {...formik.getFieldProps("confirmPassword")}
                 />
+                <label
+                  onClick={() =>
+                    setShowConfirmPassword(!showConfirmPassword)
+                  }
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showConfirmPassword ?  "👁️" :"🙈"}
+                </label>
                 {formik.touched.confirmPassword &&
                 formik.errors.confirmPassword ? (
                   <div className="text-danger text-smaller">
@@ -142,9 +167,8 @@ const SignUp: React.FC = () => {
               <div className="form-group flex items-center mb-4">
                 <input type="checkbox" {...formik.getFieldProps("terms")} />
                 <label id="terms-ptag" className="ml-2">
-                  I agree to all the{" "}
-                  <span className="text-red-500">Terms</span> and{" "}
-                  <span className="text-red-500">Privacy Policies</span>
+                  I agree to all the <span className="text-red-500">Terms</span>{" "}
+                  and <span className="text-red-500">Privacy Policies</span>
                 </label>
               </div>
 

@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-// import "../../CSS/signup.css";
 import "../../../CSS/signup.css";
-import { Button } from "@nextui-org/react"; // Importing NextUI Button
+import { Button } from "@nextui-org/react";
 import { GUserLogin } from "../../../interfaces/user/UserLogin";
 import { validateSignup } from "../../../validations/user/formi";
 import { GoogleLogin } from "@react-oauth/google";
@@ -13,7 +13,8 @@ function UserLogin() {
     password: "",
   };
 
-  
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <section>
       <div className="flex min-h-screen max-w-full">
@@ -44,13 +45,15 @@ function UserLogin() {
                     />
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-4 relative">
                     <Field
                       id="signup-input"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       placeholder="Enter Password"
                       className={`form-control ${
-                        errors.password && touched.password ? "is-invalid" : ""
+                        errors.password && touched.password
+                          ? "is-invalid"
+                          : ""
                       }`}
                       name="password"
                     />
@@ -59,13 +62,25 @@ function UserLogin() {
                       component="div"
                       className="text-danger text-smaller"
                     />
+                    <label
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: "absolute",
+                        right: "10px",
+                        top: "35%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {showPassword ?  "👁️" :"🙈" }
+                    </label>
                   </div>
 
                   <div className="flex justify-center">
                     <Button
                       type="submit"
                       radius="full"
-                      className="bg-green-700 text-white h-8   w-10/12 ; rounded-md"
+                      className="bg-green-700 text-white h-8 w-10/12 rounded-md"
                       disabled={isSubmitting}
                     >
                       Login
@@ -78,13 +93,12 @@ function UserLogin() {
                     </NavLink>
                   </div>
 
-                  <div className="flex justify-center mt-4  ">
+                  <div className="flex justify-center mt-4">
                     <GoogleLogin
                       text="signin_with"
                       shape="circle"
                       onSuccess={(credentialResponse) => {
                         console.log(credentialResponse);
-                        // googleSignIn(credentialResponse, true);
                       }}
                       onError={() => {
                         console.log("Login Failed");
