@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { FormValueOtp } from "../../../interfaces/user/FormValueOtp";
 import { UserSignupdata } from "../../../interfaces/user/UserSignupdata";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyOTP } from "../../../reduxKit/actions/user/userActions";
+import { verifyOTP,resendOTP } from "../../../reduxKit/actions/user/userActions";
 
 function UserEmailVerify() {
   const dispatch = useDispatch<AppDispatch>();
@@ -63,6 +63,8 @@ function UserEmailVerify() {
           title: "OTP Verified Successfully",
           text: "You can now login.",
         }).then(() => {
+          console.log('the homw page rooot reached ');
+          
           navigate("/userHomepage");
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,6 +77,12 @@ function UserEmailVerify() {
       }
     },
   });
+
+
+
+
+
+
 
   useEffect(() => {
     inputRef.current[0]?.focus();
@@ -99,10 +107,17 @@ function UserEmailVerify() {
     };
   }, []);
 
+
+
+
+
+
+
+
   useEffect(() => {
     let countdown: number;
     if (timer > 0) {
-      countdown = setTimeout(() => setTimer((prev) => prev - 1), 1000);
+      countdown = setTimeout(() => setTimer((prev) => prev - 1), 500);
     } else {
       setResendEnabled(true);
     }
@@ -236,7 +251,3 @@ function UserEmailVerify() {
 }
 
 export default UserEmailVerify;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-function resendOTP(arg0: { email: string }): any {
-  throw new Error("Function not implemented.");
-}

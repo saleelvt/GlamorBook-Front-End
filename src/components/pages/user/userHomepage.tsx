@@ -1,11 +1,13 @@
 
-import React from 'react'
+import UserNavbar from "../../Navbar/userNavbar"
 
 function UserHomepage() {
   return (
     <div>
       
-      <h1> htis is my hoem page </h1>
+      
+      <UserNavbar/>
+      <p>this is the home page of the user</p>
       
     </div>
   )

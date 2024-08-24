@@ -1,3 +1,3 @@
-export interface UserResendOtp {
+export interface IUserResendOtp {
   email: string;
 }

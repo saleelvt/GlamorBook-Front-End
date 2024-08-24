@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../reduxKit/store";
 import { signUpUser } from "../../../reduxKit/actions/user/userActions";
+
 import Swal from "sweetalert2";
 
 const SignUp: React.FC = () => {

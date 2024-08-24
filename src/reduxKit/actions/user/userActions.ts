@@ -1,8 +1,10 @@
 import { FormValueOtp } from "./../../../interfaces/user/FormValueOtp";
 
 import { UserSignupdata } from "./../../../interfaces/user/UserSignupdata";
+import { IUserResendOtp } from "../../../interfaces/user/IUserResendOtp";
+import { UserLogin } from "../../../interfaces/user/UserLogin";
 
-import { createAsyncThunk,  } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { URL, config } from "../../../config/constants";
@@ -43,31 +45,110 @@ export const verifyOTP = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      console.log(otp,email,userName,password,role,'these are my verify otp sendign data to backend ');
-      const {data}=await axios.post(
+      console.log(
+        otp,
+        email,
+        userName,
+        password,
+        role,
+        "these are my verify otp sendign data to backend "
+      );
+      const { data } = await axios.post(
         `${URL}/verify-otp`,
         {
-          otp,email,userName,password,role,
+          otp,
+          email,
+          userName,
+          password,
+          role,
         },
         config
-      )
+      );
       console.log(
         data.data,
         "here data inside after verify-otp asyn thunk the result "
       );
-      return data.data
-      
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error:any) {
+      return data.data;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("ERROR WHIL VERIFYING OTP : ", error);
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }
+    }
+  }
+);
 
-      
-      
+export const googleLoginOrSignUp = createAsyncThunk(
+  "user/loginWithGoogle",
+  async (userCredentials: UserLogin, { rejectWithValue }) => {
+    try {
+      console.log("inside signup action");
+      console.log(userCredentials, "dat before theater signup");
+
+      const { data } = await axios.post(
+        `${URL}/google`,
+        userCredentials,
+        config
+      );
+      return data.data;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
+    }
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  "user/userLogin",
+  async (userCredentials: UserLogin, { rejectWithValue }) => {
+    try {
+      console.log("user action got ");
+
+      const { data } = await axios.post(
+        `${URL}/login`,
+        userCredentials,
+        config
+      );
+      console.log(data.data, "this is data form back end after axios post ");
+      return data.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
+    }
+  }
+);
+
+export const resendOTP = createAsyncThunk(
+  "user/resendOTP",
+  async (userResendDetails: IUserResendOtp, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${URL}/resend-otp`,
+        userResendDetails,
+        config,
+      );
+
+      return data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
     }
   }
 );
