@@ -8,5 +8,4 @@ export interface UserSignupdata {
     otp?:string[];
     role?:"user";
     isLogged?:boolean;
-    
 }

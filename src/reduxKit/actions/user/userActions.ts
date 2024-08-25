@@ -138,17 +138,35 @@ export const resendOTP = createAsyncThunk(
       const { data } = await axios.post(
         `${URL}/resend-otp`,
         userResendDetails,
-        config,
+        config
       );
 
       return data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "user/forgotPassword",
+  async (email: string, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${URL}/forgetpassword`,
+        { email },
+        config
+      );
+      console.log("🚀 ~ inside forget password data from backend", data);
+      return data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+    } catch (error: any) {
+      return rejectWithValue("Failed to reset password");
     }
   }
 );
