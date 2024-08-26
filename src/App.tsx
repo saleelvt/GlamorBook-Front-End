@@ -7,13 +7,14 @@ import UserWelcomePage from "./components/pages/user/userWelcomePage";
 import UserEmailVerify from "./components/Forms/user/UserEmailVerify";
 import UserHomepage from "./components/pages/user/userHomepage";
 import AdminHomePage from "./components/pages/admin/adminHomePage";
+import AdminLogin from "./components/Forms/admin/adminLoginPage";
 import { Toaster } from "react-hot-toast";
-import { RootState } from "./reduxKit/store";
-import { useSelector } from "react-redux";
+// import { RootState } from "./reduxKit/store";
+// import { useSelector } from "react-redux";
 
 function App() {
-  const role = useSelector((state: RootState) => state.user?.userDetails?.role);
-  if (role === "user" && role !== undefined && role !== null) {
+  // const role = useSelector((state: RootState) => state.user?.userDetails?.role);
+  // if (role === "user" && role !== undefined && role !== null) {
     return (
       <Fragment>
          <Toaster position="top-center" />
@@ -25,10 +26,21 @@ function App() {
           <Route path="/UserEmailverify" element={<UserEmailVerify />} />
           <Route path="/userHomepage" element={<UserHomepage />} />
           <Route path="/adminHomePage" element={<AdminHomePage />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+      
         </Routes>
       </Fragment>
     );
-  }
+  
+
+
+  // if(){
+
+  // }
+
+
+
+
 }
 
 export default App;
