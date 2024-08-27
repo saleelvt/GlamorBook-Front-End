@@ -5,10 +5,8 @@ export const Store  = configureStore({
   reducer: {
     user: userSlice.reducer  ,
     admin:adminSlice.reducer,
-  
   },
 });
-
 
 
 // export type RootState = {

@@ -1,0 +1,20 @@
+.carousel-container {
+ 
+    width: 100%; /* Full width of the parent container */
+  max-width: 600px; /* Maximum width for the carousel */
+  margin: 0 auto; /* Center the carousel */
+  position: relative; /* For positioning slides */
+  overflow: hidden; /* Hide any overflow */
+  /* padding-top: 56.25%; Aspect ratio 16:9 (height/width*100%) */
+  }
+  
+  .carousel-container .slick-slide {
+    height: 100%; /* Ensure slides take up full height */
+  }
+  
+  .carousel-container img {
+    width: 100%; /* Make image width responsive to container */
+    height: 100%; /* Ensure image height fills container */
+    object-fit: cover; /* Scale and crop images to cover the container */
+    display: block; /* Remove any extra space below images */
+  }
