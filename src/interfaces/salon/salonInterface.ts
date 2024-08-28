@@ -1,4 +1,4 @@
-export interface salonInterface {
+export  interface SalonInterface {
   _id?: string;
   userName?: string | null;
   email: string | null;

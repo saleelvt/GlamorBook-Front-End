@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import {
   googleLoginOrSignUp,
   loginUser,
-} from "../../../reduxKit/actions/user/userActions";
+} from "../../../reduxKit/actions/auth/authActions";
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +42,10 @@ const Login: React.FC = () => {
     } catch (err: any) {
       console.error("Google Login failed:", err);
       Swal.fire({
+        showConfirmButton: false,
+        toast: true,
+        timerProgressBar: true,
+        timer: 1500,
         icon: "error",
         title: "Google Login failed",
         text: err.response?.data?.message || "An unexpected error occurred",

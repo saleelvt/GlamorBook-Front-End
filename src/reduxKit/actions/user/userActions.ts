@@ -164,9 +164,29 @@ export const forgotPassword = createAsyncThunk(
       );
       console.log("🚀 ~ inside forget password data from backend", data);
       return data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return rejectWithValue("Failed to reset password");
+    }
+  }
+);
+
+
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      console.log('data vann deleet akkaaa ');
+      
+      axios.delete(`${URL}/logout`, config);
+      return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
     }
   }
 );

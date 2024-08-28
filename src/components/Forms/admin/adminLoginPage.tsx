@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 import { AppDispatch, RootState } from "../../../reduxKit/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { loginAdmin } from "../../../reduxKit/actions/admin/adminActions";
+import { loginAdmin } from "../../../reduxKit/actions/auth/authActions";
 
 const AdminLogin: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { admin, error, loading } = useSelector(
-    (state: RootState) => state.admin
+  const { error, loading } = useSelector(
+    (state: RootState) => state.auth
   );
 
-  useEffect(() => {
-    if (admin) {
-      navigate("/adminHomePage");
-    }
-  }, [admin, navigate]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginAdmin({ email, password }));
+    await dispatch(loginAdmin({ email, password }));
+    navigate('/adminHomepage')
   };
   return (
     <div

@@ -45,8 +45,11 @@ const SignUp: React.FC = () => {
         .catch((error: CustomError) => {
           console.error("Signup failed:", error);
           Swal.fire({
-            icon: "error",
-            title: "Signup failed",
+            icon: "warning",
+            showConfirmButton: false,
+            toast: true,
+            timerProgressBar: true,
+            timer: 1500,
             text:
               error.response?.data?.message || "An unexpected error occurred",
           });
@@ -121,7 +124,7 @@ const SignUp: React.FC = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {showPassword ? "👁️" :"🙈"}
+                  {showPassword ? "👁️" : "🙈"}
                 </label>
                 {formik.touched.password && formik.errors.password ? (
                   <div className="text-danger text-smaller">
@@ -144,9 +147,7 @@ const SignUp: React.FC = () => {
                   {...formik.getFieldProps("confirmPassword")}
                 />
                 <label
-                  onClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
-                  }
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   style={{
                     position: "absolute",
                     right: "10px",
@@ -155,7 +156,7 @@ const SignUp: React.FC = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {showConfirmPassword ?  "👁️" :"🙈"}
+                  {showConfirmPassword ? "👁️" : "🙈"}
                 </label>
                 {formik.touched.confirmPassword &&
                 formik.errors.confirmPassword ? (

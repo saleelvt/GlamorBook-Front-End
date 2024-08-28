@@ -29,6 +29,7 @@ import { AdminInterface } from "../../../interfaces/admin/AdminInterface";
 
     extraReducers:(builder)=>{
         // admin login casess
+        
 
         builder
        .addCase(loginAdmin.pending, (state) => {

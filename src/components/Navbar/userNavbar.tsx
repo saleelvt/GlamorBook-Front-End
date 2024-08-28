@@ -3,14 +3,28 @@ import LogoImg from "../../assets/images/Screenshot 2024-08-19 180559.png";
 import { NavLink, useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../reduxKit/store";
-import { logout } from "../../reduxKit/reducers/user/userSlice";
-
+import { AppDispatch, RootState } from "../../reduxKit/store";
+import { logout } from "../../reduxKit/actions/user/userActions";
+import Swal from "sweetalert2";
 function UserNavbar() {
   // const dispatch = useDispatch<AppDispatch>();
   const { isLogged } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handledata = () => {
+    dispatch(logout());
+    Swal.fire({
+      icon: "warning",
+      text: "Logged out successfully!",
+      showConfirmButton: false,
+      toast: true,
+      timerProgressBar: true,
+      timer: 1500,
+    }).then(() => {
+      navigate("/");
+    });
+  };
 
   return (
     <Navbar className="bg-gradient-to-tr from-pink-300 to-yellow-200 flex justify-end p-4">
@@ -39,9 +53,14 @@ function UserNavbar() {
         >
           Contact Us
         </NavLink>
+
+
+
+
+        
         {isLogged ? (
           <Button
-            onClick={() => dispatch(logout())}
+            onClick={handledata}
             radius="full"
             className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
           >
