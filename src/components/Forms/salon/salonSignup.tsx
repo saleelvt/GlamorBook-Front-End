@@ -9,6 +9,7 @@ import { signupSalon } from "../../../reduxKit/actions/salon/salonActions";
 import { NavLink } from "react-router-dom";
 
 
+
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
@@ -37,8 +38,12 @@ const SalonSignUp: React.FC = () => {
             icon: "success",
             title: "Signup Successful",
             text: "You have successfully signed up! Please verify your email to continue.",
+            timer:1500,
+            showConfirmButton: false,
+            toast: true,
+            timerProgressBar: true,
           }).then(() => {
-            navigate("/theater/verifyOtp", {});
+            navigate("/salonOtpVerify");
           });
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,7 +56,8 @@ const SalonSignUp: React.FC = () => {
           });
         });
     },
-  });
+  })
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-pink-300 to-yellow-200">
@@ -80,7 +86,6 @@ const SalonSignUp: React.FC = () => {
                 </div>
               ) : null}
             </div>
-
             <div className="mb-4">
               <label htmlFor="email" className="block text-gray-950 text-start">
                 Email

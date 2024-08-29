@@ -11,6 +11,11 @@ import AdminLogin from "./components/Forms/admin/adminLoginPage";
 import SalonHomePage from "./components/pages/salon/salonHomePage";
 import SalonSignUp from "./components/Forms/salon/salonSignup";
 import SalonLogin from "./components/Forms/salon/salonLogin";
+import SalonOtpVerify from "./components/pages/salon/salonOtpVerify";
+
+
+
+
 import { Toaster } from "react-hot-toast";
 import { RootState } from "./reduxKit/store";
 import { useSelector } from "react-redux";
@@ -36,10 +41,12 @@ function App() {
 
 
 
+
         <Route path="/salonLogin" element={<SalonLogin />} />
         <Route path="/salonHome" element={<SalonHomePage />} />
         <Route path="/salonSignUp" element={<SalonSignUp />} />
-
+        <Route path="/salonOtpVerify" element={<SalonOtpVerify/>} />
+    
 
 
 
