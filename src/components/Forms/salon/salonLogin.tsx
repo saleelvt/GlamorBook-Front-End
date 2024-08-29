@@ -52,10 +52,10 @@ const SalonLogin: React.FC = () => {
   //   }, [theaterOwner, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen  bg-blue-600 bg-cover bg-center"  >
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-pink-300 to-yellow-200 bg-cover bg-center"  >
       <div className="flex flex-col md:flex-row items-center   p-6 ">
         <div className="p-6 rounded shadow-md w-full max-w-md bg-gray-300">
-          <h2 className="text-2xl shadow-lg font-bold mb-6 text-center text-gray-950">
+          <h2 className="text-2xl font-bold mb-6 text-center text-gray-950">
             LogIn  Your Salon Account
           </h2>
           <form onSubmit={formik.handleSubmit}>
@@ -109,7 +109,7 @@ const SalonLogin: React.FC = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="w-full p-2 border border-gray-300 rounded-lg mt-1 bg-gray-600 text-white"
+                className="w-full p-2 border border-gray-300 rounded-lg mt-1 bg-gradient-to-tr from-pink-600 to-yellow-500 text-white"
                 disabled={loading}
               >
                 {loading ? "Logging In..." : "Login"}
@@ -122,9 +122,9 @@ const SalonLogin: React.FC = () => {
           <div className="mt-4 text-center">
             <span className="text-gray-950">
               Don't have an account?{" "}
-              <a href="/theater/signup" className="text-gray-600">
-                Sign Up
-              </a>
+              <NavLink to="/salonSignup" style={{ color: "red" }}>
+                  Signup
+                </NavLink>
             </span>
           </div>
         </div>

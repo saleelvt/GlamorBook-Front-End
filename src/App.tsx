@@ -9,7 +9,7 @@ import UserHomepage from "./components/pages/user/userHomepage";
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
 import SalonHomePage from "./components/pages/salon/salonHomePage";
-// import SalonSignUp from "./components/Forms/salon/salonSignup";
+import SalonSignUp from "./components/Forms/salon/salonSignup";
 import SalonLogin from "./components/Forms/salon/salonLogin";
 import { Toaster } from "react-hot-toast";
 import { RootState } from "./reduxKit/store";
@@ -38,7 +38,7 @@ function App() {
 
         <Route path="/salonLogin" element={<SalonLogin />} />
         <Route path="/salonHome" element={<SalonHomePage />} />
-        {/* <Route path="/salonSignUp" element={<SalonSignUp />} /> */}
+        <Route path="/salonSignUp" element={<SalonSignUp />} />
 
 
 

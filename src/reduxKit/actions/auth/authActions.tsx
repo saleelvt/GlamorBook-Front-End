@@ -34,8 +34,8 @@ export const loginUser = createAsyncThunk(
   "user/userLogin",
   async (userCredentials: UserLogin, { rejectWithValue }) => {
     try {
-      console.log("user action got ");
 
+      console.log("user action got ");
       const { data } = await axiosIn.post(`/login`, userCredentials, config);
       console.log(data.data, "this is data form back end after axios post ");
       return data.data;
@@ -49,6 +49,7 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
 
 export const loginAdmin = createAsyncThunk(
   "admin/loginAdmin",
@@ -72,9 +73,10 @@ export const loginAdmin = createAsyncThunk(
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }
-    }
+    } 
   }
 );
+
 
 
 export const loginSalon = createAsyncThunk(
@@ -104,9 +106,10 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       console.log("data vann deleet akkaaa ");
-
       axiosIn.delete(`/logout`, config);
       return;
+
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {

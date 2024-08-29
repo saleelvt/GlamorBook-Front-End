@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const ValidationSchema = yup.object().shape({
-  username: yup
+  userName: yup
     .string()
     .min(3, "Username must be at least 3 characters")
     .max(10, "Username cannot exceed 10 characters")
