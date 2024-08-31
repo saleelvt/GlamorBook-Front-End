@@ -79,15 +79,18 @@ export const loginAdmin = createAsyncThunk(
 
 
 
+
+
+
+
 export const loginSalon = createAsyncThunk(
   "salon/login",
   async (salonCredentials: SalonLoginInterfaces, { rejectWithValue }) => {
     try {
-
       console.log("salon credential ", salonCredentials);
 
       const { data } = await  axiosIn.post("/salon/login", salonCredentials, config);
-      console.log("salon data ", data.data);
+      console.log("salon data  tot maxha", data.data);
       return data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -99,6 +102,13 @@ export const loginSalon = createAsyncThunk(
     }
   }
 );
+
+
+
+
+
+
+
 
 
 export const logout = createAsyncThunk(

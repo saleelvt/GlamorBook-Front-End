@@ -1,0 +1,50 @@
+/* src/styles/Carousel.css */
+
+.carousel-container {
+    width: 100%;
+    max-width: 1200px; /* You can adjust this value */
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+
+body, html {
+    overflow: auto; /* Ensure scrolling is enabled */
+}
+
+.carousel .slide img {
+    width: 100%;
+    height: auto;
+    min-height: 100vh; /* Ensures the container is at least the height of the viewport */
+}
+
+.fixed-element {
+    position: fixed;
+    width: 100%;
+    height: 100%; /* Ensure it doesn't cover more than it needs to */
+}
+
+.carousel .legend {
+    background: rgba(0, 0, 0, 0.5); /* Transparent background for captions */
+    color: #fff;
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+/* Additional responsiveness tweaks */
+@media (max-width: 768px) {
+    .carousel-container {
+        max-width: 100%; /* Full width on tablets */
+    }
+
+    .carousel .legend {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel .legend {
+        font-size: 0.9em;
+        padding: 5px;
+    }
+}

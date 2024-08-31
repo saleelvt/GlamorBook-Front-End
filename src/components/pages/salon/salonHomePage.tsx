@@ -1,14 +1,17 @@
-
-
+import SalonNavbar from "../../Navbar/salonNavbar";
+import ImageCarousel from "../../carousels/salonCarousels";
+import SalonFooter from "../../footer/salonFooter";
+import SalonHeader from "../../header/salonHeader"
 
 function SalonHomePage() {
   return (
     <div>
-
-        <h1>this is my SalonHomePage</h1>
-      
+      <SalonNavbar />
+      <ImageCarousel />
+      <SalonHeader />
+      <SalonFooter />
     </div>
-  )
+  );
 }
 
-export default SalonHomePage
+export default SalonHomePage;

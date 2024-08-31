@@ -10,8 +10,8 @@ import { AppDispatch, RootState } from "../../../reduxKit/store";
 import { useNavigate, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-// import { ValidationLogin } from "../../../schemas/ValidationLogin";
-import { ValidationLogin } from "../../../validations/salon/loginSalonValidation";
+
+import { ValidationLogin } from "../../../validations/salon/loginSalonValidation"
 
 import { SalonLoginInterfaces } from "../../../interfaces/salon/salonLoginInterfaces";
 
@@ -31,8 +31,9 @@ const SalonLogin: React.FC = () => {
     onSubmit: async (values) => {
       try {
         const theaterData = await dispatch(loginSalon(values)).unwrap();
+
+        console.log(theaterData, "before going to slaon home page ");
         navigate("/salonHome");
-        console.log(theaterData, "before going to dashboard");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Login failed:", err);
@@ -114,9 +115,7 @@ const SalonLogin: React.FC = () => {
               >
                 {loading ? "Logging In..." : "Login"}
               </button>
-              {/* {error && (
-                <div className="text-red-500 text-sm mt-2">{error}</div>
-              )} */}
+            
             </div>
           </form>
           <div className="mt-4 text-center">

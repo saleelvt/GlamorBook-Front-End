@@ -40,6 +40,23 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       // Google Login/Sign Up Cases
       .addCase(googleLoginOrSignUp.pending, (state) => {
         state.loading = true;
@@ -62,6 +79,27 @@ export const authSlice = createSlice({
         state.role = null;
         state.error = payload as string;
       })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       // Login Cases
       .addCase(loginUser.pending, (state) => {
@@ -86,6 +124,31 @@ export const authSlice = createSlice({
         state.error = payload as string;
       })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       .addCase(loginAdmin.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -108,6 +171,24 @@ export const authSlice = createSlice({
         state.error = payload as string;
       })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       // login salon
 
       .addCase(loginSalon.pending, (state) => {
@@ -122,7 +203,7 @@ export const authSlice = createSlice({
         localStorage.setItem("role", JSON.stringify(state.role));
         localStorage.setItem("isLogged", JSON.stringify(state.isLogged));
         localStorage.setItem("user", JSON.stringify(state.userData));
-        console.log(payload, "salonlogin state inside slice");
+        console.log(payload, "salonlogin macha sssaanam kitt  state inside slice");
       })
       .addCase(loginSalon.rejected, (state, { payload }) => {
         state.loading = false;
@@ -130,6 +211,28 @@ export const authSlice = createSlice({
         state.role = null;
         state.error = payload as string;
       })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       .addCase(logout.pending, (state) => {
         state.loading = true;

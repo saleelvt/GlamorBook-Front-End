@@ -32,8 +32,8 @@ const settings = {
   ],
 };
 
-import IMG1 from "../../assets/images/CarousleIMG1eda6de3a9a7970e6b2099c545a71ff8a.jpg";
-import IMG2 from "../../assets/images/CarousleIMG1r-2063795648.jpg";
+// import IMG1 from "../../assets/images/CarousleIMG1eda6de3a9a7970e6b2099c545a71ff8a.jpg";
+// import IMG2 from "../../assets/images/CarousleIMG1r-2063795648.jpg";
 import IMG3 from "../../assets/images/1.png";
 import IMG4 from "../../assets/images/1_jvZL4h-yHD0ImM2x9BqG_w.jpg";
 import IMG5 from "../../assets/images/images.jpeg";
@@ -44,12 +44,12 @@ const UserCarousel: React.FC = () => {
 
     <div className="carousel-container">
       <Slider {...settings}>
-        <div>
+        {/* <div>
           <img src={IMG1} alt="Slide 1"/>
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <img src={IMG2} alt="Slide 2" />
-        </div>
+        </div> */}
         <div>
           <img src={IMG3} alt="Slide 3" />
         </div>

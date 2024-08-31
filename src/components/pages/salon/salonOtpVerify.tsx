@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { FormValueOtp } from "../../../interfaces/user/FormValueOtp";
 import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 
-import { salonOtpVerify } from "../../../redux/actions/theaters/theaterActions";
+import { salonOtpVerify } from "../../../reduxKit/actions/salon/salonActions";
 
 function TheatreVerifyOtp() {
   const dispatch = useDispatch<AppDispatch>();
@@ -51,7 +51,7 @@ function TheatreVerifyOtp() {
         userName: salonOwner.userName,
         password: salonOwner.password,
         role: "salon",
-        status: "pending",
+        status: "active",
       };
 
       console.log(
@@ -65,8 +65,10 @@ function TheatreVerifyOtp() {
           icon: "success",
           title: "OTP Verified Successfully",
           text: "Wait For The Aprroval.",
+          toast:true,
+          timer:1000,
         }).then(() => {
-          navigate("/");
+          navigate("/salonLogin");
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -146,7 +148,7 @@ function TheatreVerifyOtp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#6db8f2]">
+    <div className="flex items-center justify-center min-h-screen   bg-gradient-to-tr from-pink-300 to-yellow-200">
       <form onSubmit={formik.handleSubmit}>
         <h3 className="text-3xl mb-8">Please Fill In The OTP</h3>
         <div>{renderInput()}</div>
@@ -155,9 +157,9 @@ function TheatreVerifyOtp() {
         )}
         <button
           type="submit"
-          className="mt-4 w-32 border border-solid rounded hover:bg-[#252525] hover:border-[#3b3b3b]"
+          className="mt-4 w-32 border border-solid rounded  bg-gradient-to-tr from-pink-500 to-yellow-600 hover:bg-[#252525] hover:border-[#3b3b3b]"
           style={{
-            backgroundColor: "#f57792",
+        
             borderColor: "#f57792",
             color: "#fff",
           }}
@@ -165,7 +167,7 @@ function TheatreVerifyOtp() {
         >
           {loading ? "Verifying..." : "Verify"}
         </button>
-        {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
+      {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
       </form>
     </div>
   );
