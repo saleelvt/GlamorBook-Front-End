@@ -1,5 +1,5 @@
 import { Navbar, Button, Avatar } from "@nextui-org/react";
-import LogoImg from "../../assets/images/Screenshot 2024-08-19 180559.png";
+import LogoImg from "../../assets/images/frogotePassG.png";
 import { NavLink, useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";

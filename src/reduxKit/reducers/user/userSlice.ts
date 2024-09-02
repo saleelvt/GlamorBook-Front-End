@@ -2,12 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { UserSignupdata } from "../../../interfaces/user/UserSignupdata";
 import {
+  forgotPassword,
   signUpUser,
   verifyOTP,
-  googleLoginOrSignUp,
-  loginUser,
+  
+  
 } from "../../actions/user/userActions";
-import { logout } from "../../actions/user/userActions";
+
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
@@ -94,60 +95,33 @@ export const userSlice = createSlice({
         state.error = payload as string; // Assuming payload is an error message
       })
 
-      // Google Login/Sign Up Cases
-      .addCase(googleLoginOrSignUp.pending, (state) => {
-        state.loading = true;
-        state.error = null; // Reset error on new request
+
+
+
+      .addCase(forgotPassword.pending,(state)=>{
+        state.error=null,
+        state.loading=true
       })
-      .addCase(googleLoginOrSignUp.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.error = null;
-        state.user = payload;
-        state.role = payload.role;
+      .addCase(forgotPassword.fulfilled,(state,{payload})=>{
+        state.error=null,
+        state.loading=false,
+        state.user = payload
+        
+        
       })
-      .addCase(googleLoginOrSignUp.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.user = null;
-        state.role = null;
-        state.error = payload as string; // Assuming payload is an error message
-      })
-      // Login Cases
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true;
-        state.error = null; // Reset error on new request
-      })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.error = null;
-        state.user = payload;
-        state.role = payload.role;
-        state.isLogged = true;
-        localStorage.setItem("role", JSON.stringify(state.role));
-        localStorage.setItem("isLogged", JSON.stringify(state.isLogged));
-        localStorage.setItem("user", JSON.stringify(state.user));
-        console.log(payload, "login state inside slice");
-      })
-      .addCase(loginUser.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.user = null;
-        state.role = null;
-        state.error = payload as string; // Assuming payload is an error message
-      })
-      .addCase(logout.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(logout.fulfilled, (state) => {
-        (state.isLogged = false),
-          (state.error = null),
-          (state.role = null),
-          (state.user = null);
-          localStorage.clear()
-      })
-      .addCase(logout.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload as string; // Assuming payload is an error message
-      });
+
+   
+
+
+
+
+
+
+
+
+
+     
+    
   },
 });
 

@@ -100,7 +100,7 @@ const SalonLogin: React.FC = () => {
             <div className="flex items-center justify-between mb-6">
               <NavLink
                 className="inline-block align-baseline font-bold text-sm"
-                to="/theater/forgetpassword"
+                to="/forgotPassword"
                 style={{ color: "red" }} // Adjust the color as needed
               >
                 Forgot Your Password?  <span style={{color:"black"}}>Click Here</span>

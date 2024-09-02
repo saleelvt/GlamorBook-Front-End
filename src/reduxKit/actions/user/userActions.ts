@@ -158,7 +158,7 @@ export const forgotPassword = createAsyncThunk(
   async (email: string, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `${URL}/forgetpassword`,
+        `${URL}/forgetPassword`,
         { email },
         config
       );
@@ -177,7 +177,6 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       console.log('data vann deleet akkaaa ');
-      
       axios.delete(`${URL}/logout`, config);
       return;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

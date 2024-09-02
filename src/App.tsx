@@ -6,12 +6,28 @@ import UserForgotPassword from "./components/Forms/user/ForgetPassword";
 import UserWelcomePage from "./components/pages/user/userWelcomePage";
 import UserEmailVerify from "./components/Forms/user/UserEmailVerify";
 import UserHomepage from "./components/pages/user/userHomepage";
+import UserResetPassword from "./components/pages/user/userResetPassword";
+
+
+
+
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
+
+
+
+
+
+
+
+
+
 import SalonHomePage from "./components/pages/salon/salonHomePage";
 import SalonSignUp from "./components/Forms/salon/salonSignup";
 import SalonLogin from "./components/Forms/salon/salonLogin";
 import SalonOtpVerify from "./components/pages/salon/salonOtpVerify";
+import SalonForgotPassword from "./components/Forms/salon/forgotPassword"
+import SalonResetPassword from "./components/pages/salon/salonResetPassword";
 
 
 
@@ -27,7 +43,11 @@ function App() {
 
     <Fragment>
       <Toaster position="top-center" />
+
+      
       <Routes>
+
+
 
       
 
@@ -37,7 +57,7 @@ function App() {
         <Route path="/userForgot" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserForgotPassword />} />
         <Route path="/UserEmailverify" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserEmailVerify />} />
         <Route path="/userHomepage" element={isLogged && role === "user" ? <UserHomepage /> : <Navigate to={'/'}/>} />
-
+        <Route path="/userResetPassword" element={<UserResetPassword />} />
 
 
 
@@ -46,7 +66,10 @@ function App() {
         <Route path="/salonHome" element={<SalonHomePage />} />
         <Route path="/salonSignUp" element={<SalonSignUp />} />
         <Route path="/salonOtpVerify" element={<SalonOtpVerify/>} />
-    
+        <Route path="/forgotPassword" element={<SalonForgotPassword/>} />
+        <Route path="/salonResetPassword" element={<SalonResetPassword/>} />
+
+
 
 
 
@@ -59,6 +82,9 @@ function App() {
       </Routes>
     </Fragment>
   );
+
+
+
 
 }
 

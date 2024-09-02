@@ -11,7 +11,6 @@ const ForgetPassword: FC = () => {
   const [email, setEmail] = useState("");
   const [errors, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleEmailSubmit = async (e: any) => {
     e.preventDefault();
@@ -23,8 +22,10 @@ const ForgetPassword: FC = () => {
     console.log("🚀  ForgetPassword email:", email);
   };
 
-  dispatch(forgotPassword(email)).then((res) => {
-    if (res.type && res.type.endsWith("fulfilled")) {
+  dispatch(forgotPassword(email)).unwrap()
+  .then((res) => {
+    console.log(res,"result here ");
+    if (res.status==200) {
       toast.success("Password reset email sent");
       setLoading(false);
     } else {
