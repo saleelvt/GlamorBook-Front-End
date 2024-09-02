@@ -49,8 +49,9 @@ const SalonResetPassword: FC = () => {
        );
 
       await axios
-        .post(`${URL}/`, {data}, config)
+        .post(`${URL}/salon/resetPassword`, {data}, config)
         .then(({ data }) => {
+
           if (data.success) {
             toast.success("Password reset successfully");
             setLoading(false);
@@ -74,14 +75,14 @@ const SalonResetPassword: FC = () => {
   };
 
   return (
-    <div className="py-20 lg:flex lg:items-center">
-      <div className="lg:w-1/2">
-        <img src={SalonForgotBG} alt="slaonForgotbg" />
+    <div className="py-20 lg:flex lg:items-center justify-center ">
+      <div className="lg:w-2/6 lg:ml-24 md:ml-56 xs:w-24  md:w-1/2 rounded-lg">
+        <img className="rounded-lg shadow-lg" src={SalonForgotBG} alt="slaonForgotbg" />
       </div>
-      <div className="lg:w-1/2 p-5 mx-10 lg:mx-20 lg:p-10 border border-gray-300 rounded-3xl">
+      <div className="lg:w-1/2 p-5 mx-10 lg:mx-20 lg:p-10 shadow-lg rounded-3xl">
         <div className="flex items-center justify-center">
           <p className="text-3xl font-bold">
-            Theater<span className="text-red-500">Reset</span>
+            Salon<span className="">Reset</span>
           </p>
         </div>
         <h1 className="text-2xl my-7 font-bold">Reset your Password</h1>
@@ -113,7 +114,7 @@ const SalonResetPassword: FC = () => {
 
         <div className="text-center">
           <button
-            className="bg-red-600 hover:bg-red-800 rounded-md p-2 w-full"
+            className="bg-gradient-to-tr from-pink-600 to-yellow-500 rounded-md p-2 w-full"
             onClick={handlePasswordSubmit}
             disabled={loading}
           >
@@ -127,7 +128,7 @@ const SalonResetPassword: FC = () => {
             <div className="flex items-center justify-center">
               <Link
                 className="bg-red-600 hover:bg-red-800 rounded-md p-2"
-                to="/theater/login"
+                to="/salonLogin"
               >
                 Go to Salon Login
               </Link>

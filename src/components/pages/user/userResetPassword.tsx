@@ -41,6 +41,9 @@ const UserResetPassword: FC = () => {
         return;
       }
 
+
+
+
       const data = { password, param };
 
       console.log(
@@ -129,7 +132,7 @@ const UserResetPassword: FC = () => {
             </div>
           </>
         )}
-        {finalMessage && (
+        {finalMessage && (  
           <div>
             <h1 className="my-4">
               Your password has been reset. Please log in again.
@@ -145,5 +148,6 @@ const UserResetPassword: FC = () => {
     </div>
   );
 };
+
 
 export default UserResetPassword;

@@ -1,7 +1,8 @@
 import React, { FC, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import ForgotBG from "../../../assets/images/service-men-1.jpg";
-import { forgotPassword } from "../../../reduxKit/actions/user/userActions";
+// import { forgotPassword } from "../../../reduxKit/actions/user/userActions";
+import { salonForgotPassword } from "../../../reduxKit/actions/salon/salonActions";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { AppDispatch } from "../../../reduxKit/store";
@@ -21,9 +22,10 @@ const ForgetPassword: FC = () => {
       return;
     }
 
-    dispatch(forgotPassword(email)).then((res) => {
-        console.log(res,"result here ");
-        
+
+    dispatch(salonForgotPassword(email)).then((res) => {
+      console.log(res, "result here ");
+
       if (res.type && res.type.endsWith("fulfilled")) {
         toast.success("Password reset email sent");
         setLoading(false);
@@ -47,7 +49,9 @@ const ForgetPassword: FC = () => {
             Glamor<span className="text-green-500">B</span>ook
           </p>
         </div>
-        <h1 className="text-2xl font-bold mb-5 text-center">Reset Your Password</h1>
+        <h1 className="text-2xl font-bold mb-5 text-center">
+          Reset Your Password
+        </h1>
         <form onSubmit={handleEmailSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700">
@@ -70,6 +74,7 @@ const ForgetPassword: FC = () => {
           <div className="text-center">
             <button
               type="submit"
+              
               className="bg-gradient-to-tr from-pink-600 to-yellow-500 text-white font-bold py-2 px-4 rounded-lg w-full"
               disabled={loading}
             >

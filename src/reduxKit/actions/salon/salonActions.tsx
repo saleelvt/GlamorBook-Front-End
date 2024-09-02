@@ -31,7 +31,6 @@ export const signupSalon = createAsyncThunk(
   }
 );
 
-
 export const salonOtpVerify = createAsyncThunk(
   "salon/otpverification",
   async (
@@ -64,6 +63,31 @@ export const salonOtpVerify = createAsyncThunk(
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }
+    }
+  }
+);
+
+export const salonForgotPassword = createAsyncThunk(
+  "salon/forgotPassword",
+  async (email: string, { rejectWithValue }) => {
+    try {
+
+      console.log('the data befor the axios 1', email);
+      
+      const { data } = await axios.post(
+        `${URL}/salon/forgotPassword`,
+        { email },
+        config
+      );
+
+      console.log(
+        "🚀 ~ insidethsi datat after the axios post of the slaon  forget password data from backend",
+        data
+      );
+      return data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue("Failed to reset password");
     }
   }
 );
