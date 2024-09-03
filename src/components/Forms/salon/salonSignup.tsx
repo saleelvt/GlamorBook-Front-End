@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,12 @@ const SalonSignUp: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector((state: RootState) => state.salon);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const initialValues: SalonInterface = {
     userName: "",
@@ -107,12 +113,21 @@ const SalonSignUp: React.FC = () => {
               >
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                {...formik.getFieldProps("password")}
-                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  {...formik.getFieldProps("password")}
+                  className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
+                />
+                <button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  className="absolute right-2 top-2 text-sm text-gray-600 focus:outline-none"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
               {formik.touched.password && formik.errors.password ? (
                 <div className="text-red-500 text-sm">
                   {formik.errors.password}
@@ -126,12 +141,21 @@ const SalonSignUp: React.FC = () => {
               >
                 Confirm Password
               </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                {...formik.getFieldProps("confirmPassword")}
-                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
-              />
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  {...formik.getFieldProps("confirmPassword")}
+                  className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
+                />
+                <button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  className="absolute right-2 top-2 text-sm text-gray-600 focus:outline-none"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
               {formik.touched.confirmPassword &&
               formik.errors.confirmPassword ? (
                 <div className="text-red-500 text-sm">

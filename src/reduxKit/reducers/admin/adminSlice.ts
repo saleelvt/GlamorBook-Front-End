@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import { loginAdmin } from "../../actions/admin/adminActions";
 import { AdminInterface } from "../../../interfaces/admin/AdminInterface";
  
  export interface AdminState {
@@ -27,24 +25,9 @@ import { AdminInterface } from "../../../interfaces/admin/AdminInterface";
       },
     },
 
-    extraReducers:(builder)=>{
+    extraReducers:()=>{
         // admin login casess
-        
-
-        builder
-       .addCase(loginAdmin.pending, (state) => {
-        state.loading = true;
-        state.error = null; // Reset error on new request
-      })
-      .addCase(loginAdmin.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.error = null;
-        state.admin = payload;
-      })
-      .addCase(loginAdmin.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload as string; // Assuming payload is an error message
-      })
+    
 
     }
 

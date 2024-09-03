@@ -3,6 +3,7 @@ import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import axios from "axios";
 import { URL, config } from "../../../config/constants";
 
+
 export const signupSalon = createAsyncThunk(
   "salon/signup",
   async (salonOwnerCredentials: SalonInterface, { rejectWithValue }) => {
@@ -71,9 +72,8 @@ export const salonForgotPassword = createAsyncThunk(
   "salon/forgotPassword",
   async (email: string, { rejectWithValue }) => {
     try {
+      console.log("the data befor the axios 1", email);
 
-      console.log('the data befor the axios 1', email);
-      
       const { data } = await axios.post(
         `${URL}/salon/forgotPassword`,
         { email },

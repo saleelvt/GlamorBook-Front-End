@@ -5,6 +5,8 @@ import {
   loginAdmin,
   logout,
   loginSalon,
+  adminLogout,
+  salonLogout
 } from "../../actions/auth/authActions";
 
 export interface UserState {
@@ -158,6 +160,8 @@ export const authSlice = createSlice({
         state.error = null;
         state.userData = payload;
         state.role = payload.role;
+        console.log('my admin paylod role is ',payload.role);
+        
         state.isLogged = true;
         localStorage.setItem("role", JSON.stringify(state.role));
         localStorage.setItem("isLogged", JSON.stringify(state.isLogged));
@@ -172,6 +176,24 @@ export const authSlice = createSlice({
       })
 
 
+// logout admin 
+
+
+.addCase(adminLogout.pending, (state) => {
+  state.loading = true;
+  state.error = null;
+})
+.addCase(adminLogout.fulfilled, (state) => {
+  (state.isLogged = false),
+    (state.error = null),
+    (state.role = null),
+    (state.userData = null);
+  localStorage.clear();
+})
+.addCase(adminLogout.rejected, (state, { payload }) => {
+  state.loading = false;
+  state.error = payload as string;
+})
 
 
 
@@ -200,6 +222,7 @@ export const authSlice = createSlice({
         state.error = null;
         state.userData = payload;
         state.role = payload.role;
+        state.isLogged=true
         localStorage.setItem("role", JSON.stringify(state.role));
         localStorage.setItem("isLogged", JSON.stringify(state.isLogged));
         localStorage.setItem("user", JSON.stringify(state.userData));
@@ -213,6 +236,24 @@ export const authSlice = createSlice({
       })
 
 
+      // salonLogout 
+
+
+      .addCase(salonLogout.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(salonLogout.fulfilled, (state) => {
+        (state.isLogged = false),
+          (state.error = null),
+          (state.role = null),
+          (state.userData = null);
+        localStorage.clear();
+      })
+      .addCase(salonLogout.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload as string;
+      })
 
 
 

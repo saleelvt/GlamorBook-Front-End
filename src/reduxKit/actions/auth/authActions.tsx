@@ -34,7 +34,6 @@ export const loginUser = createAsyncThunk(
   "user/userLogin",
   async (userCredentials: UserLogin, { rejectWithValue }) => {
     try {
-
       console.log("user action got ");
       const { data } = await axiosIn.post(`/login`, userCredentials, config);
       console.log(data.data, "this is data form back end after axios post ");
@@ -50,6 +49,24 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      console.log("data vann deleet akkaaa ");
+      axiosIn.delete(`/logout`, config);
+      return;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
+    }
+  }
+);
 
 export const loginAdmin = createAsyncThunk(
   "admin/loginAdmin",
@@ -73,15 +90,27 @@ export const loginAdmin = createAsyncThunk(
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }
-    } 
+    }
   }
 );
 
+export const adminLogout = createAsyncThunk(
+  "admin/logout",
 
+  async (__, { rejectWithValue }) => {
+    try {
+      axiosIn.delete(`admin/logout`, config);
 
-
-
-
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
+    }
+  }
+);
 
 export const loginSalon = createAsyncThunk(
   "salon/login",
@@ -89,10 +118,14 @@ export const loginSalon = createAsyncThunk(
     try {
       console.log("salon credential ", salonCredentials);
 
-      const { data } = await  axiosIn.post("/salon/login", salonCredentials, config);
+      const { data } = await axiosIn.post(
+        "/salon/login",
+        salonCredentials,
+        config
+      );
       console.log("salon data  tot maxha", data.data);
       return data.data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
@@ -103,27 +136,20 @@ export const loginSalon = createAsyncThunk(
   }
 );
 
-
-
-
-
-
-
-
-
-export const logout = createAsyncThunk(
-  "user/logout",
-  async (_, { rejectWithValue }) => {
+export const salonLogout = createAsyncThunk(
+  "salon/logout ",
+  async (__, { rejectWithValue }) => {
     try {
-      console.log("data vann deleet akkaaa ");
-      axiosIn.delete(`/logout`, config);
-      return;
-
-
+      console.log('slaon will going to logout ');
+      
+      await axiosIn.delete("salon/logout", config);
+      
+      console.log('slaon came aftere axios ');
+  
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
+        return rejectWithValue(error.response.data.message);
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }

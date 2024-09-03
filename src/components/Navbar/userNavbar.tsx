@@ -8,7 +8,7 @@ import { logout } from "../../reduxKit/actions/user/userActions";
 import Swal from "sweetalert2";
 function UserNavbar() {
   // const dispatch = useDispatch<AppDispatch>();
-  const { isLogged } = useSelector((state: RootState) => state.user);
+  const { isLogged } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -54,10 +54,6 @@ function UserNavbar() {
           Contact Us
         </NavLink>
 
-
-
-
-        
         {isLogged ? (
           <Button
             onClick={handledata}
