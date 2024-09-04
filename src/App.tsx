@@ -7,6 +7,7 @@ import UserWelcomePage from "./components/pages/user/userWelcomePage";
 import UserEmailVerify from "./components/Forms/user/UserEmailVerify";
 import UserHomepage from "./components/pages/user/userHomepage";
 import UserResetPassword from "./components/pages/user/userResetPassword";
+import { Navigate } from "react-router-dom";
 
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
@@ -18,11 +19,13 @@ import SalonOtpVerify from "./components/pages/salon/salonOtpVerify";
 import SalonForgotPassword from "./components/Forms/salon/forgotPassword";
 import SalonResetPassword from "./components/pages/salon/salonResetPassword";
 
+
 import { Toaster } from "react-hot-toast";
 import { RootState } from "./reduxKit/store";
 import { useSelector } from "react-redux";
 
 function App() {
+  
   const { role, isLogged } = useSelector((state: RootState) => state.auth);
 
   console.log(
@@ -31,6 +34,9 @@ function App() {
     "this si sthe loged or not ",
     isLogged
   );
+
+
+
 
   return (
     <Fragment>
@@ -44,12 +50,13 @@ function App() {
 
 
 
-        {/* <Route path="/" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserWelcomePage />} /> */}
-        <Route path="/" element={<UserWelcomePage />} />
-        {/* <Route path="/signup" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserSignup />} /> */}
-        <Route path="/signup" element={<UserSignup />} />
-        {/* <Route path="/login" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserLoginForm />} /> */}
-        <Route path="/login" element={<UserLoginForm />} />
+        <Route path="/" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/> : <UserWelcomePage />} />
+        {/* <Route path="/" element={<UserWelcomePage />} /> */}
+        <Route path="/signup" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/> : <UserSignup />} />
+
+
+        <Route path="/login" element={ isLogged && role==="user"? <Navigate to={'/userHomepage'}/> : <UserLoginForm />} />
+        {/* <Route path="/login" element={<UserLoginForm />} /> */}
         {/* <Route path="/userForgot" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserForgotPassword />} /> */}
         <Route path="/userForgot" element={<UserForgotPassword />} />
         {/* <Route path="/UserEmailverify" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserEmailVerify />} /> */}
@@ -65,11 +72,9 @@ function App() {
 
 
 
-
-
-        <Route path="/salonLogin" element={<SalonLogin />} />
-        <Route path="/salonHome" element={<SalonHomePage />} />
-        <Route path="/salonSignUp" element={<SalonSignUp />} />
+        <Route path="/salonLogin" element={ isLogged && role==='salon' ? <Navigate to={'/salonHome'}/> :<SalonLogin />} />
+        <Route path="/salonHome" element={ isLogged  && role==='salon' ?<SalonHomePage />:<SalonLogin />} />
+        <Route path="/salonSignUp" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonSignUp />}  />
         <Route path="/salonOtpVerify" element={<SalonOtpVerify />} />
         <Route path="/forgotPassword" element={<SalonForgotPassword />} />
         <Route path="/salonResetPassword" element={<SalonResetPassword />} />
@@ -91,11 +96,14 @@ function App() {
 
 
 
-        <Route path="/adminHomepage" element={<AdminHomePage />} />
-        <Route path="/adminLogin" element={<AdminLogin />} />
+        <Route path="/adminHomepage" element={  isLogged && role==='admin' ? <AdminHomePage /> : <AdminLogin/>} />
+        {/* <Route path="/adminHomepage" element={} /> */}
+        <Route path="/adminLogin" element={ isLogged && role==='admin' ?<Navigate to={'/adminHomepage'}/> : <AdminLogin/>} />
       </Routes>
     </Fragment>
   );
 }
+
+
 
 export default App;
