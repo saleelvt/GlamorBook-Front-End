@@ -1,0 +1,38 @@
+.glamor-book-logo-container {
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .glamor-book-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 25px;
+  }
+  
+  .glamor-book-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #3d3d3d;
+    padding-left: -20px ;
+    
+  
+   
+  }
+  
+  @media (max-width: 768px) {
+    .glamor-book-heading {
+      font-size: 2rem; /* Adjust font size for smaller screens */
+      padding: 15px;
+    }
+  }
+  
+  .glamor-book-subheading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: #6d6d6d;
+    margin-top: 0;
+  }
+  

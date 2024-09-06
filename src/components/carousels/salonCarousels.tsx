@@ -1,26 +1,20 @@
-// src/components/Carousel.tsx
-
 import React from "react";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { Carousel } from "react-responsive-carousel";
 import "../../CSS/salonCarousel.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import the CSS for the carousel
-
-import  shop5 from "../../assets/images/shop5.jpg";
-import  shop2 from "../../assets/images/shop2.avif";
-import  shop3 from "../../assets/images/shop3-2063795648.jpg";
-import  shop4 from "../../assets/images/shop4.jpg";
+import shop5 from "../../assets/images/shop5.jpg";
+import shop2 from "../../assets/images/shop2.avif";
+import shop3 from "../../assets/images/shop3-2063795648.jpg";
+import shop4 from "../../assets/images/shop4.jpg";
 
 const ImageCarousel: React.FC = () => {
   return (
-    <div className="carousel-container">
+    <div className="carousel-container  ">
       <Carousel
-        showArrows={true}
-        showStatus={false}
-        showIndicators={true}
+       
+     
+     
         infiniteLoop={true}
         useKeyboardArrows={true}
         autoPlay={true}
@@ -30,25 +24,22 @@ const ImageCarousel: React.FC = () => {
         swipeable={true}
       >
         <div>
-          <img src={shop5} alt="Carousel Image 1" />
-          <p className="legend">GENTLEMENS IS THE ONE FO THE BEST SALON IN WORLD  </p>
+          <img  className="rounded-lg"  src={shop5} alt="Carousel Image 1" />
+          <p className="legend">GENTLEMENS IS THE ONE OF THE BEST SALON IN THE WORLD</p>
         </div>
         <div>
-          <img src={shop2} alt="Carousel Image 2" />
+          <img className="rounded-lg" src={shop2} alt="Carousel Image 2" />
           <p className="legend">Caption for Image 2</p>
         </div>
         <div>
-          <img src={shop3}  alt="Carousel Image 3" />
-          <p className="legend">Caption for Image </p>
-         
+          <img className="rounded-lg" src={shop3} alt="Carousel Image 3" />
+          <p className="legend">Caption for Image 3</p>
         </div>
         <div>
-          <img src={shop4}  alt="Carousel Image " />
-          <h1 className="text-4xl">These are World wide Bra Ower Happy Clients with us</h1>
+          <img className="rounded-lg" src={shop4} alt="Carousel Image 4" />
+          <h1 className="legend">These are our worldwide happy clients</h1>
         </div>
-
       </Carousel>
- 
     </div>
   );
 };

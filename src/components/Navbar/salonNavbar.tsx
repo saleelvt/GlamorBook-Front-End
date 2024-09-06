@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "../../reduxKit/store";
 import { salonLogout } from "../../reduxKit/actions/auth/authActions";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
-
+import "../../CSS/logoHeading.css";
 const Navbar: React.FC = () => {
   const { isLogged,role } = useSelector((state: RootState) => state.auth);
 
@@ -48,9 +48,7 @@ console.log('my salon role is ',role,isLogged);
   return (
     <nav className="bg-gradient-to-tr from-pink-300 to-yellow-200 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className=" text-4xl font-bold">
-          <Link to="/">GlamorBook</Link>
-        </div>
+      <h1 className="glamor-book-heading">Glamor Book</h1>
         <div className="lg:hidden">
           <button className=" focus:outline-none" onClick={toggleMenu}>
             <svg

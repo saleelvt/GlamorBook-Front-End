@@ -1,14 +1,17 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import "../../CSS/salonFooter.css"
+import "../../CSS/logoHeading.css";
+
+
 
 const Footer: React.FC = () => {
     return (
-        <footer className="footer">
+        <footer className="footer bg-gradient-to-tr mt-10 from-pink-400  to-yellow-300">
             <Container>
                 <Row className="footer-top">
                     <Col lg={4} md={6} sm={12}>
-                        <h5 className='text-2xl'>GlamorBook</h5>
+                        <h5 className='glamor-book-heading'>GlamorBook</h5>
                         <p>Your ultimate salon booking platform. Discover top salons and enjoy premium services with just a few clicks.</p>
                     </Col>
                     <Col lg={4} md={6} sm={12}>

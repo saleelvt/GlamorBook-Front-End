@@ -22,7 +22,6 @@ const ForgetPassword: FC = () => {
       return;
     }
 
-
     dispatch(salonForgotPassword(email)).then((res) => {
       console.log(res, "result here ");
 
@@ -74,7 +73,6 @@ const ForgetPassword: FC = () => {
           <div className="text-center">
             <button
               type="submit"
-              
               className="bg-gradient-to-tr from-pink-600 to-yellow-500 text-white font-bold py-2 px-4 rounded-lg w-full"
               disabled={loading}
             >

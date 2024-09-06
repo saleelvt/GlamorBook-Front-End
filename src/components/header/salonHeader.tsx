@@ -7,7 +7,7 @@ import { Button } from '@nextui-org/react';
 const WelcomeHeader: React.FC = () => {
     const navigate = useNavigate()
     return (
-        <header className="welcome-header">
+        <header className="welcome-header bg-gradient-to-tr mt-10 from-pink-400  to-yellow-300">
             <h1 className='text-2xl'>Welcome to GlamorBook!</h1>
             <p>Your Salon's new Home for easy service management and booking..</p>
             <Button

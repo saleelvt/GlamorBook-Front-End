@@ -10,5 +10,5 @@
 
 body {
 
-  background-color: rgb(210, 220, 228);
+  background: linear-gradient(to top right, #ffdbef, #faffca); /* Equivalent of bg-gradient-to-tr from-pink-300 to-yellow-200 */
 }

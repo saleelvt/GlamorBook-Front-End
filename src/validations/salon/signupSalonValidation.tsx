@@ -26,4 +26,32 @@ export const ValidationSchema = yup.object().shape({
     .string()
     .required("confirm your Password")
     .oneOf([yup.ref("password")], "Passwords must Match"),
+
+  salonName: yup.string().required("Salon Name is required"),
+  address: yup.string().required("Address is required"),
+  city: yup.string().required("City is required"),
+  state: yup.string().required("State is required"),
+  phone: yup
+    .string()
+    .matches(/^\d{10}$/, "Phone number must be 10 digits")
+    .required("Phone number is required"),
+  licenseDocument: yup.string().required("License document is required"),
+  profilePicture: yup.string().required("Profile picture is required"),
+  images: yup.array().min(1, "At least one salon image is required"),
+  
+  seat: yup.array().of(
+    yup.object().shape({
+      seatNumber: yup.number().required("Seat number is required"),
+
+    })
+  ),
+  latitude: yup
+  .number()
+  .required("Location is required. Please fetch salon location.")
+  .typeError("Location is required. Please fetch salon location."),
+
+longitude: yup
+  .number()
+  .required("Location is required. Please fetch salon location.")
+  .typeError("Location is required. Please fetch salon location."),
 });

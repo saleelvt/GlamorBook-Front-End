@@ -9,6 +9,8 @@ import { ValidationSchema } from "../../../validations/salon/signupSalonValidati
 import { AppDispatch, RootState } from "../../../reduxKit/store";
 import { signupSalon } from "../../../reduxKit/actions/salon/salonActions";
 import { NavLink } from "react-router-dom";
+// import MapPicker from "../../mapComponent/mapSalon";
+
 
 const SalonSignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -16,26 +18,49 @@ const SalonSignUp: React.FC = () => {
   const { loading, error } = useSelector((state: RootState) => state.salon);
 
   const [showPassword, setShowPassword] = useState(false);
+  // const [mapVisible, setMapVisible] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+
+
+  // const handleLocationSelect = (lat: number, lng: number) => {
+
+  //   console.log('thsis is my lati and login of the current positon ', lat,lng);
+    
+  //   formik.setFieldValue('latitude', lat);
+  //   formik.setFieldValue('longitude', lng);
+  // };
+
 
   const initialValues: SalonInterface = {
     userName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    salonName: "",
+    city: "",
+    state: "",
+    phone: "",
+    latitude: null,
+    longitude: null,
     role: "salon",
-    status: "active",
+    status: "pending",
+    profilePicture: "",
+    images: [],
+    licenseDocument: "",
+    seat: [{ seatNumber: 2, description: "" }],
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema: ValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       try {
+        console.log('the signup values got ', values );
         await dispatch(signupSalon(values)).unwrap();
+
 
         Swal.fire({
           icon: "success",
@@ -48,7 +73,8 @@ const SalonSignUp: React.FC = () => {
         }).then(() => {
           navigate("/salonOtpVerify");
         });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Signup failed:", err);
         Swal.fire({
@@ -58,31 +84,30 @@ const SalonSignUp: React.FC = () => {
           title: "Signup Failed",
           text: err.message || "Email Already Existed",
         });
-        setSubmitting(false);  // Ensure Formik stops submitting
+        setSubmitting(false);
       }
     },
   });
 
+
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-pink-300 to-yellow-200">
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl p-6">
-        <div className="p-6 rounded shadow-md w-full bg-slate-200 max-w-md bg-white">
+        <div className="p-6 rounded-lg shadow-md w-full max-w-md bg-white">
           <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">
             Create An Account (Salon)
           </h2>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
-              <label
-                htmlFor="userName"
-                className="block text-gray-950 text-start"
-              >
+              <label htmlFor="userName" className="block text-gray-900">
                 Username
               </label>
               <input
                 id="userName"
                 type="text"
                 {...formik.getFieldProps("userName")}
-                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
               />
               {formik.touched.userName && formik.errors.userName ? (
                 <div className="text-red-500 text-sm">
@@ -91,14 +116,14 @@ const SalonSignUp: React.FC = () => {
               ) : null}
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-950 text-start">
+              <label htmlFor="email" className="block text-gray-900">
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 {...formik.getFieldProps("email")}
-                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
               />
               {formik.touched.email && formik.errors.email ? (
                 <div className="text-red-500 text-sm">
@@ -106,11 +131,22 @@ const SalonSignUp: React.FC = () => {
                 </div>
               ) : null}
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-gray-950 text-start"
-              >
+              <label htmlFor="password" className="block text-gray-900">
                 Password
               </label>
               <div className="relative">
@@ -118,12 +154,12 @@ const SalonSignUp: React.FC = () => {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   {...formik.getFieldProps("password")}
-                  className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
+                  className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
                 />
                 <button
                   type="button"
                   onClick={toggleShowPassword}
-                  className="absolute right-2 top-2 text-sm text-gray-600 focus:outline-none"
+                  className="absolute right-2 top-2 text-sm text-gray-600"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
@@ -134,11 +170,10 @@ const SalonSignUp: React.FC = () => {
                 </div>
               ) : null}
             </div>
+
+            
             <div className="mb-4">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-gray-950 text-start"
-              >
+              <label htmlFor="confirmPassword" className="block text-gray-900">
                 Confirm Password
               </label>
               <div className="relative">
@@ -146,12 +181,12 @@ const SalonSignUp: React.FC = () => {
                   id="confirmPassword"
                   type={showPassword ? "text" : "password"}
                   {...formik.getFieldProps("confirmPassword")}
-                  className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-950"
+                  className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
                 />
                 <button
                   type="button"
                   onClick={toggleShowPassword}
-                  className="absolute right-2 top-2 text-sm text-gray-600 focus:outline-none"
+                  className="absolute right-2 top-2 text-sm text-gray-600"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
@@ -163,10 +198,259 @@ const SalonSignUp: React.FC = () => {
                 </div>
               ) : null}
             </div>
+            <div className="mb-4">
+              <label htmlFor="salonName" className="block text-gray-900">
+                Salon Name
+              </label>
+              <input
+                id="salonName"
+                type="text"
+                {...formik.getFieldProps("salonName")}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.salonName && formik.errors.salonName ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.salonName}
+                </div>
+              ) : null}
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <div className="mb-4">
+  <label className="block text-gray-900">
+    Salon Location
+  </label>
+  <button
+    type="button"
+    onClick={() => setMapVisible(true)}
+    className="w-full p-2 bg-blue-500 text-white rounded mt-1"
+  >
+    Fetch Location of Salon
+  </button>
+  {mapVisible && (
+    <div className="mt-4">
+      <MapPicker onLocationSelect={handleLocationSelect} />
+      <button
+        type="button"
+        onClick={() => setMapVisible(false)}
+        className="mt-2 p-2 bg-red-500 text-white rounded"
+      >
+        Close Map
+      </button>
+    </div>
+  )}
+  {formik.values.latitude && formik.values.longitude && (
+    <div className="mt-2 text-sm text-gray-600">
+      Selected Location: {formik.values.latitude.toFixed(6)}, {formik.values.longitude.toFixed(6)}
+    </div>
+  )}
+  <input type="hidden" {...formik.getFieldProps("latitude")} />
+  <input type="hidden" {...formik.getFieldProps("longitude")} />
+  {(formik.touched.latitude && formik.errors.latitude) || (formik.touched.longitude && formik.errors.longitude) ? (
+    <div className="text-red-500 text-sm mt-1">
+      {formik.errors.latitude || formik.errors.longitude}
+    </div>
+  ) : null}
+</div>
+ */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div className="mb-4">
+              <label htmlFor="city" className="block text-gray-900">
+                City
+              </label>
+              <input
+                id="city"
+                type="text"
+                {...formik.getFieldProps("city")}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.city && formik.errors.city ? (
+                <div className="text-red-500 text-sm">{formik.errors.city}</div>
+              ) : null}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="state" className="block text-gray-900">
+                State
+              </label>
+              <input
+                id="state"
+                type="text"
+                {...formik.getFieldProps("state")}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.state && formik.errors.state ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.state}
+                </div>
+              ) : null}
+            </div>
+
+
+
+            <div className="mb-4">
+              <label htmlFor="phone" className="block text-gray-900">
+                Phone
+              </label>
+              <input
+                id="phone"
+                type="text"
+                {...formik.getFieldProps("phone")}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.phone && formik.errors.phone ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.phone}
+                </div>
+              ) : null}
+            </div>
+
+
+
+            <div className="mb-4">
+              <label htmlFor="profilePicture" className="block text-gray-900">
+                Profile Picture URL
+              </label>
+              <input
+                id="profilePicture"
+                type="text"
+                {...formik.getFieldProps("profilePicture")}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.profilePicture && formik.errors.profilePicture ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.profilePicture}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="licenseDocument" className="block text-gray-900">
+                License Document URL
+              </label>
+              <input
+                id="licenseDocument"
+                type="text"
+                {...formik.getFieldProps("licenseDocument")}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.licenseDocument &&
+              formik.errors.licenseDocument ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.licenseDocument}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="images" className="block text-gray-900">
+                Salon Images URLs (comma-separated)
+              </label>
+              <input
+                id="images"
+                type="text"
+                {...formik.getFieldProps("images")}
+                onChange={(e) => {
+                  const imagesArray = e.target.value
+                    .split(",")
+                    .map((url) => url.trim());
+                  formik.setFieldValue("images", imagesArray);
+                }}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
+              {formik.touched.images && formik.errors.images ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.images}
+                </div>
+              ) : null}
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+<div>
+  {formik.values.seat?.map((seat, index) => (
+    <div key={index} className="flex items-center mb-2">
+
+      <input
+        type="number"
+        value={seat.seatNumber}
+        onChange={(e) => {
+          const newSeats = [...formik.values.seat!];
+          newSeats[index].seatNumber = parseInt(e.target.value) || 1; // Ensure seat number doesn't go below 1
+          formik.setFieldValue("seat", newSeats);
+        }}
+        className="w-1/2 p-2 border border-gray-300 rounded mr-2"
+      />
+
+
+      <button
+        type="button"
+        onClick={() => {
+          const newSeats = [...formik.values.seat!];
+          if (newSeats[index].seatNumber > 1) {
+            newSeats[index].seatNumber -= 1;
+          }
+          formik.setFieldValue("seat", newSeats);
+        }}
+        className="p-2 bg-red-500 text-white rounded mr-2"
+      >
+        Decrease
+      </button>
+
+ 
+      <button
+        type="button"
+        onClick={() => {
+          const newSeats = [...formik.values.seat!];
+          newSeats[index].seatNumber += 1;
+          formik.setFieldValue("seat", newSeats);
+        }}
+        className="p-2 bg-blue-500 text-white rounded"
+      >
+        Increase
+      </button>
+    </div>
+  ))}
+
+</div>
+
+
             <div className="text-center">
               <button
                 type="submit"
-                className="w-full p-2 bg-gradient-to-tr from-pink-600 to-yellow-500  border border-gray-700 rounded-lg mt-1"
+                className="w-full p-2 bg-gradient-to-tr from-pink-600 to-yellow-500 border border-gray-700 rounded-lg mt-1"
                 disabled={formik.isSubmitting}
               >
                 {loading ? "Signing Up..." : "Sign Up"}
@@ -177,9 +461,9 @@ const SalonSignUp: React.FC = () => {
             </div>
           </form>
           <div className="mt-4 text-center">
-            <span className="text-gray-950">
+            <span className="text-gray-900">
               Already have an account?{" "}
-              <NavLink to="/salonLogin" style={{ color: "red" }}>
+              <NavLink to="/salonLogin" className="text-red-600">
                 Log in
               </NavLink>
             </span>
