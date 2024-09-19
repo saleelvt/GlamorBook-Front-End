@@ -4,7 +4,6 @@ export  interface SalonInterface {
   email: string 
   password: string
   confirmPassword?: string |null
-  address?: string | null;
   city?: string | null;
   salonName?: string 
   state?: string | null;

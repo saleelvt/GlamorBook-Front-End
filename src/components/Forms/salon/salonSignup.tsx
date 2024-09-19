@@ -9,7 +9,10 @@ import { ValidationSchema } from "../../../validations/salon/signupSalonValidati
 import { AppDispatch, RootState } from "../../../reduxKit/store";
 import { signupSalon } from "../../../reduxKit/actions/salon/salonActions";
 import { NavLink } from "react-router-dom";
-// import MapPicker from "../../mapComponent/mapSalon";
+import MapPicker from "../../mapComponent/mapSalon";
+import { Image } from "@nextui-org/react";
+
+
 
 
 const SalonSignUp: React.FC = () => {
@@ -18,21 +21,61 @@ const SalonSignUp: React.FC = () => {
   const { loading, error } = useSelector((state: RootState) => state.salon);
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [mapVisible, setMapVisible] = useState(false);
+  const [mapVisible, setMapVisible] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleLocationSelect = (lat: number, lng: number) => {
+    formik.setFieldValue("latitude", lat);
+    formik.setFieldValue("longitude", lng);
+  };
 
 
-  // const handleLocationSelect = (lat: number, lng: number) => {
 
-  //   console.log('thsis is my lati and login of the current positon ', lat,lng);
-    
-  //   formik.setFieldValue('latitude', lat);
-  //   formik.setFieldValue('longitude', lng);
-  // };
+  const [profilePictureForm,setProfilePictureForm]=useState <File|null>(null)
+  const [licenseDocumentForm, setLicenseDocumentForm] = useState<File | null>(null);
+  // const [images,setImages]=useState<File[]|null>([])
+
+
+
+  const handleFileCahange =(e: React.ChangeEvent<HTMLInputElement>)=>{
+
+    const {id,files} = e.target
+    const file = files?.[0] || null;
+
+    switch(id){
+
+      case "profilePicture":
+        setProfilePictureForm(file);
+        break;
+
+      case   "licenseDocument" :setLicenseDocumentForm(file);
+      break
+
+
+        default:
+         break;
+    }
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const initialValues: SalonInterface = {
@@ -53,14 +96,35 @@ const SalonSignUp: React.FC = () => {
     licenseDocument: "",
     seat: [{ seatNumber: 2, description: "" }],
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const formik = useFormik({
     initialValues,
     validationSchema: ValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
+      console.log("the signup values got ", values);
       try {
-        console.log('the signup values got ', values );
         await dispatch(signupSalon(values)).unwrap();
-
 
         Swal.fire({
           icon: "success",
@@ -88,6 +152,26 @@ const SalonSignUp: React.FC = () => {
       }
     },
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -132,19 +216,6 @@ const SalonSignUp: React.FC = () => {
               ) : null}
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div className="mb-4">
               <label htmlFor="password" className="block text-gray-900">
                 Password
@@ -170,8 +241,6 @@ const SalonSignUp: React.FC = () => {
                 </div>
               ) : null}
             </div>
-
-            
             <div className="mb-4">
               <label htmlFor="confirmPassword" className="block text-gray-900">
                 Confirm Password
@@ -215,69 +284,42 @@ const SalonSignUp: React.FC = () => {
               ) : null}
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <div className="mb-4">
-  <label className="block text-gray-900">
-    Salon Location
-  </label>
-  <button
-    type="button"
-    onClick={() => setMapVisible(true)}
-    className="w-full p-2 bg-blue-500 text-white rounded mt-1"
-  >
-    Fetch Location of Salon
-  </button>
-  {mapVisible && (
-    <div className="mt-4">
-      <MapPicker onLocationSelect={handleLocationSelect} />
-      <button
-        type="button"
-        onClick={() => setMapVisible(false)}
-        className="mt-2 p-2 bg-red-500 text-white rounded"
-      >
-        Close Map
-      </button>
-    </div>
-  )}
-  {formik.values.latitude && formik.values.longitude && (
-    <div className="mt-2 text-sm text-gray-600">
-      Selected Location: {formik.values.latitude.toFixed(6)}, {formik.values.longitude.toFixed(6)}
-    </div>
-  )}
-  <input type="hidden" {...formik.getFieldProps("latitude")} />
-  <input type="hidden" {...formik.getFieldProps("longitude")} />
-  {(formik.touched.latitude && formik.errors.latitude) || (formik.touched.longitude && formik.errors.longitude) ? (
-    <div className="text-red-500 text-sm mt-1">
-      {formik.errors.latitude || formik.errors.longitude}
-    </div>
-  ) : null}
-</div>
- */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <div className="mb-4">
+              <label className="block text-gray-900">Salon Location</label>
+              <button
+                type="button"
+                onClick={() => setMapVisible(true)}
+                className="w-full p-2 bg-blue-500 text-white rounded mt-1"
+              >
+                Fetch Location of Salon
+              </button>
+              {mapVisible && (
+                <div className="mt-4">
+                  <MapPicker onLocationSelect={handleLocationSelect} />
+                  <button
+                    type="button"
+                    onClick={() => setMapVisible(false)}
+                    className="mt-2 p-2 bg-red-500 text-white rounded"
+                  >
+                    Close Map
+                  </button>
+                </div>
+              )}
+              {formik.values.latitude && formik.values.longitude && (
+                <div className="mt-2 text-sm text-gray-600">
+                  Selected Location: {formik.values.latitude.toFixed(6)},{" "}
+                  {formik.values.longitude.toFixed(6)}
+                </div>
+              )}
+              <input type="hidden" {...formik.getFieldProps("latitude")} />
+              <input type="hidden" {...formik.getFieldProps("longitude")} />
+              {(formik.touched.latitude && formik.errors.latitude) ||
+              (formik.touched.longitude && formik.errors.longitude) ? (
+                <div className="text-red-500 text-sm mt-1">
+                  {formik.errors.latitude || formik.errors.longitude}
+                </div>
+              ) : null}
+            </div>
 
             <div className="mb-4">
               <label htmlFor="city" className="block text-gray-900">
@@ -310,8 +352,6 @@ const SalonSignUp: React.FC = () => {
               ) : null}
             </div>
 
-
-
             <div className="mb-4">
               <label htmlFor="phone" className="block text-gray-900">
                 Phone
@@ -331,16 +371,44 @@ const SalonSignUp: React.FC = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className="mb-4">
               <label htmlFor="profilePicture" className="block text-gray-900">
                 Profile Picture URL
               </label>
               <input
                 id="profilePicture"
-                type="text"
+                type="file"
                 {...formik.getFieldProps("profilePicture")}
+                onChange={handleFileCahange}
                 className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
               />
+
+              {profilePictureForm&& (
+                <Image 
+                src={URL.createObjectURL(profilePictureForm)}
+                alt="Profile Preview"
+                width={100}
+                height={100}
+                className="mt-2"
+                />
+              )}
+
               {formik.touched.profilePicture && formik.errors.profilePicture ? (
                 <div className="text-red-500 text-sm">
                   {formik.errors.profilePicture}
@@ -348,16 +416,55 @@ const SalonSignUp: React.FC = () => {
               ) : null}
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className="mb-4">
               <label htmlFor="licenseDocument" className="block text-gray-900">
                 License Document URL
               </label>
               <input
                 id="licenseDocument"
-                type="text"
+                type="file"
                 {...formik.getFieldProps("licenseDocument")}
+                onChange={handleFileCahange}
                 className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
               />
+
+                {licenseDocumentForm && (
+                <Image
+                  src={URL.createObjectURL(licenseDocumentForm)}
+                  alt="License Document Preview"
+                  width={100}
+                  height={100}
+                  className="mt-2"
+                />
+              )}
+
+
+
               {formik.touched.licenseDocument &&
               formik.errors.licenseDocument ? (
                 <div className="text-red-500 text-sm">
@@ -365,6 +472,16 @@ const SalonSignUp: React.FC = () => {
                 </div>
               ) : null}
             </div>
+
+
+
+
+
+
+
+
+
+
 
             <div className="mb-4">
               <label htmlFor="images" className="block text-gray-900">
@@ -399,59 +516,54 @@ const SalonSignUp: React.FC = () => {
 
 
 
-<div>
-  {formik.values.seat?.map((seat, index) => (
-    <div key={index} className="flex items-center mb-2">
+            <div>
+              {formik.values.seat?.map((seat, index) => (
+                <div key={index} className="flex items-center mb-2">
+                  <input
+                    type="number"
+                    value={seat.seatNumber}
+                    onChange={(e) => {
+                      const newSeats = [...formik.values.seat!];
+                      newSeats[index].seatNumber =
+                        parseInt(e.target.value) || 1; // Ensure seat number doesn't go below 1
+                      formik.setFieldValue("seat", newSeats);
+                    }}
+                    className="w-1/2 p-2 border border-gray-300 rounded mr-2"
+                  />
 
-      <input
-        type="number"
-        value={seat.seatNumber}
-        onChange={(e) => {
-          const newSeats = [...formik.values.seat!];
-          newSeats[index].seatNumber = parseInt(e.target.value) || 1; // Ensure seat number doesn't go below 1
-          formik.setFieldValue("seat", newSeats);
-        }}
-        className="w-1/2 p-2 border border-gray-300 rounded mr-2"
-      />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newSeats = [...formik.values.seat!];
+                      if (newSeats[index].seatNumber > 1) {
+                        newSeats[index].seatNumber -= 1;
+                      }
+                      formik.setFieldValue("seat", newSeats);
+                    }}
+                    className="p-2 bg-red-500 text-white rounded mr-2"
+                  >
+                    Decrease
+                  </button>
 
-
-      <button
-        type="button"
-        onClick={() => {
-          const newSeats = [...formik.values.seat!];
-          if (newSeats[index].seatNumber > 1) {
-            newSeats[index].seatNumber -= 1;
-          }
-          formik.setFieldValue("seat", newSeats);
-        }}
-        className="p-2 bg-red-500 text-white rounded mr-2"
-      >
-        Decrease
-      </button>
-
- 
-      <button
-        type="button"
-        onClick={() => {
-          const newSeats = [...formik.values.seat!];
-          newSeats[index].seatNumber += 1;
-          formik.setFieldValue("seat", newSeats);
-        }}
-        className="p-2 bg-blue-500 text-white rounded"
-      >
-        Increase
-      </button>
-    </div>
-  ))}
-
-</div>
-
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newSeats = [...formik.values.seat!];
+                      newSeats[index].seatNumber += 1;
+                      formik.setFieldValue("seat", newSeats);
+                    }}
+                    className="p-2 bg-blue-500 text-white rounded"
+                  >
+                    Increase
+                  </button>
+                </div>
+              ))}
+            </div>
 
             <div className="text-center">
               <button
                 type="submit"
                 className="w-full p-2 bg-gradient-to-tr from-pink-600 to-yellow-500 border border-gray-700 rounded-lg mt-1"
-                disabled={formik.isSubmitting}
               >
                 {loading ? "Signing Up..." : "Sign Up"}
               </button>

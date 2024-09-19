@@ -37,6 +37,20 @@ function TheatreVerifyOtp() {
         !salonOwner?.email ||
         !salonOwner?.userName ||
         !salonOwner?.password
+        // !salonOwner?.city||
+        // !salonOwner?.images||
+        // !salonOwner?.latitude||
+        // !salonOwner?.licenseDocument||
+        // !salonOwner?.longitude||
+        // !salonOwner?.phone||
+        // !salonOwner?.profilePicture||
+        // !salonOwner?.salonName||
+        // !salonOwner?.seat||
+        // !salonOwner?.state||
+     
+     
+      
+
       ) {
         Swal.fire({
           icon: "error",
@@ -46,12 +60,23 @@ function TheatreVerifyOtp() {
         return;
       }
 
+      
       const salonDetails: SalonInterface = {
         email: salonOwner.email,
         userName: salonOwner.userName,
         password: salonOwner.password,
         role: "salon",
         status: "active",
+        city:salonOwner.city,
+        state:salonOwner.state,
+        latitude:salonOwner.latitude,
+        longitude:salonOwner.longitude,
+        salonName:salonOwner.salonName,
+        seat:salonOwner.seat,
+        profilePicture:salonOwner.profilePicture,
+        images:salonOwner.images,
+        licenseDocument:salonOwner.licenseDocument,
+        phone:salonOwner.phone,
       };
 
       console.log(
@@ -84,6 +109,7 @@ function TheatreVerifyOtp() {
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
+
     inputRef.current[0]?.focus();
     const handlePaste = (event: ClipboardEvent) => {
       const pastedText = event.clipboardData?.getData("text") || "";
@@ -96,6 +122,7 @@ function TheatreVerifyOtp() {
         inputRef.current[OTP_LENGTH - 1]?.focus();
       }
     };
+
 
     const firstInput = inputRef.current[0];
     firstInput?.addEventListener("paste", handlePaste as EventListener);

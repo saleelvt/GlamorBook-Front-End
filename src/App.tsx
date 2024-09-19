@@ -11,6 +11,15 @@ import { Navigate } from "react-router-dom";
 
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
+import AdminSalonList from "./components/pages/admin/adminSalonList"
+
+
+
+
+
+
+
+
 
 import SalonHomePage from "./components/pages/salon/salonHomePage";
 import SalonSignUp from "./components/Forms/salon/salonSignup";
@@ -28,13 +37,13 @@ function App() {
   
   const { role, isLogged } = useSelector((state: RootState) => state.auth);
 
-  console.log(
-    "this is the main role of the roleres ",
-    role,
-    "this si sthe loged or not ",
-    isLogged
-  );
 
+  
+  if( role && isLogged ){
+
+     console.log("my role is : " ,role," is logged true or false ", isLogged);
+     
+  }
 
 
 
@@ -74,11 +83,12 @@ function App() {
         <Route path="/salonLogin" element={ isLogged && role==='salon' ? <Navigate to={'/salonHome'}/> :<SalonLogin />} />
         <Route path="/salonHome" element={ isLogged  && role==='salon' ?<SalonHomePage />:<SalonLogin />} />
         <Route path="/salonSignUp" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonSignUp />}  />
-        <Route path="/salonOtpVerify" element={<SalonOtpVerify />} />
-        <Route path="/forgotPassword" element={<SalonForgotPassword />} />
-        <Route path="/salonResetPassword" element={<SalonResetPassword />} />
+        <Route path="/salonOtpVerify" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonOtpVerify />} />
+        <Route path="/forgotPassword" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonForgotPassword />} />
+        <Route path="/salonResetPassword" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonResetPassword />} />
 
 
+  
 
 
 
@@ -98,6 +108,7 @@ function App() {
         <Route path="/adminHomepage" element={  isLogged && role==='admin' ? <AdminHomePage /> : <AdminLogin/>} />
         {/* <Route path="/adminHomepage" element={} /> */}
         <Route path="/adminLogin" element={ isLogged && role==='admin' ?<Navigate to={'/adminHomepage'}/> : <AdminLogin/>} />
+        <Route path="/adminSalonList"  element={ isLogged&& role==="admin" ?  <AdminSalonList />:  <AdminLogin/> }/>
       </Routes>
     </Fragment>
   );

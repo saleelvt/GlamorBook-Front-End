@@ -10,7 +10,7 @@ import {
 } from "../../actions/auth/authActions";
 
 export interface UserState {
-  userData: null;
+  userData:  null;
   error: string | null;
   loading: boolean;
   role: null;

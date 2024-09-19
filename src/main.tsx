@@ -13,7 +13,6 @@ import "slick-carousel/slick/slick-theme.css";
 const VITE_GOOGLE_CLIENT_ID ="201800197345-93j613rp6o1ebi2ne50lfb7ug1v5ap1n.apps.googleusercontent.com";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
     <Router>
       <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>
         <Provider store={store}>
@@ -21,5 +20,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </Provider>
       </GoogleOAuthProvider>
     </Router>
-  </React.StrictMode>
+
 );

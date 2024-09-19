@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../reduxKit/store";
 import Swal from "sweetalert2";
+import "../../CSS/logoHeading.css";
+import { FaSignOutAlt } from "react-icons/fa";
 
 import { adminLogout } from "../../reduxKit/actions/auth/authActions";
 import { useSelector } from 'react-redux';
@@ -56,7 +58,7 @@ const Navbar: React.FC = () => {
     <nav className="bg-gradient-to-tr from-pink-300 to-yellow-200 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className=" text-4xl font-bold">
-          <Link to="/">GlamorBook Admin Dashboard</Link>
+      <h1 className="glamor-book-heading">Admin Of Glamor Book </h1>
         </div>
         {/* <h1>{adminDetails}</h1> */}
         <div className="lg:hidden">
@@ -98,7 +100,8 @@ const Navbar: React.FC = () => {
             radius="full"
             className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
           >
-            Logout
+                  <FaSignOutAlt className="mr-3" /> Logout
+
           </Button>
         </div>
       </div>
