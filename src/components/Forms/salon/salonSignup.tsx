@@ -11,6 +11,7 @@ import { signupSalon } from "../../../reduxKit/actions/salon/salonActions";
 import { NavLink } from "react-router-dom";
 import MapPicker from "../../mapComponent/mapSalon";
 import { Image } from "@nextui-org/react";
+import ImageUpload from "../../imageUpload/cloudinary";
 
 
 
@@ -36,7 +37,8 @@ const SalonSignUp: React.FC = () => {
 
   const [profilePictureForm,setProfilePictureForm]=useState <File|null>(null)
   const [licenseDocumentForm, setLicenseDocumentForm] = useState<File | null>(null);
-  // const [images,setImages]=useState<File[]|null>([])
+  // const [images,setImages]=useState<File[]>([])
+
 
 
 
@@ -44,6 +46,10 @@ const SalonSignUp: React.FC = () => {
 
     const {id,files} = e.target
     const file = files?.[0] || null;
+
+    // if (files && files.length > 0) {
+    //   formik.setFieldValue(id, files[0]);
+    // }
 
     switch(id){
 
@@ -53,8 +59,6 @@ const SalonSignUp: React.FC = () => {
 
       case   "licenseDocument" :setLicenseDocumentForm(file);
       break
-
-
         default:
          break;
     }
@@ -122,9 +126,29 @@ const SalonSignUp: React.FC = () => {
     initialValues,
     validationSchema: ValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
+    
       console.log("the signup values got ", values);
+
       try {
-        await dispatch(signupSalon(values)).unwrap();
+        
+        const profilePicture= profilePictureForm ? await ImageUpload(profilePictureForm) : ""
+        const licenseDocument= licenseDocumentForm ? await ImageUpload(licenseDocumentForm) : ''
+        
+        
+        // console.log("__________________ it is my data __",profilePicture);
+        // console.log("__________________ it alsos __",licenseDocument);
+         
+           const latestData = {
+             ...values,
+             profilePicture,
+             licenseDocument,
+
+           }
+
+           console.log(' this data for last submitin', latestData);
+           
+
+        await dispatch(signupSalon(latestData)).unwrap();
 
         Swal.fire({
           icon: "success",
@@ -373,17 +397,35 @@ const SalonSignUp: React.FC = () => {
 
 
 
+            <div className="mb-4">
+              <label htmlFor="licenseDocument" className="block text-gray-900">
+                License Document URL
+              </label>
+              <input
+                id="licenseDocument"
+                type="file"
+                {...formik.getFieldProps("licenseDocument")}
+                onChange={handleFileCahange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
+              />
 
+                {licenseDocumentForm && (
+                <Image
+                  src={URL.createObjectURL(licenseDocumentForm)}
+                  alt="License Document Preview"
+                  width={100}
+                  height={100}
+                  className="mt-2"
+                />
+              )}
 
-
-
-
-
-
-
-
-
-
+              {formik.touched.licenseDocument &&
+              formik.errors.licenseDocument ? (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.licenseDocument}
+                </div>
+              ) : null}
+            </div>
 
 
 
@@ -417,94 +459,6 @@ const SalonSignUp: React.FC = () => {
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div className="mb-4">
-              <label htmlFor="licenseDocument" className="block text-gray-900">
-                License Document URL
-              </label>
-              <input
-                id="licenseDocument"
-                type="file"
-                {...formik.getFieldProps("licenseDocument")}
-                onChange={handleFileCahange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
-              />
-
-                {licenseDocumentForm && (
-                <Image
-                  src={URL.createObjectURL(licenseDocumentForm)}
-                  alt="License Document Preview"
-                  width={100}
-                  height={100}
-                  className="mt-2"
-                />
-              )}
-
-
-
-              {formik.touched.licenseDocument &&
-              formik.errors.licenseDocument ? (
-                <div className="text-red-500 text-sm">
-                  {formik.errors.licenseDocument}
-                </div>
-              ) : null}
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-            <div className="mb-4">
-              <label htmlFor="images" className="block text-gray-900">
-                Salon Images URLs (comma-separated)
-              </label>
-              <input
-                id="images"
-                type="text"
-                {...formik.getFieldProps("images")}
-                onChange={(e) => {
-                  const imagesArray = e.target.value
-                    .split(",")
-                    .map((url) => url.trim());
-                  formik.setFieldValue("images", imagesArray);
-                }}
-                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-900"
-              />
-              {formik.touched.images && formik.errors.images ? (
-                <div className="text-red-500 text-sm">
-                  {formik.errors.images}
-                </div>
-              ) : null}
-            </div>
 
 
 

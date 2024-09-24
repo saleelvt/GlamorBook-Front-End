@@ -21,9 +21,10 @@ const ImageUpload = async (image: File) => {
       `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
       formData
     );
+
     const { format, secure_url } = res.data;
 
-    console.log(secure_url, "image url");
+    // console.log(secure_url, "image url");
 
     if (["png", "jpeg", "jpg"].includes(format)) {
       return secure_url;

@@ -9,7 +9,7 @@ export const axiosIn = axios.create({
   baseURL: URL,
 });
 
-export const googleLoginOrSignUp = createAsyncThunk(
+export const googleLoginOrSignUp  = createAsyncThunk(
   "user/loginWithGoogle",
   async (userCredentials: UserLogin, { rejectWithValue }) => {
     try {

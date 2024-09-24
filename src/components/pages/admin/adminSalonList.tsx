@@ -134,12 +134,12 @@ const SalonList: React.FC = () => {
           <h1 className="text-3xl font-bold mb-6">Salon List </h1>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {salons.map((Salon) => (
-              <div key={Salon._id} className="bg-gradient-to-tr from-pink-400 to-yellow-200 rounded-lg p-4">
+              <div key={Salon._id} className=" shadow-2xl rounded-lg border-[0.5px]  border-black p-4">
                 <div className="flex justify-center items-center mb-2">
                   <img
                     src={Salon.profilePicture || "/default-profile.png"}
                     alt={`${Salon.userName}'s profile`}
-                    className="w-30 h-20 rounded-full"
+                    className="w-30 h-40 rounded-sm"
                   />
                 </div>
                 <div className="text-center mb-2">

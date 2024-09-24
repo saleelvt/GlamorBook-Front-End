@@ -11,6 +11,7 @@ const MapPicker: React.FC<{
     libraries,
   });
 
+
   const [markerPosition, setMarkerPosition] = useState<{
     lat: number;
     lng: number;
@@ -18,6 +19,8 @@ const MapPicker: React.FC<{
 
   if (!isLoaded) return <div>Loading...</div>;
 
+
+  
   return (
     <GoogleMap
       zoom={10}

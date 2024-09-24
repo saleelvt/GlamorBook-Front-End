@@ -32,10 +32,11 @@ export const ValidationSchema = yup.object().shape({
     .string()
     .matches(/^\d{10}$/, "Phone number must be 10 digits")
     .required("Phone number is required"),
-  licenseDocument: yup.string().required("License document is required"),
-  profilePicture: yup.string().required("Profile picture is required"),
 
-  images: yup.array().min(1, "At least one salon image is required"),
+  // licenseDocument: yup.mixed().required("License document is required"),
+  // profilePicture: yup.mixed().required("Profile picture is required"),
+
+  // images: yup.array().min(1, "At least one salon image is required"),
 
   seat: yup.array().of(
     yup.object().shape({
