@@ -33,26 +33,33 @@ const SalonDetailsPage: React.FC = () => {
   const [rejectReason, setRejectReason] = useState("");
 
 
-  useEffect(() => {
-    // Fetch theater details from the backend using theaterId
-    const fetchTheaterDetails = async () => {
+
+
+//   useEffect(() => {
+ 
+    const fetchSalonDetails = async () => {
       try {
+        console.log("-----------------------reeee");
+        
+        console.log("request going to admin side ");
+        
         const response = await commonRequest(
           "GET",
-          `/admin/get-theater/${theaterId}`,
+          `/admin/getSalonDetails/${salonId}`,
           config
         );
 
 
         console.log(response, "response");
-        setTheater(response.data.data);
+        setMySalon(response.data.data);
       } catch (error) {
         console.error("Failed to fetch theater details:", error);
       }
     };
 
-    fetchTheaterDetails();
-  }, [theaterId]);
+    fetchSalonDetails();
+
+// }, []);
 
   
   
@@ -159,7 +166,7 @@ const SalonDetailsPage: React.FC = () => {
       <Toaster /> {/* Add Toaster component */}
       <Card className="w-full max-w-4xl shadow-lg">
         <div className="p-4">
-          <h2 className="text-2xl mb-4">Theater Details</h2>
+          <h2 className="text-2xl mb-4">Salon Details</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <Image

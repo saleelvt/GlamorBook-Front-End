@@ -61,7 +61,6 @@ const SalonList: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -142,18 +141,20 @@ const SalonList: React.FC = () => {
 
 
   return (
+
     <div className="">
       <Navbar />
+
       <div className=" bg-gray-200 min-h-screen ">
         <main className="flex-1 p-6">
           <h1 className="text-3xl font-bold mb-6">Salon List </h1>
-          <div className="grid  md:grid-cols-3  xs:grid-cols-3  sm:grid-cols-2   lg:grid-cols-4">
+
+          <div className="grid  flex justify-center  md:grid-cols-3  xs:grid-cols-3  sm:grid-cols-2    lg:grid-cols-4 ">
             {salons.map((Salon) => (
-              <div key={Salon._id}   onClick={()=> navigate(`/admin/salon/${Salon._id}`)} className=" shadow-2xl  ml-12
-              3 rounded-lg border-[0.9px]   border-black p-[0.9px]">
+              <div key={Salon._id}   onClick={()=> navigate(`/admin/salon/${Salon._id}`)} className=" shadow-2xl  ml-12  mt-12 rounded-lg border-[0.9px]   border-black p-[0.9px]">
                
               
-                <div className="flex justify-center items-center   ">
+               <div className="flex justify-center items-center">
                   <img
                     src={Salon.profilePicture || "/default-profile.png"}
                     alt={`${Salon.userName}'s profile`}
