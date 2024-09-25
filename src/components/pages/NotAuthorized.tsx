@@ -1,12 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const NotAuthorized: React.FC = () => {
-  const navigate = useNavigate();
 
+const NotAuthorized: React.FC = () => {
+
+  const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1); // Navigate to the previous page
   };
+
+
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -25,5 +29,6 @@ const NotAuthorized: React.FC = () => {
     </div>
   );
 };
+
 
 export default NotAuthorized;

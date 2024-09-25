@@ -12,7 +12,7 @@ import { Navigate } from "react-router-dom";
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
 import AdminSalonList from "./components/pages/admin/adminSalonList"
-
+import SalonDetailsPage from "./components/pages/admin/salonDetailsPage";
 
 
 
@@ -109,6 +109,9 @@ function App() {
         {/* <Route path="/adminHomepage" element={} /> */}
         <Route path="/adminLogin" element={ isLogged && role==='admin' ?<Navigate to={'/adminHomepage'}/> : <AdminLogin/>} />
         <Route path="/adminSalonList"  element={ isLogged&& role==="admin" ?  <AdminSalonList />:  <AdminLogin/> }/>
+        <Route path="/admin/salon/:salonId" element={ isLogged&& role==="admin" ?  <SalonDetailsPage />:  <AdminLogin/>}/>
+
+
       </Routes>
     </Fragment>
   );

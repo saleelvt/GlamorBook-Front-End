@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 
 import { config } from "../../../config/constants";
+import { useNavigate } from "react-router-dom";
 
 export interface Salon {
   _id?: string;
@@ -28,6 +29,7 @@ const SalonList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedSalon, setSelectedSalon] = useState<Salon | null>(null);
+  const navigate= useNavigate()
 
 
 
@@ -43,7 +45,6 @@ const SalonList: React.FC = () => {
       try {
         setLoading(true);
         const response = await commonRequest("GET", "/admin/getSalons", config);
-
         // Ensure the response data is an array before setting the state  
 
          console.log('this si my data ', response.data.data);
@@ -66,15 +67,24 @@ const SalonList: React.FC = () => {
 
 
 
+
+
+
+
+
+
+
+
   const handleBlockUnblock = async (
     id: string | undefined,
     status: string | null
   ) => {
 
     const newStatus = status === "blocked" ? "active" : "blocked";
-
+         console.log('stat uus got ', newStatus);
+         
     try {
-      await commonRequest("PATCH", `/admin/${id}/status`, config, {
+      await commonRequest("PATCH", `/admin/${id}/changeStatus`, config, {
         status: newStatus,
       });
 
@@ -90,6 +100,13 @@ const SalonList: React.FC = () => {
 
 
 
+
+
+
+
+
+
+
   const handleAccept = async () => {
     if (selectedSalon?._id) {
       try {
@@ -99,7 +116,6 @@ const SalonList: React.FC = () => {
           config,
           { status: "active" }
         );
-
 
         setSalons(
           salons.map((Salon) =>
@@ -114,10 +130,6 @@ const SalonList: React.FC = () => {
       }
     }
   };
-
-
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -126,31 +138,39 @@ const SalonList: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
+
+
+
   return (
     <div className="">
       <Navbar />
       <div className=" bg-gray-200 min-h-screen ">
         <main className="flex-1 p-6">
           <h1 className="text-3xl font-bold mb-6">Salon List </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid  md:grid-cols-3  xs:grid-cols-3  sm:grid-cols-2   lg:grid-cols-4">
             {salons.map((Salon) => (
-              <div key={Salon._id} className=" shadow-2xl rounded-lg border-[0.5px]  border-black p-4">
-                <div className="flex justify-center items-center mb-2">
+              <div key={Salon._id}   onClick={()=> navigate(`/admin/salon/${Salon._id}`)} className=" shadow-2xl  ml-12
+              3 rounded-lg border-[0.9px]   border-black p-[0.9px]">
+               
+              
+                <div className="flex justify-center items-center   ">
                   <img
                     src={Salon.profilePicture || "/default-profile.png"}
                     alt={`${Salon.userName}'s profile`}
-                    className="w-30 h-40 rounded-sm"
+                    className=" max-h-44  min-w-full rounded-lg shadow-xl"
                   />
                 </div>
-                <div className="text-center mb-2">
+
+
+
+                <div className="text-center mt-2 mb-1 rounded-lg bg-slate-300">
                   <div className="font-bold">{Salon.userName}</div>
                   <div>{Salon.city}</div>
-                </div>
                 <div className="text-center mb-2">
 
 
                   <span
-                    className={`px-2 py-1 rounded-full text-xs ${
+                    className={`px-2 py-1 rounded-full text-xs bg-gray-300 ${
                       Salon.status === "active"
                         ? "bg-green-500"
                         : Salon.status === "blocked"
@@ -158,28 +178,30 @@ const SalonList: React.FC = () => {
                         : "bg-yellow-500"
                     }`}
                   >
-                    {Salon.status}
+                   { Salon.status}
                   </span>
                 </div>
 
 
+
+
                 <div className="flex justify-center items-center">
-                  {Salon.status === "pending" && (
+
+                  {Salon.status === "rejected" && (
                     <button
-                      className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+                      className="bg-red-500 text-white px-4 py-2 rounded mr-2"
                       onClick={() => {
                         setSelectedSalon(Salon);
                         setIsModalOpen(true);
                       }}
-
                     >
-                      Accept
+                      Delete
                     </button>
                   )}
                   <button
                     className={`px-4 py-2 rounded ${
                       Salon.status === "blocked"
-                        ? "bg-red-500"
+                        ? "bg-red-400"
                         : "bg-yellow-500"
                     } text-white`}
                     onClick={() => handleBlockUnblock(Salon._id, Salon.status)}
@@ -187,7 +209,35 @@ const SalonList: React.FC = () => {
                     {Salon.status === "blocked" ? "Unblock" : "Block"}
                   </button>
                 </div>
+              
+
+                </div>
+
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               </div>
+
+
+
             ))}
           </div>
         </main>
