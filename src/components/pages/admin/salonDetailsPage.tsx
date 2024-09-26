@@ -35,34 +35,28 @@ const SalonDetailsPage: React.FC = () => {
 
 
 
-//   useEffect(() => {
- 
+  useEffect(() => {
     const fetchSalonDetails = async () => {
       try {
         console.log("-----------------------reeee");
-        
         console.log("request going to admin side ");
-        
         const response = await commonRequest(
           "GET",
           `/admin/getSalonDetails/${salonId}`,
           config
         );
-
-
         console.log(response, "response");
         setMySalon(response.data.data);
       } catch (error) {
         console.error("Failed to fetch theater details:", error);
       }
     };
-
     fetchSalonDetails();
 
-// }, []);
+}, []);
 
-  
-  
+   console.log("dfkdjfk", mySalon);
+   
   
 
 
@@ -70,9 +64,9 @@ const SalonDetailsPage: React.FC = () => {
   
   //Handling Acceptance of the Theater 
   const handleAccept = async () => {
-    if (theater) {
+    if (mySalon) {
       try {
-        const response = await commonRequest("PATCH",`/admin/${theater._id}/accept-theater`,
+        const response = await commonRequest("PATCH",`/admin/${mySalon._id}/accept-theater`,
            config,
           {
             status: "active",
@@ -81,7 +75,7 @@ const SalonDetailsPage: React.FC = () => {
 
         console.log(response, "Accept response");
 
-        setTheater({ ...theater, status: "active" });
+        setMySalon({ ...mySalon, status: "active" });
         setAcceptModalOpen(false);
 
         // Show success toast and navigate to the previous page
@@ -112,11 +106,11 @@ const SalonDetailsPage: React.FC = () => {
 
   //Handling Rejection of Theater
   const handleReject = async () => {
-    if (theater) {
+    if (mySalon) {
       try {
         const response = await commonRequest(
           "PATCH",
-          `/admin/${theater._id}/accept-theater`,
+          `/admin/${mySalon._id}/accept-theater`,
           config,
           {
             status: "rejected",
@@ -126,7 +120,7 @@ const SalonDetailsPage: React.FC = () => {
 
         console.log(response, "Reject response");
 
-        setTheater({ ...theater, status: "rejected", comments: rejectReason });
+        setMySalon({ ...mySalon, status: "rejected", comments: rejectReason });
 
         setRejectModalOpen(false);
 
@@ -136,6 +130,7 @@ const SalonDetailsPage: React.FC = () => {
           navigate(-1); // Navigate to the previous page
         }, 2000);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error:any) {
         console.error("Failed to Reject the theater:", error);
         toast.error("Failed to Reject the theater");
@@ -147,19 +142,12 @@ const SalonDetailsPage: React.FC = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-  if (!theater) {
+  if (!mySalon) {
     return <div>Loading...</div>;
   }
+
+
+
 
   return (
     <div className="p-8 bg-gradient-to-r from-blue-500 via-purple-500 to-teal-500 min-h-screen flex justify-center items-center">
@@ -170,7 +158,7 @@ const SalonDetailsPage: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <Image
-                src={theater.profilePicture || ""}
+                src={mySalon.profilePicture || ""}
                 alt="Profile"
                 className="cursor-pointer"
                 onClick={() => setProfilePictureOpen(true)}
@@ -184,7 +172,7 @@ const SalonDetailsPage: React.FC = () => {
                 <ModalContent>
                   <ModalBody>
                     <Image
-                      src={theater.profilePicture || ""}
+                      src={mySalon.profilePicture || ""}
                       alt="Profile"
                       className="w-full h-auto"
                     />
@@ -201,37 +189,13 @@ const SalonDetailsPage: React.FC = () => {
 
 
 
-            <div className="col-span-1">
-              <Image
-                src={theater.aadhaarCard || ""}
-                alt="Aadhaar Card"
-                className="cursor-pointer"
-                onClick={() => setAadhaarCardOpen(true)}
-              />
-              <Modal
-                isOpen={isAadhaarCardOpen}
-                onClose={() => setAadhaarCardOpen(false)}
-              >
-                <ModalContent>
-                  <ModalBody>
-                    <Image
-                      src={theater.aadhaarCard || ""}
-                      alt="Aadhaar Card"
-                      className="w-full h-auto"
-                    />
-                  </ModalBody>
-                </ModalContent>
-              </Modal>
-            </div>
-
-
 
 
 
             
             <div className="col-span-1">
               <Image
-                src={theater.licenseDocument || ""}
+                src={mySalon.licenseDocument || ""}
                 alt="License Document"
                 className="cursor-pointer"
                 onClick={() => setLicenseDocumentOpen(true)}
@@ -243,7 +207,7 @@ const SalonDetailsPage: React.FC = () => {
                 <ModalContent>
                   <ModalBody>
                     <Image
-                      src={theater.licenseDocument || ""}
+                      src={mySalon.licenseDocument || ""}
                       alt="License Document"
                       className="w-full h-auto"
                     />
@@ -252,23 +216,25 @@ const SalonDetailsPage: React.FC = () => {
               </Modal>
             </div>
           </div>
+          
 
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input readOnly label="Username" value={theater.username} />
-            <Input readOnly label="Email" value={theater.email} />
-            <Input
+          <div className="grid    bg-slate-300 grid-cols-2 gap-4 mt-12" >
+            <Input readOnly label="Username "  value={mySalon.userName} />
+            <Input readOnly label="Email" value={mySalon.email} />
+            {/* <Input
               readOnly
               label="Owner Name"
-              value={theater.OwnerName || ""}
-            />
-            <Input readOnly label="Address" value={theater.address || ""} />
-            <Input readOnly label="City" value={theater.city || ""} />
-            <Input readOnly label="State" value={theater.state || ""} />
-            <Input readOnly label="Zip Code" value={theater.zipCode || ""} />
-            <Input readOnly label="Phone" value={theater.phone || ""} />
-            <Input readOnly label="Role" value={theater.role || ""} />
-            <Input readOnly label="Status" value={theater.status || ""} />
-            <Input readOnly label="Comments" value={theater.comments || ""} />
+              value={mySalon.userName || ""}
+            /> */}
+            <Input readOnly label="Latitude" value={String(mySalon.latitude) } />
+            <Input readOnly label="Longitude" value={String(mySalon.latitude) } />
+            <Input readOnly label="City" value={mySalon.city || ""} />
+            <Input readOnly label="State" value={mySalon.state || ""} />
+            {/* <Input readOnly label="Zip Code" value={theater.zipCode || ""} /> */}
+            <Input readOnly label="Phone" value={mySalon.phone || ""} />
+            <Input readOnly label="Role" value={mySalon.role || ""} />
+            <Input readOnly label="Status" value={mySalon.status || ""} />
+            {/* <Input readOnly label="Comments" value={theater.comments || ""} /> */}
           </div>
           <div className="mt-4 flex gap-4">
             <Button onClick={() => setAcceptModalOpen(true)}>Accept</Button>

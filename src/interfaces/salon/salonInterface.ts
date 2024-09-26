@@ -12,6 +12,7 @@ export  interface SalonInterface {
   profilePicture?:string |null;
   images?:string[]|null
   licenseDocument?: string;
+  comments?: string | null;
   role?:"salon";
   status?:string|null;
   seat?: { seatNumber: number; description?: string }[]; // Structured array for seats
