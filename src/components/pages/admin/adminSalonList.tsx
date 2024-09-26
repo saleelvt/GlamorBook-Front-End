@@ -151,10 +151,10 @@ const SalonList: React.FC = () => {
 
           <div className="grid  flex justify-center  md:grid-cols-3  xs:grid-cols-3  sm:grid-cols-2    lg:grid-cols-4 ">
             {salons.map((Salon) => (
-              <div key={Salon._id}   onClick={()=> navigate(`/admin/salon/${Salon._id}`)} className=" shadow-2xl  ml-12  mt-12 rounded-lg border-[0.9px]   border-black p-[0.9px]">
+              <div className=" shadow-2xl  ml-12  mt-12 rounded-lg border-[0.9px]   border-black p-[0.9px]">
                
               
-               <div className="flex justify-center items-center">
+               <div  key={Salon._id}   onClick={()=> navigate(`/admin/salon/${Salon._id}`)} className="flex justify-center items-center">
                   <img
                     src={Salon.profilePicture || "/default-profile.png"}
                     alt={`${Salon.userName}'s profile`}
@@ -167,6 +167,7 @@ const SalonList: React.FC = () => {
                 <div className="text-center mt-2 mb-1 rounded-lg bg-slate-300">
                   <div className="font-bold">{Salon.userName}</div>
                   <div>{Salon.city}</div>
+
                 <div className="text-center mb-2">
 
 
@@ -182,6 +183,7 @@ const SalonList: React.FC = () => {
                    { Salon.status}
                   </span>
                 </div>
+                
 
 
 
@@ -213,27 +215,6 @@ const SalonList: React.FC = () => {
               
 
                 </div>
-
-
-               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               </div>
 

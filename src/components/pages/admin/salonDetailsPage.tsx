@@ -17,10 +17,10 @@ import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import { config } from "../../../config/constants";
 import { commonRequest } from "../../../config/api";
 import toast, { Toaster } from "react-hot-toast";
+import { Loading } from "../Loading";
 
 const SalonDetailsPage: React.FC = () => {
   const { salonId} = useParams<{ salonId: string }>();
-
   console.log('this sis my salon id ',salonId );
 
 
@@ -66,15 +66,13 @@ const SalonDetailsPage: React.FC = () => {
   const handleAccept = async () => {
     if (mySalon) {
       try {
-        const response = await commonRequest("PATCH",`/admin/${mySalon._id}/accept-theater`,
+        const response = await commonRequest("PATCH",`/admin/${mySalon._id}/acceptSalon`,
            config,
-          {
+          { 
             status: "active",
           }
         );
-
         console.log(response, "Accept response");
-
         setMySalon({ ...mySalon, status: "active" });
         setAcceptModalOpen(false);
 
@@ -89,6 +87,11 @@ const SalonDetailsPage: React.FC = () => {
       }
     }
   };
+
+
+
+
+
 
 
 
@@ -139,22 +142,19 @@ const SalonDetailsPage: React.FC = () => {
   };
 
 
-
-
-
   if (!mySalon) {
-    return <div>Loading...</div>;
+    return  <Loading/>
   }
 
 
-
-
   return (
-    <div className="p-8 bg-gradient-to-r from-blue-500 via-purple-500 to-teal-500 min-h-screen flex justify-center items-center">
+    <div className="p-8  min-h-screen flex justify-center items-center">
       <Toaster /> {/* Add Toaster component */}
-      <Card className="w-full max-w-4xl shadow-lg">
+      <Card className="w-full max-w-4xl shadow-2xl border-[0.5px] border-emerald-950 rounded-xl  ">
         <div className="p-4">
-          <h2 className="text-2xl mb-4">Salon Details</h2>
+        <h2 className="text-3xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-black border-b-4 border-black border-double  inline-block tracking-wide shadow-lg">
+  Salon Details
+</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <Image
@@ -163,11 +163,13 @@ const SalonDetailsPage: React.FC = () => {
                 className="cursor-pointer"
                 onClick={() => setProfilePictureOpen(true)}
               />
+             <h4 className="text-xl font-bold  mb-2 text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-black shadow-md">
+  Profile Picture
+</h4>
               <Modal
                 isOpen={isProfilePictureOpen}
                 onClose={() => setProfilePictureOpen(false)}
               >
-
 
                 <ModalContent>
                   <ModalBody>
@@ -193,17 +195,22 @@ const SalonDetailsPage: React.FC = () => {
 
 
             
-            <div className="col-span-1">
+            <div className="col-span-1bg-gradient-to-tr from-pink-300 to-yellow-200">
               <Image
                 src={mySalon.licenseDocument || ""}
                 alt="License Document"
                 className="cursor-pointer"
                 onClick={() => setLicenseDocumentOpen(true)}
               />
+                               <h4 className="text-xl font-bold  mb-2 text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-black shadow-md">
+                               License Document
+</h4>
+
               <Modal
                 isOpen={isLicenseDocumentOpen}
                 onClose={() => setLicenseDocumentOpen(false)}
               >
+
                 <ModalContent>
                   <ModalBody>
                     <Image
@@ -211,6 +218,7 @@ const SalonDetailsPage: React.FC = () => {
                       alt="License Document"
                       className="w-full h-auto"
                     />
+                    
                   </ModalBody>
                 </ModalContent>
               </Modal>
@@ -218,72 +226,133 @@ const SalonDetailsPage: React.FC = () => {
           </div>
           
 
-          <div className="grid    bg-slate-300 grid-cols-2 gap-4 mt-12" >
-            <Input readOnly label="Username "  value={mySalon.userName} />
-            <Input readOnly label="Email" value={mySalon.email} />
-            {/* <Input
-              readOnly
-              label="Owner Name"
-              value={mySalon.userName || ""}
-            /> */}
-            <Input readOnly label="Latitude" value={String(mySalon.latitude) } />
-            <Input readOnly label="Longitude" value={String(mySalon.latitude) } />
-            <Input readOnly label="City" value={mySalon.city || ""} />
-            <Input readOnly label="State" value={mySalon.state || ""} />
-            {/* <Input readOnly label="Zip Code" value={theater.zipCode || ""} /> */}
-            <Input readOnly label="Phone" value={mySalon.phone || ""} />
-            <Input readOnly label="Role" value={mySalon.role || ""} />
-            <Input readOnly label="Status" value={mySalon.status || ""} />
-            {/* <Input readOnly label="Comments" value={theater.comments || ""} /> */}
-          </div>
-          <div className="mt-4 flex gap-4">
-            <Button onClick={() => setAcceptModalOpen(true)}>Accept</Button>
-            <Button color="danger" onClick={() => setRejectModalOpen(true)}>
-              Reject
-            </Button>
-          </div>
+          <div className="grid  bg-gradient-to-r from-gray-100 to-gray-400 rounded-lg shadow-lg p-6 grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+          <div className="grid bg-slate-100 rounded-lg shadow-lg p-6 grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Username</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{mySalon.userName}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Email</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{mySalon.email}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Latitude</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{String(mySalon.latitude)}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Longitude</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{String(mySalon.longitude)}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">City</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{mySalon.city || ""}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">State</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{mySalon.state || ""}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Phone</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{mySalon.phone || ""}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Role</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{mySalon.role || ""}</p>
+  </div>
+  <div>
+    <label className="text-sm font-semibold text-gray-600">Status</label>
+    <p className="mt-1 text-lg font-medium text-gray-900">{`${mySalon.status}...` || ""}</p>
+  </div>
+</div>
+
+
+  <div className="md:col-span-2 flex justify-end gap-4 mt-6">
+    <button
+      className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out"
+      onClick={() => setAcceptModalOpen(true)}
+    >
+      Accept
+    </button>
+    <button
+      className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
+      onClick={() => setRejectModalOpen(true)}
+    >
+      Reject
+    </button>
+  </div>
+</div>
+
         </div>
       </Card>
       {/* Accept Modal */}
-      <Modal
-        isOpen={isAcceptModalOpen}
-        onClose={() => setAcceptModalOpen(false)}
+
+
+     {/* Accept Modal */}
+<Modal
+  isOpen={isAcceptModalOpen}
+  onClose={() => setAcceptModalOpen(false)}
+>
+  
+  <ModalContent className="top-10 mx-auto w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+    <ModalHeader className="text-xl font-bold text-gray-800">Confirm Acceptance</ModalHeader>
+    <ModalBody className="text-gray-700 text-center mt-4">
+      Are you sure you want to accept the Salon?
+    </ModalBody>
+    <ModalFooter className="flex justify-center gap-4 mt-6">
+      <Button
+        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition duration-300"
+        onClick={handleAccept}
       >
-        <ModalContent>
-          <ModalHeader>Confirm Acceptance</ModalHeader>
-          <ModalBody>Are you sure you want to accept the theater?</ModalBody>
-          <ModalFooter>
-            <Button onClick={handleAccept}>Yes</Button>
-            <Button color="danger" onClick={() => setAcceptModalOpen(false)}>
-              No
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-      {/* Reject Modal */}
-      <Modal
-        isOpen={isRejectModalOpen}
-        onClose={() => setRejectModalOpen(false)}
+        Yes
+      </Button>
+      <Button
+        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition duration-300"
+        onClick={() => setAcceptModalOpen(false)}
       >
-        <ModalContent>
-          <ModalHeader>Reason for Rejection</ModalHeader>
-          <ModalBody>
-            <Input
-              label="Reason"
-              placeholder="Write the reason for rejection..."
-              fullWidth
-              value={rejectReason}
-              onChange={(e) => setRejectReason(e.target.value)}
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={handleReject}>Submit</Button>
-            <Button color="danger" onClick={() => setRejectModalOpen(false)}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+        No
+      </Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>
+
+{/* Reject Modal */}
+<Modal
+  isOpen={isRejectModalOpen}
+  onClose={() => setRejectModalOpen(false)}
+>
+ 
+  <ModalContent className="top-10 mx-auto w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+    <ModalHeader className="text-xl font-bold text-gray-800">Reason for Rejection</ModalHeader>
+    <ModalBody className="mt-4">
+      <Input
+        
+        placeholder="Write the reason for rejection..."
+        fullWidth
+        value={rejectReason}
+        onChange={(e) => setRejectReason(e.target.value)}
+        className="border border-gray-300 rounded-lg px-4 py-2 w-full mt-2"
+      />
+    </ModalBody>
+    <ModalFooter className="flex justify-center gap-4 mt-6">
+      <Button
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition duration-300"
+        onClick={handleReject}
+      >
+        Submit
+      </Button>
+      <Button
+        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition duration-300"
+        onClick={() => setRejectModalOpen(false)}
+      >
+        Cancel
+      </Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>
+
+
+
     </div>
   );
 };
