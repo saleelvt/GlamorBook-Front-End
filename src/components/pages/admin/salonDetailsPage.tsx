@@ -113,7 +113,7 @@ const SalonDetailsPage: React.FC = () => {
       try {
         const response = await commonRequest(
           "PATCH",
-          `/admin/${mySalon._id}/accept-theater`,
+          `/admin/${mySalon._id}/acceptSalon`,
           config,
           {
             status: "rejected",
