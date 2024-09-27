@@ -51,6 +51,20 @@ const SalonList: React.FC = () => {
     fetchData();
   }, []);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const handleBlockUnblock = async (
     id: string | undefined,
     status: string | null
@@ -68,10 +82,24 @@ const SalonList: React.FC = () => {
           Salon._id === id ? { ...Salon, status: newStatus } : Salon
         )
       );
+
+
     } catch (err) {
       console.error("Failed to update theater status", err);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleAccept = async () => {
     if (selectedSalon?._id) {
@@ -106,13 +134,19 @@ const SalonList: React.FC = () => {
 
 
 
+
+
+
+
+
+
+
   const handleDeleteSalon =  async(Id: string) => {
     setRejectModalOpen(false);
 
    try {
     await commonRequest("DELETE",`/admin/${Id}/deleteSalon`,config)
-
-
+    
    }catch (err) {
       console.error("Failed to delete theater", err);
     }
@@ -210,23 +244,23 @@ const SalonList: React.FC = () => {
                     )}
 
                     <button
-                      disabled={Salon.status === "rejected"}
+                      disabled={Salon.status === "rejected" || Salon.status=== "pending"}
                       className={`px-4 py-2 rounded ${
                         Salon.status === "blocked"
                           ? "bg-red-400"
                           : Salon.status === "rejected"
                           ? "bg-gray-400 cursor-not-allowed"
-                          : "bg-yellow-500"
+                          : Salon.status==="pending" ? "bg-gray-400 cursor-not-allowed"  : "bg-yellow-500"
                       } text-white`}
                       onClick={() =>
                         handleBlockUnblock(Salon._id, Salon.status)
                       }
                     >
-                      {Salon.status === "blocked"
-                        ? "Unblock"
-                        : Salon.status === "rejected"
-                        ? "Rejected "
-                        : "block"}
+                      {Salon.status === "blocked"  ? "Unblock": Salon.status === "rejected" ? "Rejected ": Salon.status==="pending"? "Accept or Reject" : "block"}
+                      
+                        
+                       
+                        
                     </button>
 
                     <Modal

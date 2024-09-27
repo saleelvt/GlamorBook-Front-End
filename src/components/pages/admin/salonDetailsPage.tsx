@@ -268,18 +268,28 @@ const SalonDetailsPage: React.FC = () => {
 
 
   <div className="md:col-span-2 flex justify-end gap-4 mt-6">
-    <button
-      className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out"
+    <button disabled={mySalon.status==='active' || mySalon.status==='blocked'}
+      className={`px-6 py-2 ${mySalon.status==='active' ? "bg-gray-500" : mySalon.status==="blocked" ? "bg-orange-500 cursor-not-allowed " : "bg-green-500" } text-white font-semibold rounded-lg shadow-sm `}
       onClick={() => setAcceptModalOpen(true)}
     >
-      Accept
+      {mySalon.status==='active' ? "Already Active " :  mySalon.status==="blocked" ? "The Salon is Blocked" :"Accept"}
     </button>
-    <button
-      className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
+
+
+
+
+{/* {mySalon.status==="rejected"} */}
+
+   <button   disabled={mySalon.status==="rejected"}
+      className={`px-6 py-2 ${mySalon.status==="rejected"? "bg-gray-500" : "bg-red-500 hover:bg-red-600"} text-white font-semibold rounded-lg shadow-sm   `}
+     
       onClick={() => setRejectModalOpen(true)}
     >
-      Reject
+      {mySalon.status==="rejected"? "Already Rejected" : "Reject"}
     </button>
+
+
+
   </div>
 </div>
 
@@ -288,12 +298,15 @@ const SalonDetailsPage: React.FC = () => {
       {/* Accept Modal */}
 
 
+
      {/* Accept Modal */}
 <Modal
   isOpen={isAcceptModalOpen}
   onClose={() => setAcceptModalOpen(false)}
 >
   
+
+
   <ModalContent className="top-10 mx-auto w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
     <ModalHeader className="text-xl font-bold text-gray-800">Confirm Acceptance</ModalHeader>
     <ModalBody className="text-gray-700 text-center mt-4">
@@ -315,6 +328,9 @@ const SalonDetailsPage: React.FC = () => {
     </ModalFooter>
   </ModalContent>
 </Modal>
+
+
+
 
 {/* Reject Modal */}
 <Modal
