@@ -7,7 +7,7 @@ import "../../CSS/logoHeading.css";
 
 const Footer: React.FC = () => {
     return (
-        <footer className="footer bg-gradient-to-tr mt-10 from-pink-400  to-yellow-300">
+        <footer className="footer bg-gradient-to-b from-gray-100 via-gray-100 via-gray-200  to-green-900">
             <Container>
                 <Row className="footer-top">
                     <Col lg={4} md={6} sm={12}>
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
                             <Form.Group controlId="formEmail">
                                 <Form.Control type="email" placeholder="Enter your email" />
                             </Form.Group>
-                            <Button variant=" bg-gradient-to-tr  from-pink-800  to-yellow-600" type="submit">Subscribe</Button>
+                            <Button variant="  bg-gradient-to-b from-green-500 via-green-700 to-green-900" type="submit">Subscribe</Button>
                         </Form>
                         <div className="social-links">
                             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">

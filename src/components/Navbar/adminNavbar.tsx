@@ -55,8 +55,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-tr from-pink-300 to-yellow-200 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className=" p-6">
+      <div className="container  mx-auto flex justify-between items-center">
         <div className=" text-4xl font-bold">
       <h1 className="glamor-book-heading">Admin Of Glamor Book </h1>
         </div>
@@ -84,21 +84,21 @@ const Navbar: React.FC = () => {
         >
           <Link
             to="/services"
-            className="block font-semibold px-4 py-2 hover:bg-gray-300 rounded"
+            className="block font-semibold px-4 py-2 hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 mr-6 rounded"
           >
             Services
           </Link>
 
           <Link
             to="/about"
-            className="block px-4 py-2 font-semibold hover:bg-gray-300 rounded"
+            className="block px-4 py-2 font-semibold hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 mr-6 rounded"
           >
             About
           </Link>
           <Button
             onClick={handledata}
             radius="full"
-            className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
+            className="bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg  rounded-md"
           >
                   <FaSignOutAlt className="mr-3" /> Logout
 

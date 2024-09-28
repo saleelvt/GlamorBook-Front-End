@@ -195,6 +195,7 @@ const SalonList: React.FC = () => {
       <Navbar />
 
       <div className=" bg-gray-200 min-h-screen ">
+
         <main className="flex-1 p-6">
           <h1 className="text-3xl font-bold mb-6">Salon List </h1>
           <div className="grid  flex justify-center  md:grid-cols-3  xs:grid-cols-3  sm:grid-cols-2    lg:grid-cols-4 ">

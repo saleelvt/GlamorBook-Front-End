@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { AiOutlineLock } from "react-icons/ai";
+import { AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import SalonForgotBG from "../../../assets/images/frogotePassG.png";
 import toast from "react-hot-toast";
@@ -11,13 +11,16 @@ const SalonResetPassword: FC = () => {
   const queryString = window.location.search;
   const params = new URLSearchParams(queryString);
   const param = params.get("token");
-  
 
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
+  
+  // States to handle password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordAgain, setShowPasswordAgain] = useState(false);
 
   const passwordSchema = Yup.object().shape({
     password: Yup.string()
@@ -43,15 +46,11 @@ const SalonResetPassword: FC = () => {
 
       const data = { password, param };
 
-       console.log(
-         "🚀 data inside theater reset password",
-         data
-       );
+      console.log("🚀 data inside theater reset password", data);
 
       await axios
-        .post(`${URL}/salon/resetPassword`, {data}, config)
+        .post(`${URL}/salon/resetPassword`, { data }, config)
         .then(({ data }) => {
-
           if (data.success) {
             toast.success("Password reset successfully");
             setLoading(false);
@@ -79,7 +78,7 @@ const SalonResetPassword: FC = () => {
       <div className="lg:w-2/6 lg:ml-24 md:ml-56 xs:w-24  md:w-1/2 rounded-lg">
         <img className="rounded-lg shadow-lg" src={SalonForgotBG} alt="slaonForgotbg" />
       </div>
-      <div className="lg:w-1/2 p-5 mx-10 lg:mx-20 lg:p-10 shadow-lg rounded-3xl">
+      <div className="lg:w-1/2 p-5 mx-10 lg:mx-20 lg:p-10 bg-gray-200  shadow-xl rounded-3xl">
         <div className="flex items-center justify-center">
           <p className="text-3xl font-bold">
             Salon<span className="">Reset</span>
@@ -87,34 +86,43 @@ const SalonResetPassword: FC = () => {
         </div>
         <h1 className="text-2xl my-7 font-bold">Reset your Password</h1>
 
+        {/* Password Input */}
         <div className="flex items-center gap-3 border border-gray-200 shadow-sm p-2 rounded-lg my-2">
           <AiOutlineLock className="text-xl" />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Enter your new password"
             className="bg-transparent outline-none w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <span onClick={() => setShowPassword(!showPassword)} className="cursor-pointer">
+            {showPassword ? <AiOutlineEyeInvisible className="text-xl" /> : <AiOutlineEye className="text-xl" />}
+          </span>
         </div>
+
+        {/* Confirm Password Input */}
         <div className="flex items-center gap-3 border border-gray-200 shadow-sm p-2 rounded-lg my-5">
           <AiOutlineLock className="text-xl" />
           <input
-            type="password"
+            type={showPasswordAgain ? "text" : "password"}
             name="passwordAgain"
             placeholder="Enter your new password again"
             className="bg-transparent outline-none w-full"
             value={passwordAgain}
             onChange={(e) => setPasswordAgain(e.target.value)}
           />
+          <span onClick={() => setShowPasswordAgain(!showPasswordAgain)} className="cursor-pointer">
+            {showPasswordAgain ? <AiOutlineEyeInvisible className="text-xl" /> : <AiOutlineEye className="text-xl" />}
+          </span>
         </div>
 
         {error && <p className="my-2 text-red-400">{error}</p>}
 
         <div className="text-center">
           <button
-            className="bg-gradient-to-tr from-pink-600 to-yellow-500 rounded-md p-2 w-full"
+            className="bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md p-2 w-full"
             onClick={handlePasswordSubmit}
             disabled={loading}
           >

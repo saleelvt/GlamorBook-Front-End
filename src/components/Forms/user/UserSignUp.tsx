@@ -177,7 +177,7 @@ const SignUp: React.FC = () => {
               <Button
                 type="submit"
                 radius="full"
-                className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg w-full py-2 rounded-md"
+                className="bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg w-full py-2 rounded-md"
                 disabled={formik.isSubmitting}
               >
                 Create Account

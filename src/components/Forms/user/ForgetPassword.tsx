@@ -65,10 +65,10 @@ const ForgetPassword: FC = () => {
 
           <div className="text-center ">
             <button
-              className="bg-blue-600 hover:bg-blue-900 p-2 w-full rounded-lg"
+              className="bg-gradient-to-b from-green-500 via-green-700 to-green-900  p-2 w-full rounded-lg"
               onClick={handleEmailSubmit}
               disabled={loading}
-            >
+            > 
               {loading ? "Loading..." : "Reset"}
             </button>
           </div>

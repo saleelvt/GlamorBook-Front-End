@@ -9,8 +9,9 @@ const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const { error, loading } = useSelector((state: RootState) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
+  const { error, } = useSelector((state: RootState) => state.auth);
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,17 +20,14 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-red-900">
-      <div className="bg-white p-12 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-gray text-center">
-          Login to your account
+    <div className="min-h-screen flex items-center  justify-center">
+      <div className="bg-gray-200 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Admin Login
         </h2>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
@@ -37,44 +35,40 @@ const AdminLogin: React.FC = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  "
               placeholder="you@example.com"
             />
           </div>
 
           <div className="relative">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
-              type={showPassword ? "text" : "password"} // Toggle between text and password
+              type={showPassword ? "text" : "password"}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
               placeholder="Enter your password"
             />
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)} // Toggle show/hide
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 text-gray-500"
             >
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
 
-          {loading && <div>Loading...</div>}
           {error && <div className="text-red-500 text-sm">{error}</div>}
 
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-white bg-gradient-to-b from-green-500 via-green-700 to-green-900   "
             >
-              Login now
+              Login
             </button>
           </div>
         </form>
@@ -82,5 +76,6 @@ const AdminLogin: React.FC = () => {
     </div>
   );
 };
+
 
 export default AdminLogin;

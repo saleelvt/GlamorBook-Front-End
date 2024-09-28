@@ -1,5 +1,5 @@
 import SalonNavbar from "../../Navbar/salonNavbar";
-import ImageCarousel from "../../carousels/salonCarousels";
+import UserCarousel from "../../carousels/userCarousels";
 import SalonFooter from "../../footer/salonFooter";
 import SalonHeader from "../../header/salonHeader"
 
@@ -7,7 +7,7 @@ function SalonHomePage() {
   return (
     <div>
       <SalonNavbar />
-      <ImageCarousel />
+      <UserCarousel />
       <SalonHeader />
       <SalonFooter />
     </div>

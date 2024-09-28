@@ -26,25 +26,25 @@ function UserNavbar() {
   };
 
   return (
-    <Navbar isBordered className="bg-gradient-to-tr from-pink-300  to-yellow-200 p-4">
+    <Navbar isBordered className="bg-wigth p-4">
       <div className="flex justify-between items-center w-full">
         <h1 className="glamor-book-heading">Glamor Book</h1>
         <div className="flex space-x-4 items-center">
           <NavLink
             to="/"
-            className="block px-4 hover:bg-gray-700 rounded-md"
+            className="block px-4 hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md"
           >
             Home
           </NavLink>
           <NavLink
             to="/about"
-            className="block px-4 hover:bg-gray-700 rounded-md"
+            className="block px-4 hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md"
           >
             About
           </NavLink>
           <NavLink
             to="/contact-us"
-            className="block px-4 hover:bg-gray-700 rounded-md"
+            className="block px-4 hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900  rounded-md"
           >
             Contact Us
           </NavLink>
@@ -53,7 +53,7 @@ function UserNavbar() {
             <Button
               onClick={handleLogout}
               radius="full"
-              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
+              className=" bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg rounded-md"
             >
               Logout
             </Button>
@@ -61,7 +61,7 @@ function UserNavbar() {
             <Button
               onClick={() => navigate("/login")}
               radius="full"
-              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
+              className=" bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg rounded-md"
             >
               Login
             </Button>

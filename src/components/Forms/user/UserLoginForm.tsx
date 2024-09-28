@@ -99,7 +99,7 @@ const Login: React.FC = () => {
     <section>
       <div className="flex min-h-screen max-w-full">
         <div className="w-full flex justify-center items-center">
-          <div className=" bg-gradient-to-tr from-pink-300  to-yellow-300 p-6 sm:p-8 md:p-10 lg:p-12 rounded-lg shadow-lg">
+          <div className=" bg-gray-200 p-6 sm:p-8 md:p-10 lg:p-12 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-8 text-center">Login</h2>
 
             <form onSubmit={formik.handleSubmit} className="w-full">
@@ -160,7 +160,7 @@ const Login: React.FC = () => {
                 <Button
                   type="submit"
                   radius="full"
-                  className=" bg-gradient-to-tr from-pink-600  to-yellow-600 text-white h-8 w-10/12 rounded-md"
+                  className=" bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white h-8 w-10/12 rounded-md"
                   disabled={formik.isSubmitting}
                 >
                   Login

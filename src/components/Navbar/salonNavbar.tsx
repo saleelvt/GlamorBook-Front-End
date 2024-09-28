@@ -46,7 +46,7 @@ console.log('my salon role is ',role,isLogged);
   };
 
   return (
-    <nav className="bg-gradient-to-tr from-pink-300 to-yellow-200 p-4">
+    <nav className="p-4">
       <div className="container mx-auto flex justify-between items-center">
       <h1 className="glamor-book-heading">Glamor Book</h1>
         <div className="lg:hidden">
@@ -72,19 +72,19 @@ console.log('my salon role is ',role,isLogged);
         >
           <Link
             to="/services"
-            className="block font-semibold px-4 py-2 hover:bg-gray-300 rounded"
+            className="block font-semibold px-4 py-2 hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 mr-4 rounded"
           >
             Services
           </Link>
           <Link
             to="/contact"
-            className="block px-4 py-2 font-semibold hover:bg-gray-300 rounded"
+            className="block px-4 py-2 font-semibold hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 mr-4 rounded"
           >
             Contact
           </Link>
           <Link
             to="/about"
-            className="block px-4 py-2 font-semibold hover:bg-gray-300 rounded"
+            className="block px-4 py-2 font-semibold hover:bg-gradient-to-b from-green-500 via-green-700 to-green-900 mr-4 rounded"
           >
             About
           </Link>
@@ -92,7 +92,7 @@ console.log('my salon role is ',role,isLogged);
             <Button
               onClick={handledata}
               radius="full"
-              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
+              className=" bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg rounded-md"
             >
               Logout
             </Button>
@@ -100,7 +100,7 @@ console.log('my salon role is ',role,isLogged);
             <Button
               onClick={() => navigate("/salonLogin")}
               radius="full"
-              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg rounded-md"
+              className=" bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg rounded-md"
             >
               Login
             </Button>

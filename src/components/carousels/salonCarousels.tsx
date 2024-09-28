@@ -11,10 +11,7 @@ import shop4 from "../../assets/images/shop4.jpg";
 const ImageCarousel: React.FC = () => {
   return (
     <div className="carousel-container  ">
-      <Carousel
-       
-     
-     
+      <Carousel    
         infiniteLoop={true}
         useKeyboardArrows={true}
         autoPlay={true}
@@ -43,5 +40,4 @@ const ImageCarousel: React.FC = () => {
     </div>
   );
 };
-
 export default ImageCarousel;

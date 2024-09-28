@@ -13,6 +13,22 @@ import { UserSignupdata } from "../../../interfaces/user/UserSignupdata";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyOTP,resendOTP } from "../../../reduxKit/actions/user/userActions";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function UserEmailVerify() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -20,6 +36,14 @@ function UserEmailVerify() {
     (state: RootState) => state.user
   );
 
+
+
+
+
+
+
+
+  
   const [timer, setTimer] = useState(60);
   const [resendEnabled, setResendEnabled] = useState(false);
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
@@ -230,9 +254,9 @@ function UserEmailVerify() {
             <button
               type="button"
               onClick={handleResendOTP}
-              className="mt-4 w-32 border border-solid rounded hover:bg-[#252525] hover:border-[#3b3b3b]"
+              className="mt-4 w-32 border bg-gradient-to-b from-green-500 via-green-700 to-green-900 border-solid rounded hover:bg-[#252525] hover:border-[#3b3b3b]"
               style={{
-                backgroundColor: "#f57792",
+              
                 borderColor: "#f57792",
                 color: "#fff",
               }}

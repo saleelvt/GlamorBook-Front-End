@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 // import "../../CSS/userCarousel.css"
 
 // Define the settings for the carousel
@@ -36,11 +36,11 @@ const settings = {
 // import IMG2 from "../../assets/images/CarousleIMG1r-2063795648.jpg";
 import IMG3 from "../../assets/images/1.png";
 import IMG4 from "../../assets/images/1_jvZL4h-yHD0ImM2x9BqG_w.jpg";
-import IMG5 from "../../assets/images/images.jpeg";
+// import IMG5 from "../../assets/images/images.jpeg";
 
 const UserCarousel: React.FC = () => {
   return (
-    <div className=" ">
+    <div className="">
 
     <div className="carousel-container">
       <Slider {...settings}>
@@ -50,15 +50,15 @@ const UserCarousel: React.FC = () => {
         {/* <div>
           <img src={IMG2} alt="Slide 2" />
         </div> */}
-        <div>
-          <img src={IMG3} alt="Slide 3" />
+        <div className="rounded-lg">
+          <img className="rounded-lg w-full h-full" src={IMG4} alt="Slide 4" />
         </div>
-        <div>
-          <img src={IMG4} alt="Slide 4" />
+        <div className="rounded-lg">
+          <img  className="w-full h-full rounded-lg" src={IMG3} alt="Slide 3" />
         </div>
-        <div>
+        {/* <div>
           <img src={IMG5} alt="Slide 5" />
-        </div>
+        </div> */}
       </Slider>
     </div>
     </div>

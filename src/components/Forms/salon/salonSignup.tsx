@@ -200,9 +200,9 @@ const SalonSignUp: React.FC = () => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-pink-300 to-yellow-200">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl p-6">
-        <div className="p-6 rounded-lg shadow-md w-full max-w-md bg-white">
+        <div className="p-6 rounded-md shadow-lg w-full max-w-md bg-gray-200">
           <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">
             Create An Account (Salon)
           </h2>
@@ -494,7 +494,7 @@ const SalonSignUp: React.FC = () => {
                       }
                       formik.setFieldValue("seat", newSeats);
                     }}
-                    className="p-2 bg-red-500 text-white rounded mr-2"
+                    className="p-2 bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white rounded mr-2"
                   >
                     Decrease
                   </button>
@@ -506,7 +506,7 @@ const SalonSignUp: React.FC = () => {
                       newSeats[index].seatNumber += 1;
                       formik.setFieldValue("seat", newSeats);
                     }}
-                    className="p-2 bg-blue-500 text-white rounded"
+                    className="p-2 bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white rounded"
                   >
                     Increase
                   </button>
@@ -517,7 +517,7 @@ const SalonSignUp: React.FC = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="w-full p-2 bg-gradient-to-tr from-pink-600 to-yellow-500 border border-gray-700 rounded-lg mt-1"
+                className="w-full p-2 bg-gradient-to-b from-green-500 via-green-700 to-green-900 border border-gray-700 rounded-lg mt-1"
               >
                 {loading ? "Signing Up..." : "Sign Up"}
               </button>
