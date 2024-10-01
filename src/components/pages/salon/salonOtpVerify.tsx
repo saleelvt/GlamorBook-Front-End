@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../reduxKit/store";
@@ -13,8 +13,11 @@ import { FormValueOtp } from "../../../interfaces/user/FormValueOtp";
 import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 
 import { salonOtpVerify } from "../../../reduxKit/actions/salon/salonActions";
+import { resendOTP } from "../../../reduxKit/actions/user/userActions";
 
-function TheatreVerifyOtp() {
+function SalonVerifyOtp() {
+  // const [timer,setTimer]= useState(60)
+  const [resendEnabled,setResendEnabled]=useState(false)
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { salonOwner, loading, error } = useSelector(
@@ -37,20 +40,6 @@ function TheatreVerifyOtp() {
         !salonOwner?.email ||
         !salonOwner?.userName ||
         !salonOwner?.password
-        // !salonOwner?.city||
-        // !salonOwner?.images||
-        // !salonOwner?.latitude||
-        // !salonOwner?.licenseDocument||
-        // !salonOwner?.longitude||
-        // !salonOwner?.phone||
-        // !salonOwner?.profilePicture||
-        // !salonOwner?.salonName||
-        // !salonOwner?.seat||
-        // !salonOwner?.state||
-     
-     
-      
-
       ) {
         Swal.fire({
           icon: "error",
@@ -106,8 +95,97 @@ function TheatreVerifyOtp() {
     },
   });
 
-  const inputRef = useRef<(HTMLInputElement | null)[]>([]);
 
+
+
+  const initialTime=60
+
+  const [timer,setTimer]=useState<number>(()=>{
+    const savedTime= localStorage.getItem("countdownTimer")
+    return savedTime ? parseInt(savedTime, 10):initialTime
+  })
+
+
+
+
+
+
+
+
+
+useEffect(()=>{
+
+  let countdown:number
+
+  if(timer>0){
+    countdown= setTimeout(()=> setTimer((prev)=> { 
+      const newTime=  prev-1
+      localStorage.setItem("countdownTimer",newTime.toString())
+      return newTime
+    }) ,1000)
+  }else{
+    setResendEnabled(true)
+    localStorage.removeItem("countdownTimer");
+  }
+  return ()=> clearTimeout(countdown)
+
+},[timer])
+
+
+const  handleResedOtpSalon= async()=>{
+
+  if(!salonOwner?.email){
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Salon email is not available. Redirecting to the signup page.",
+    }).then(() => {
+      navigate("/salonSignUp");
+    });
+    return;
+  }
+
+  console.log('my salon email for resend otp ', salonOwner.email);
+
+  try {
+    
+    await dispatch(resendOTP({email:salonOwner.email}))
+    setTimer(60)
+    setResendEnabled(false)
+    Swal.fire({
+      icon: "success",
+      title: "OTP Resent Successfully",
+      text: "Please check your email for the new OTP.",
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.message || "An unexpected error occurred",
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  const inputRef = useRef<(HTMLInputElement | null)[]>([]);
   useEffect(() => {
 
     inputRef.current[0]?.focus();
@@ -131,6 +209,8 @@ function TheatreVerifyOtp() {
       firstInput?.removeEventListener("paste", handlePaste as EventListener);
     };
   }, []);
+
+
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -205,20 +285,27 @@ function TheatreVerifyOtp() {
       {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
 
 
+      { resendEnabled ? (
+        <button
+        type="submit"
+        onClick={handleResedOtpSalon}
+        className="mt-4  lg:ml-48 w-32 border border-solid rounded bg-gradient-to-b from-green-500 via-green-700 to-green-900"
+        style={{
+      
+          borderColor: "#f57792",
+          color: "#fff",
+        }}
+        disabled={loading}
+      >
+       Resend 
+      </button>
+      ) : (
+        <p className="mt-3  text-sm text-red-600">
+        Resend OTP in {timer} seconds
+      </p>
+      ) }
 
-
-      <button
-          type="submit"
-          className="mt-4  lg:ml-48 w-32 border border-solid rounded bg-gradient-to-b from-green-500 via-green-700 to-green-900"
-          style={{
-        
-            borderColor: "#f57792",
-            color: "#fff",
-          }}
-          disabled={loading}
-        >
-         Resend 
-        </button>
+      
 
 
 
@@ -228,4 +315,4 @@ function TheatreVerifyOtp() {
   );
 }
 
-export default TheatreVerifyOtp;
+export default SalonVerifyOtp;

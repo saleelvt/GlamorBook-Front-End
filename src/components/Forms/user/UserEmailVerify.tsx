@@ -43,10 +43,17 @@ function UserEmailVerify() {
 
 
 
-  
-  const [timer, setTimer] = useState(60);
+
+  // const [timer, setTimer] = useState(60);
   const [resendEnabled, setResendEnabled] = useState(false);
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
+
+
+
+
+
+
+
 
   useEffect(() => {
     console.log(user, "user info inside verify-otp");
@@ -69,6 +76,15 @@ function UserEmailVerify() {
         return;
       }
 
+
+
+
+
+
+
+
+
+
       const userDetails: UserSignupdata = {
         email: user.email,
         userName: user.userName,
@@ -79,6 +95,14 @@ function UserEmailVerify() {
         userDetails,
         "userDetails before passing to dispatch verify-otp"
       );
+
+
+
+
+
+
+
+
 
       try {
         await dispatch(verifyOTP({ otp, ...userDetails })).unwrap();
@@ -132,7 +156,12 @@ function UserEmailVerify() {
   }, []);
 
 
+  const  initialTime=60
+  const [timer,setTimer]=useState<number>(()=>{
 
+    const savedTime=localStorage.getItem('countdownTimer')
+    return savedTime? parseInt(savedTime,10) : initialTime
+  })
 
 
 
@@ -141,12 +170,20 @@ function UserEmailVerify() {
   useEffect(() => {
     let countdown: number;
     if (timer > 0) {
-      countdown = setTimeout(() => setTimer((prev) => prev - 1), 500);
+      countdown = setTimeout(() => setTimer((prev) =>{
+       const newTime= prev - 1
+       localStorage.setItem("countdownTimer",newTime.toString())
+       return newTime
+      
+     } ), 1000); 
     } else {
       setResendEnabled(true);
+      localStorage.removeItem("countdownTimer");
     }
     return () => clearTimeout(countdown);
   }, [timer]);
+
+
 
   const handleResendOTP = async () => {
     if (!user?.email) {
@@ -180,6 +217,13 @@ function UserEmailVerify() {
       });
     }
   };
+
+
+
+
+
+
+
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -218,7 +262,7 @@ function UserEmailVerify() {
         type="text"
         value={value}
         name={`otp[${index}]`}
-        className="w-16 h-12 rounded-md mr-3 text-center text-xl text-black"
+        className="w-16 h-12  border bg-gray-300 border-black rounded-md mr-3 text-center text-xl text-black"
         onChange={(event) => handleChange(event, index)}
         onKeyUp={(event) => handleBackSpace(event, index)}
       />
@@ -227,7 +271,7 @@ function UserEmailVerify() {
 
   return (
     
-      <div className="flex justify-center min-h-screen items-center  bg-[#677633]">
+      <div className="flex justify-center min-h-screen items-center ">
         <form onSubmit={formik.handleSubmit}>
           <h3 className="text-3xl mb-8">Please Fill In The OTP</h3>
           <div>{renderInput()}</div>
@@ -237,7 +281,7 @@ function UserEmailVerify() {
 
           <button
             type="submit"
-            className="mt-4 w-32 border border-solid rounded hover:bg-[#252525] hover:border-[#3b3b3b]"
+            className="mt-4 w-32 border border-solid rounded bg-gradient-to-b from-green-500 via-green-700 to-green-900"
             style={{
               backgroundColor: "#f57792",
               borderColor: "#f57792",
