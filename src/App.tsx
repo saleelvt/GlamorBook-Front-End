@@ -55,10 +55,9 @@ function App() {
 
 
 
-
-
-
-        <Route path="/" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/> : <UserWelcomePage />} />
+    
+           {/*   path="/" element={isLogged && role==='salon'? <Navigate to={'/SalonHomePage'}/>  */}
+        <Route path="/" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/>   :    <UserWelcomePage />} />
         {/* <Route path="/" element={<UserWelcomePage />} /> */}
         <Route path="/signup" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/> : <UserSignup />} />
 

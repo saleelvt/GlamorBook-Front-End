@@ -83,12 +83,11 @@ const Login: React.FC = () => {
             navigate("/userHomepage");
           })
           .catch((error) => {
-            console.error("Login failed:", error);
+            console.error("Login failed my user login :", error);
             Swal.fire({
               icon: "error",
               title: "Login failed",
-              text:
-                error.response?.data?.message || "An unexpected error occurred",
+              text:error.message,
             });
           });
       }

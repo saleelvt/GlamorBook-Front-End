@@ -20,7 +20,7 @@ const AdminSidebar: React.FC = () => {
     <div className="flex h-screen rounded-lg  bg-white ">
       {/* Sidebar */}
       <div
-        className={`flex flex-col  rounded-lg  bg-gradient-to-tr from-pink-500 to-yellow-200 text-white w-64 h-full transition-transform transform ${
+        className={`flex flex-col  rounded-lg  text-white w-64 h-full transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:w-64 z-50 shadow-2xl`}
       >
@@ -36,11 +36,11 @@ const AdminSidebar: React.FC = () => {
         </div>
 
         {/* Profile Section */}
-        <div className="flex items-center p-4 space-x-4 bg-gradient-to-tr shadow-lg  rounded-md w-56  lg:ml-3 lg:mt-4 border border-gray-600 from-pink-700 to-yellow-300">
+        <div className="flex items-center p-4 space-x-4  shadow-lg  rounded-md w-56  lg:ml-3 lg:mt-4 border border-gray-600 bg-gradient-to-b from-green-500 via-green-700 to-green-900">
           <div className="w-12 h-12 rounded-full bg-gray-400"></div>
           <div>
-            <h2 className="text-lg font-semibold">Admin Name</h2>
-            <span className="text-sm text-gray-300">admin@example.com</span>
+            <h2 className="text-lg font-semibold">Saleel vt </h2>
+            <span className="text-sm text-gray-300">admin12@gmail.com</span>
           </div>
         </div>
 

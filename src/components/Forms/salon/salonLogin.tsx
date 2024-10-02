@@ -35,12 +35,12 @@ const SalonLogin: React.FC = () => {
         console.log(theaterData, "before going to slaon home page ");
         navigate("/salonHome");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        console.error("Login failed:", err);
+      } catch (error: any) {
+        console.error("Login failedxcxcx:", error);
         Swal.fire({
           icon: "error",
           title: "Login Failed",
-          text: err.message || "An unexpected error occurred",
+          text: error,
         });
       }
     },

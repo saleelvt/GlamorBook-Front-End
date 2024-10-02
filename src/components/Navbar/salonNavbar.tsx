@@ -1,5 +1,7 @@
 // src/components/Navbar.tsx
-
+// FaSignOutAlt
+ 
+import { FaSignOutAlt } from "react-icons/fa";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -102,7 +104,7 @@ console.log('my salon role is ',role,isLogged);
               radius="full"
               className=" bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg rounded-md"
             >
-              Login
+                <FaSignOutAlt className="mr-3" /> Logout
             </Button>
           )}
         </div>

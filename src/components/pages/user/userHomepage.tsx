@@ -11,6 +11,12 @@ function UserHomepage() {
       <UserNavbar />
       <ImageCarousel />
       <p>this is the home page of the {role}</p>
+
+      <h1> its an a user logi </h1>
+      <div className="card  w-96 h-96  bg-gray-400">
+        <div className=""></div>
+        <div className="">saleel</div>
+      </div>
       <SalonFooter />
     </div>
   );
