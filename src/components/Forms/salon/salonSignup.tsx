@@ -34,7 +34,6 @@ const SalonSignUp: React.FC = () => {
   };
 
 
-
   const [profilePictureForm,setProfilePictureForm]=useState <File|null>(null)
   const [licenseDocumentForm, setLicenseDocumentForm] = useState<File | null>(null);
   // const [images,setImages]=useState<File[]>([])
@@ -66,15 +65,6 @@ const SalonSignUp: React.FC = () => {
 
 
   }
-
-
-
-
-
-
-
-
-
 
 
 

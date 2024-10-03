@@ -61,10 +61,6 @@ const SalonList: React.FC = () => {
 
 
 
-
-
-
-
   const handleBlockUnblock = async (
     id: string | undefined,
     status: string | null
@@ -146,6 +142,8 @@ const SalonList: React.FC = () => {
 
    try {
     await commonRequest("DELETE",`/admin/${Id}/deleteSalon`,config)
+    setSalons(salons.filter((salon) => salon._id !==Id))
+    // navigate(-1)
     
    }catch (err) {
       console.error("Failed to delete theater", err);

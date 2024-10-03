@@ -49,6 +49,48 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+
+
+
+
+
+
+
+export const fetchUserStatus = createAsyncThunk(
+  'user/RoleStatus',
+  async (userCredentials:string,{rejectWithValue})=>{
+    console.log("trying");
+    
+    try {
+      console.log('going for fetch the status');
+      const {data} = await axiosIn.post("/getStatus",userCredentials,config)
+       console.log("this is the data after get after user staus got " ,data );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: "Something went wrong!" });
+      }
+    }
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const logout = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {

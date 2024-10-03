@@ -1,5 +1,6 @@
-import  { Fragment } from "react";
-import { Routes, Route} from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Fragment, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import UserSignup from "./components/Forms/user/UserSignUp";
 import UserLoginForm from "./components/Forms/user/UserLoginForm";
 import UserForgotPassword from "./components/Forms/user/ForgetPassword";
@@ -7,19 +8,11 @@ import UserWelcomePage from "./components/pages/user/userWelcomePage";
 import UserEmailVerify from "./components/Forms/user/UserEmailVerify";
 import UserHomepage from "./components/pages/user/userHomepage";
 import UserResetPassword from "./components/pages/user/userResetPassword";
-import { Navigate } from "react-router-dom";
 
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
-import AdminSalonList from "./components/pages/admin/adminSalonList"
+import AdminSalonList from "./components/pages/admin/adminSalonList";
 import SalonDetailsPage from "./components/pages/admin/salonDetailsPage";
-
-
-
-
-
-
-
 
 import SalonHomePage from "./components/pages/salon/salonHomePage";
 import SalonSignUp from "./components/Forms/salon/salonSignup";
@@ -32,90 +25,89 @@ import SalonResetPassword from "./components/pages/salon/salonResetPassword";
 import { Toaster } from "react-hot-toast";
 import { RootState } from "./reduxKit/store";
 import { useSelector } from "react-redux";
+import { fetchUserStatus } from "./reduxKit/actions/auth/authActions";
+import { useDispatch } from "react-redux";
 
-function App() {
-  
-  const { role, isLogged } = useSelector((state: RootState) => state.auth);
+// Helper function for role-based redirects
 
+const getRoleBasedRedirect = (isLogged: boolean, role: string | null) => {
+  if (!isLogged) return <UserWelcomePage />;
 
-  
-  if( role && isLogged ){
-
-     console.log("my role is : " ,role," is logged true or false ", isLogged);
-     
+  switch (role) {
+    case 'user':
+      return <Navigate to="/userHomepage" />;
+    case 'salon':
+      return <Navigate to="/salonHome" />;
+    case 'admin':
+      return <Navigate to="/adminHomepage" />;
+    default:
+      return <UserWelcomePage />;
   }
 
+};
 
+function App() {
+  // Getting state from redux store
+  const { role, isLogged ,userData } = useSelector((state: RootState) => state.auth);
+  console.log('this is my status', userData?._id );
+  console.log("my id type ", typeof(userData?._id));
+  
+  
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+
+    if(userData?._id){
+
+      dispatch(fetchUserStatus(userData?._id )).unwrap()
+       
+      .then((response: any) => {
+        console.log('Fetched user status:', response);
+      })
+      .catch((error: any) => {
+        console.error('Error fetching user status:', error);
+      });
+    }
+
+  },[dispatch,userData?._id])
+
+
+
+
+  
 
   return (
     <Fragment>
       <Toaster position="top-center" />
 
       <Routes>
+        {/* Root Route - Role-Based Redirect */}
+        <Route path="/" element={getRoleBasedRedirect(isLogged, role)} />
 
-
-
-    
-           {/*   path="/" element={isLogged && role==='salon'? <Navigate to={'/SalonHomePage'}/>  */}
-        <Route path="/" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/>   :    <UserWelcomePage />} />
-        {/* <Route path="/" element={<UserWelcomePage />} /> */}
-        <Route path="/signup" element={isLogged && role==='user'? <Navigate to={'/userHomepage'}/> : <UserSignup />} />
-
-
-        <Route path="/login" element={ isLogged && role==="user"? <Navigate to={'/userHomepage'}/> : <UserLoginForm />} />
-        {/* <Route path="/login" element={<UserLoginForm />} /> */}
-        {/* <Route path="/userForgot" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserForgotPassword />} /> */}
+        {/* User Routes */}
+        <Route path="/signup" element={isLogged && role === 'user' ? <Navigate to="/userHomepage" /> : <UserSignup />} />
+        <Route path="/login" element={isLogged && role === 'user' ? <Navigate to="/userHomepage" /> : <UserLoginForm />} />
         <Route path="/userForgot" element={<UserForgotPassword />} />
-        {/* <Route path="/UserEmailverify" element={isLogged? <Navigate to={'/userHomepage'}/> : <UserEmailVerify />} /> */}
         <Route path="/UserEmailverify" element={<UserEmailVerify />} />
-        {/* <Route path="/userHomepage" element={isLogged && role === "user" ? <UserHomepage /> : <Navigate to={'/'}/>} /> */}
-        <Route path="/userHomepage" element={<UserHomepage />} />
+        <Route path="/userHomepage" element={isLogged && role === 'user' ? <UserHomepage /> : <Navigate to="/" />} />
         <Route path="/userResetPassword" element={<UserResetPassword />} />
 
+        {/* Salon Routes */}
+        <Route path="/salonLogin" element={isLogged && role === 'salon' ? <Navigate to="/salonHome" /> : <SalonLogin />} />
+        <Route path="/salonHome" element={isLogged && role === 'salon' ? <SalonHomePage /> : <Navigate to="/salonLogin" />} />
+        <Route path="/salonSignUp" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonSignUp />} />
+        <Route path="/salonOtpVerify" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonOtpVerify />} />
+        <Route path="/forgotPassword" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonForgotPassword />} />
+        <Route path="/salonResetPassword" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonResetPassword />} />
 
-
-
-
-
-
-
-        <Route path="/salonLogin" element={ isLogged && role==='salon' ? <Navigate to={'/salonHome'}/> :<SalonLogin />} />
-        <Route path="/salonHome" element={ isLogged  && role==='salon' ?<SalonHomePage />:<SalonLogin />} />
-        <Route path="/salonSignUp" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonSignUp />}  />
-        <Route path="/salonOtpVerify" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonOtpVerify />} />
-        <Route path="/forgotPassword" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonForgotPassword />} />
-        <Route path="/salonResetPassword" element={ isLogged  && role==='salon'  ?<SalonHomePage />:<SalonResetPassword />} />
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <Route path="/adminHomepage" element={  isLogged && role==='admin' ? <AdminHomePage /> : <AdminLogin/>} />
-        {/* <Route path="/adminHomepage" element={} /> */}
-        <Route path="/adminLogin" element={ isLogged && role==='admin' ?<Navigate to={'/adminHomepage'}/> : <AdminLogin/>} />
-        <Route path="/adminSalonList"  element={ isLogged&& role==="admin" ?  <AdminSalonList />:  <AdminLogin/> }/>
-        <Route path="/admin/salon/:salonId" element={ isLogged&& role==="admin" ?  <SalonDetailsPage />:  <AdminLogin/>}/>
-
-
+        {/* Admin Routes */}
+        <Route path="/adminHomepage" element={isLogged && role === 'admin' ? <AdminHomePage /> : <AdminLogin />} />
+        <Route path="/adminLogin" element={isLogged && role === 'admin' ? <Navigate to="/adminHomepage" /> : <AdminLogin />} />
+        <Route path="/adminSalonList" element={isLogged && role === 'admin' ? <AdminSalonList /> : <AdminLogin />} />
+        <Route path="/admin/salon/:salonId" element={isLogged && role === 'admin' ? <SalonDetailsPage /> : <AdminLogin />} />
       </Routes>
     </Fragment>
   );
 }
-
-
 
 export default App;

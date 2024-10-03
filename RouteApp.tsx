@@ -74,6 +74,7 @@
 //     fetchUserData()
 //   }, [user])
 
+
 //   const RoleBasedRedirect: FC<IRoleBasedRedirectProps> = ({ roles, user }) => {
 //     console.log('inside rolebased redirect routes🥶🥶')
 //     if (user && roles[user.role!]) {
@@ -83,6 +84,7 @@
 
 //     return <Navigate to="/index" replace />
 //   }
+
 //   if (loading) {
 //     return <LoadingSpinner />
 //   }
@@ -145,6 +147,16 @@
 // }
 
 // export default App;
+
+
+
+
+
+
+
+
+
+
 // const AdminRoutes: FC = () => {
 //   console.log('inside admin routes')
 //   return (
@@ -162,6 +174,14 @@
 //     </Routes>
 //   )
 // }
+
+
+
+
+
+
+
+
 
 // const HostRoutes: FC = () => {
 //   return (
@@ -217,6 +237,17 @@
 //   )
 // }
 
+
+
+
+
+
+
+
+
+
+
+
 // const PublicRoutes: FC = () => {
 //   const { user } = useAppSelector(state => state.user)
 //   if (user?.role === 'admin') {
@@ -240,6 +271,22 @@
 //   )
 // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const AuthRoutes: FC = () => {
 //   return (
 //     <Routes>
@@ -250,5 +297,9 @@
 //         <Route path="/reset-password/:token" element={<ResetPassword />} />
 //         <Route path="/verify-account" element={<EmailVerification />} />
 //       </Route>
-{/* <Routers/> */}
 
+//    /Routes>
+
+// 
+
+// }

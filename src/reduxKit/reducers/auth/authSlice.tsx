@@ -6,16 +6,23 @@ import {
   logout,
   loginSalon,
   adminLogout,
-  salonLogout
+  salonLogout,
+  fetchUserStatus
 } from "../../actions/auth/authActions";
 
+
 export interface UserState {
-  userData:  null;
+  userData: UserState| null;
   error: string | null;
   loading: boolean;
   role: null;
+  status?:string|null;
   isLogged: boolean;
+  _id?: string |null
 }
+
+
+
 
 const initialState: UserState = {
   userData: localStorage.getItem("user")
@@ -29,6 +36,9 @@ const initialState: UserState = {
   isLogged: localStorage.getItem("isLogged")
     ? JSON.parse(localStorage.getItem("isLogged")!)
     : false,
+    status:localStorage.getItem("status") ? JSON.parse(localStorage.getItem('status')!):null,
+    _id:localStorage.getItem("_id") ? JSON.parse(localStorage.getItem('_id')!) :null
+
 };
 
 export const authSlice = createSlice({
@@ -44,28 +54,13 @@ export const authSlice = createSlice({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       // Google Login/Sign Up Cases
       .addCase(googleLoginOrSignUp.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(googleLoginOrSignUp.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        console.log( " this is the google auth pay loand ", payload);
         state.loading = false;
         state.error = null;
         state.userData = payload;
@@ -82,33 +77,34 @@ export const authSlice = createSlice({
         state.error = payload as string;
       })
 
+.addCase(fetchUserStatus.pending,(state)=>{
+  state.loading=true,
+  state.error= null
+})
+.addCase(fetchUserStatus.fulfilled,(state,{payload})=>{
+  state.loading=false,
+  state.error = null;
+  state.status=payload
+})
+.addCase(fetchUserStatus.rejected,(state,{payload})=>{
+
+  state.error=payload as string,
+  state.status=null,
+  state.loading=false
+  })
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // Login Cases
-      .addCase(loginUser.pending, (state) => {
+     
+       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
+
       .addCase(loginUser.fulfilled, (state, { payload }) => {
+
+
         state.loading = false;
         state.error = null;
         state.userData = payload;
@@ -117,7 +113,7 @@ export const authSlice = createSlice({
         localStorage.setItem("role", JSON.stringify(state.role));
         localStorage.setItem("isLogged", JSON.stringify(state.isLogged));
         localStorage.setItem("user", JSON.stringify(state.userData));
-        console.log(payload, "login state inside slice");
+        console.log(payload, "login state inside slice any things ");
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.loading = false;
