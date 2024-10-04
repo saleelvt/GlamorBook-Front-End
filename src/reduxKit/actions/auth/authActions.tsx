@@ -9,7 +9,7 @@ export const axiosIn = axios.create({
   baseURL: URL,
 });
 
-export const googleLoginOrSignUp  = createAsyncThunk(
+export const googleLoginOrSignUp = createAsyncThunk(
   "user/loginWithGoogle",
   async (userCredentials: UserLogin, { rejectWithValue }) => {
     try {
@@ -49,47 +49,49 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+interface fetchStatus {
+  role?: string | null;
+  userId: string | null;
+}
 
+interface UserStatusResponse {
+  status: string;
+  // Add other properties as needed
+}
 
+interface ErrorResponse {
+  message: string;
+}
 
-
-
-
-
-export const fetchUserStatus = createAsyncThunk(
-  'user/RoleStatus',
-  async (userCredentials:string,{rejectWithValue})=>{
+export const fetchUserStatus = createAsyncThunk<
+  UserStatusResponse,
+  fetchStatus,
+  {
+    rejectValue: ErrorResponse;
+  }
+>(
+  "user/RoleStatus",
+  async (userCredentials: fetchStatus, { rejectWithValue }) => {
     console.log("trying");
-    
     try {
-      console.log('going for fetch the status');
-      const {data} = await axiosIn.post("/getStatus",userCredentials,config)
-       console.log("this is the data after get after user staus got " ,data );
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
+      console.log("going for fetch the status");
+      const { data } = await axiosIn.post<UserStatusResponse>(
+        "/getStatus",
+        userCredentials,
+        config
+      );
+      console.log("this is the data after get after user staus got ", data);
+      return data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data as ErrorResponse);
       } else {
         return rejectWithValue({ message: "Something went wrong!" });
       }
     }
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  }
+);
 
 export const logout = createAsyncThunk(
   "user/logout",
@@ -182,12 +184,12 @@ export const salonLogout = createAsyncThunk(
   "salon/logout ",
   async (__, { rejectWithValue }) => {
     try {
-      console.log('slaon will going to logout ');
-      
+      console.log("slaon will going to logout ");
+
       await axiosIn.delete("salon/logout", config);
-      
-      console.log('slaon came aftere axios ');
-  
+
+      console.log("slaon came aftere axios ");
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {

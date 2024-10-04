@@ -77,19 +77,24 @@ export const authSlice = createSlice({
         state.error = payload as string;
       })
 
-.addCase(fetchUserStatus.pending,(state)=>{
-  state.loading=true,
-  state.error= null
-})
-.addCase(fetchUserStatus.fulfilled,(state,{payload})=>{
+      
+      .addCase(fetchUserStatus.pending,(state)=>{
+        state.loading=true,
+        state.error= null
+      })
+      .addCase(fetchUserStatus.fulfilled,(state,{payload})=>{
+  console.log("saleli si ")
+
+  console.log("this my payload of the add case " , payload);
+  
   state.loading=false,
   state.error = null;
-  state.status=payload
+  state.status=payload.status
 })
-.addCase(fetchUserStatus.rejected,(state,{payload})=>{
+.addCase(fetchUserStatus.rejected,(state)=>{
 
-  state.error=payload as string,
-  state.status=null,
+  
+    state.status=null,
   state.loading=false
   })
 
