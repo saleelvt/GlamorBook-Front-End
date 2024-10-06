@@ -9,6 +9,7 @@ import UserWelcomePage from "./components/pages/user/userWelcomePage";
 import UserEmailVerify from "./components/Forms/user/UserEmailVerify";
 import UserHomepage from "./components/pages/user/userHomepage";
 import UserResetPassword from "./components/pages/user/userResetPassword";
+import { SalonProfilePage } from "./components/pages/salon/salonProfile";
 
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
@@ -21,6 +22,7 @@ import SalonLogin from "./components/Forms/salon/salonLogin";
 import SalonOtpVerify from "./components/pages/salon/salonOtpVerify";
 import SalonForgotPassword from "./components/Forms/salon/forgotPassword";
 import SalonResetPassword from "./components/pages/salon/salonResetPassword";
+
 
 
 import { Toaster } from "react-hot-toast";
@@ -105,7 +107,8 @@ console.log(" afeter a long time i got the stauys ", status);
         <Route path="/salonOtpVerify" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonOtpVerify />} />
         <Route path="/forgotPassword" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonForgotPassword />} />
         <Route path="/salonResetPassword" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonResetPassword />} />
-
+        <Route path="/salonProfile" element={isLogged && role === 'salon' ? <SalonProfilePage /> : <SalonLogin />} />
+ 
         {/* Admin Routes */}
         <Route path="/adminHomepage" element={isLogged && role === 'admin' ? <AdminHomePage /> : <AdminLogin />} />
         <Route path="/adminLogin" element={isLogged && role === 'admin' ? <Navigate to="/adminHomepage" /> : <AdminLogin />} />

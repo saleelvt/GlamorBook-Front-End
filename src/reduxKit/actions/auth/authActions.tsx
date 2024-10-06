@@ -101,6 +101,7 @@ export const logout = createAsyncThunk(
       axiosIn.delete(`/logout`, config);
       return;
 
+      
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {

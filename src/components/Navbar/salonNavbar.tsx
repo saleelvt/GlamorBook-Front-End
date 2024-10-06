@@ -50,7 +50,7 @@ console.log('my salon role is ',role,isLogged);
   return (
     <nav className="p-4">
       <div className="container mx-auto flex justify-between items-center">
-      <h1 className="glamor-book-heading">Glamor Book</h1>
+      <h1 className="glamor-book-heading"> Salon Side of Glamor Book</h1>
         <div className="lg:hidden">
           <button className=" focus:outline-none" onClick={toggleMenu}>
             <svg
