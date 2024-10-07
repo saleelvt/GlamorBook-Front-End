@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import UserSignup from "./components/Forms/user/UserSignUp";
 import UserLoginForm from "./components/Forms/user/UserLoginForm";
@@ -28,8 +28,10 @@ import SalonResetPassword from "./components/pages/salon/salonResetPassword";
 import { Toaster } from "react-hot-toast";
 import {  RootState ,ExtendedAppDispatch } from "./reduxKit/store";
 import { useSelector } from "react-redux";
-import { fetchUserStatus } from "./reduxKit/actions/auth/authActions";
+// import { fetchUserStatus } from "./reduxKit/actions/auth/authActions";
 import { useDispatch } from "react-redux";
+import { commonRequest } from "./config/api";
+import { config } from "./config/constants";
 
 // Helper function for role-based redirects
 
@@ -51,47 +53,43 @@ const getRoleBasedRedirect = (isLogged: boolean, role: string | null) => {
 
 function App() {
   // Getting state from redux store
-  const { role, isLogged ,userData,status } = useSelector((state: RootState) => state.auth);
+  const { role, isLogged ,userData } = useSelector((state: RootState) => state.auth);
   
   const dispatch=useDispatch<ExtendedAppDispatch>()
-
-  const retails={
-    role:userData?.role ?? null,
-    userId:userData?._id ?? null
+  const [status,setStatus]= useState<any>(null)
+  if(status){
+  console.log('saleelisa gogot',status);
   }
 
- 
+  // const retails={
+  //   role:userData?.role ?? null,
+  //   userId:userData?._id ?? null
+  // }
+const  userId :any =userData?._id
+
   useEffect(() => {
     const fetchStatus = async () => {
-      if ((role === 'user' || role === 'salon') && userData?._id) {
+      if ((role === 'user' || role === 'salon') && userId) {
         try {
-          // Use the dispatch and unwrap method correctly with typing
-         await dispatch(fetchUserStatus(retails))
-         
+          console.log("ia ma going to fetch the status",role,userId);
+          const  response1 = await commonRequest("GET",`/getStatus/${userId}/${role}`,config)
+          return  setStatus(response1.data.data)
         } catch (error) {
           console.error('Error fetching user status:', error);
         }
       }
     };
-
     fetchStatus(); // Call the async function
-  }, [dispatch, role, userData?._id]); // Added role as a dependency to ensure it triggers when it changes
-
-  console.log("After a long time I got the status:", status);
-
-console.log(" afeter a long time i got the stauys ", status);
-
-
-  
-
+  }, [dispatch, role]); // Added role as a dependency to ensure it triggers when it changes
+  if(status){
+    console.log('saleel macha nammale saanam kittiyada ini pooram ',status);
+    } 
   return (
     <Fragment>
       <Toaster position="top-center" />
-
       <Routes>
         {/* Root Route - Role-Based Redirect */}
         <Route path="/" element={getRoleBasedRedirect(isLogged, role)} />
-
         {/* User Routes */}
         <Route path="/signup" element={isLogged && role === 'user'  ? <Navigate to="/userHomepage" /> : <UserSignup />} />
         <Route path="/login" element={isLogged && role === 'user' ? <Navigate to="/userHomepage" /> : <UserLoginForm />} />

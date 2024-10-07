@@ -69,7 +69,7 @@ export const fetchUserStatus = createAsyncThunk<
   {
     rejectValue: ErrorResponse;
   }
->(
+  >(
   "user/RoleStatus",
   async (userCredentials: fetchStatus, { rejectWithValue }) => {
     console.log("trying");
@@ -93,6 +93,7 @@ export const fetchUserStatus = createAsyncThunk<
   }
 );
 
+
 export const logout = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
@@ -101,7 +102,7 @@ export const logout = createAsyncThunk(
       axiosIn.delete(`/logout`, config);
       return;
 
-      
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.data) {

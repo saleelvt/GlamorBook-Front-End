@@ -11,10 +11,15 @@ import {
 } from "react-icons/fa";
 
 import  {SalonProfilePage} from "../pages/salon/salonProfile"
+import { useSelector } from "react-redux";
+import { RootState } from "../../reduxKit/store";
 
  export const SalonSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true); // Sidebar starts open
   const [activeComponent, setActiveComponent] = useState<any>(null);
+
+  const {role,userData}=useSelector((state:RootState)=> state.auth)
+  const {email}:any=userData
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -40,11 +45,11 @@ import  {SalonProfilePage} from "../pages/salon/salonProfile"
         </div>
 
         {/* Profile Section */}
-        <div className="flex items-center p-4 space-x-4  shadow-lg  rounded-md w-56  lg:ml-3 lg:mt-4 border border-gray-600 bg-gradient-to-b from-green-500 via-green-700 to-green-900">
+        <div className="flex justify-center  p-4 space-x-4  shadow-lg  rounded-md w-56  lg:ml-3 lg:mt-4 border border-gray-600 bg-gradient-to-b from-green-500 via-green-700 to-green-900">
           <div className="w-12 h-12 rounded-full bg-gray-400"></div>
           <div>
-            <h2 className="text-lg font-semibold">should put the name of salon </h2>
-            <span className="text-sm text-gray-300">admin12@gmail.com</span>
+            <h2 className="text-lg font-semibold"> {` Role:${role}`}</h2>
+            <span className="text-sm font-medium text-gray-300">{`Email: ${email }`}</span>
           </div>
         </div>
 
