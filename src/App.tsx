@@ -60,11 +60,6 @@ function App() {
   if(status){
   console.log('saleelisa gogot',status);
   }
-
-  // const retails={
-  //   role:userData?.role ?? null,
-  //   userId:userData?._id ?? null
-  // }
 const  userId :any =userData?._id
 
   useEffect(() => {
@@ -79,8 +74,8 @@ const  userId :any =userData?._id
         }
       }
     };
-    fetchStatus(); // Call the async function
-  }, [dispatch, role]); // Added role as a dependency to ensure it triggers when it changes
+    fetchStatus();
+  }, [dispatch, role]); 
   if(status){
     console.log('saleel macha nammale saanam kittiyada ini pooram ',status);
     } 
@@ -88,7 +83,6 @@ const  userId :any =userData?._id
     <Fragment>
       <Toaster position="top-center" />
       <Routes>
-        {/* Root Route - Role-Based Redirect */}
         <Route path="/" element={getRoleBasedRedirect(isLogged, role)} />
         {/* User Routes */}
         <Route path="/signup" element={isLogged && role === 'user'  ? <Navigate to="/userHomepage" /> : <UserSignup />} />
