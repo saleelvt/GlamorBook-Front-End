@@ -4,6 +4,7 @@ import { RootState } from "../../../reduxKit/store";
 // import myimage from "../../../assets/images/15ae9124-5e52-4ec8-b26e-f4839fbacf18(1).jpg";
 // import myimage3 from "../../../assets/images/5453a833-f9da-4a36-a51c-1c418f3d733d-ThePodiumSalonBarberCo-SG-Singapore-Singapore-Rochor-Fresha.jpg";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { Loading } from "../Loading";
 import { FaPhoneAlt } from "react-icons/fa";
 import ImageCarousel from "../../carousels/salonCarousels";
 import SalonFooter from "../../footer/salonFooter";
@@ -12,45 +13,25 @@ import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
 import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import { BiMessageRoundedDetail } from "react-icons/bi";
-
-
-
-
-
-
-
-
-
-
-
-
+import { useUserLocation } from "./useUserLocation";
 
 
 
 
 function UserHomepage() {
-  const { role, } = useSelector((state: RootState) => state.auth);
+  const { role} = useSelector((state: RootState) => state.auth);
   const [salons,setSalons]=useState<SalonInterface[]|null>([])
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const {location}=useUserLocation(setLoading)
+ 
 
 
-
-  
-  console.log("it fro the saln logfin ", role 
-  );
-
-
+  console.log("it fro the saln logfin ", role , "iam very exited about this location ", location, );
   useEffect(()=>{
-
     const fetchAllSalons = async ()=>{
-
-
-      try {
-        
+      try {        
       const response= await commonRequest("GET","/getAllSalon",config)
-
-      // console.log("kkkkkkkkkkkkkkkkkkkkkk", response.data.data);
-      
-      
       setSalons(response.data.data)
       } catch (error) {
         console.error(error); 
@@ -58,22 +39,17 @@ function UserHomepage() {
     }
     fetchAllSalons()
   },[])
+
+  
+  if(loading) return <Loading/> 
   console.log("myyyyyyyyyyyyyyyyyyyy salooooooooooooooooon ", salons);
   return (
     <div>
       <UserNavbar />
       <ImageCarousel />
-      {/* <div className="w-full h-96 mt-12   bg-slate-200 flex justify-center ">
-
-        <div className="w-2/3 rounded-lg  h-full ">
-        <img className="w-full h-full rounded-lg shadow-2xl" src={myimage} alt="" /></div>
-      </div> */}
-      {/* <p>this is the home page of the {role}</p> */}
 
       <h1 className="text-2xl  font-bold  font-mono mt-8 lg:ml-28">For you</h1>
-      
             <div className="  mt-4     bg-slate-200  flex justify-center ">
-
    {salons?.map((Salon)=>(
 <div className="relative  ml-4 flex shadow-lg flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-80">
 <div className="relative  p-2 sh h-72 overflow-hidden rounded-lg bg-clip-border">
@@ -122,13 +98,8 @@ function UserHomepage() {
   </div>
 </div>
 </div>
-
-
    ))}
-      
-       
       </div>
-
       <SalonFooter />
     </div>
   );
