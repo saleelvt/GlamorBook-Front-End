@@ -91,7 +91,6 @@ const  userId :any =userData?._id
         <Route path="/UserEmailverify" element={<UserEmailVerify />} />
         <Route path="/userHomepage" element={isLogged && role === 'user' ? <UserHomepage /> : <Navigate to="/" />} />
         <Route path="/userResetPassword" element={<UserResetPassword />} />
-
         {/* Salon Routes */}
         <Route path="/salonLogin" element={isLogged && role === 'salon' ? <Navigate to="/salonHome" /> : <SalonLogin />} />
         <Route path="/salonHome" element={isLogged && role === 'salon' ? <SalonHomePage /> : <Navigate to="/salonLogin" />} />
