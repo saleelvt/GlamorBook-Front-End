@@ -23,6 +23,7 @@ const SalonDetailsPage: React.FC = () => {
   const { salonId} = useParams<{ salonId: string }>();
   console.log('this sis my salon id ',salonId );
 
+  
 
   const navigate = useNavigate();
   const [mySalon, setMySalon] = useState<SalonInterface | null>(null);

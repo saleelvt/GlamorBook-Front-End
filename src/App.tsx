@@ -22,6 +22,7 @@ import SalonLogin from "./components/Forms/salon/salonLogin";
 import SalonOtpVerify from "./components/pages/salon/salonOtpVerify";
 import SalonForgotPassword from "./components/Forms/salon/forgotPassword";
 import SalonResetPassword from "./components/pages/salon/salonResetPassword";
+import UserSalonDetailsPage from "./components/pages/user/userSalonDetails";
 
 
 
@@ -90,6 +91,7 @@ const  userId :any =userData?._id
         <Route path="/userForgot" element={<UserForgotPassword />} />
         <Route path="/UserEmailverify" element={<UserEmailVerify />} />
         <Route path="/userHomepage" element={isLogged && role === 'user' ? <UserHomepage /> : <Navigate to="/" />} />
+        <Route path="/salonDetails/:salonId" element={isLogged && role === 'user' ? <UserSalonDetailsPage /> : <Navigate to="/" />} />
         <Route path="/userResetPassword" element={<UserResetPassword />} />
         {/* Salon Routes */}
         <Route path="/salonLogin" element={isLogged && role === 'salon' ? <Navigate to="/salonHome" /> : <SalonLogin />} />

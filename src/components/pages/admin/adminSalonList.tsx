@@ -201,10 +201,11 @@ const SalonList: React.FC = () => {
               <div className=" shadow-2xl  ml-12  mt-12 rounded-lg border-[0.9px]   border-black p-[0.9px]">
                 <div
                   key={Salon._id}
-                  onClick={() => navigate(`/admin/salon/${Salon._id}`)}
+                 
                   className="flex justify-center items-center"
                 >
-                  <img
+                  <img 
+                   onClick={() => navigate(`/admin/salon/${Salon._id}`)}
                     src={Salon.profilePicture || "/default-profile.png"}
                     alt={`${Salon.userName}'s profile`}
                     className=" max-h-44  min-w-full rounded-lg shadow-xl"
