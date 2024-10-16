@@ -16,23 +16,96 @@ import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 import { useUserLocation } from "./useUserLocation";
 import { useNavigate } from "react-router-dom";
+// import { Button } from '@nextui-org/react';
+import  {HaversineDistance}  from "../../mapComponent/haversineDistance";
+import {MapContainer,TileLayer,Marker,Popup} from 'react-leaflet';
+import L from "leaflet"
+import 'leaflet/dist/leaflet.css';
+import styled from 'styled-components';
+// import { SalonInterface } from "../../../interfaces/salon/salonInterface";
+
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
+const AppContainer = styled.div`
+  padding: 20px;
+  font-family: Arial, sans-serif;
+`;
+
+const Button = styled.button`
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-weight: bold;
+`;
+
+const MapWrapper = styled.div`
+  height: 400px;
+  width: 100%;
+  margin-top: 20px;
+`;
+
+const NearestSalonInfo = styled.div`
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+`;
+
 
 function UserHomepage() {
   const { role } = useSelector((state: RootState) => state.auth);
-  const [salons, setSalons] = useState<SalonInterface[] | null>([]);
-  // const [mySalon,setMySalon]= useState<SalonInterface|null>(null)
-  const [loading, setLoading] = useState<boolean>(true);
+  const [salons, setSalons] = useState<SalonInterface[] >([]);
+  const [NearestSalon,setNearestSalon]= useState<SalonInterface|null>(null)
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
   const { location } = useUserLocation(setLoading);
   const navigate=useNavigate()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     console.log(
       "it fro the saln logfin ",
       role,
-      "iam very exited about this location ",
+      " This is the current user latitude and longitude  ",
       location
     );
-
+    
     const fetchAllSalons = async () => {
       try {
         const response = await commonRequest("GET", "/getAllSalon", config);
@@ -45,13 +118,105 @@ function UserHomepage() {
   }, []);
 
 
+  const userLatitude :number = location? location.lat : 0
+  const userLongitude:number= location? location.lng :0
+  const userLocations:[number,number]= [userLatitude,userLongitude]
+  console.log("this is the all salons ===========  ", salons);
+  console.log("this is the all userLocations ===========  ", userLocations);
+
+
+  
+
+   const  findNearestSalon=  (location:[number|null,number|null])=>{
+
+    setLoading(true)
+
+    if(salons?.length===0){
+
+      setError("the salon is null or undifined ")
+      
+      return 
+      
+    } 
+    let   nearest = salons[0];
+
+    console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn,",location,"777777777777777777",nearest.latitude, nearest.longitude);
+    let shortestDistence = HaversineDistance(userLocations[0],userLocations[1],nearest.latitude ? nearest.latitude :0,nearest.longitude ? nearest.longitude :0)
+
+    for(const salon of salons){
+
+      const distence= HaversineDistance(userLocations[0],userLocations[1],salon.latitude ? salon.latitude :0,salon.longitude ? salon.longitude :0)
+
+      if(distence<shortestDistence){
+        shortestDistence=distence;
+        nearest= salon
+      }
+    }
+    setNearestSalon(nearest)
+    setLoading(false)
+   }
+  
+
+
+
+
   if (loading) return <Loading />;
-  console.log("myyyyyyyyyyyyyyyyyyyy salooooooooooooooooon ", salons);
   return (
     <div>
       <UserNavbar />
       <ImageCarousel />
+      <header className="welcome-header mt-12 bg-gradient-to-b from-gray-100 via-gray-100 via-gray-200   to-green-900">
+            <h1 className='text-2xl text-black'>Welcome to GlamorBook!</h1>
+            <p className='text-black'>Your Salon's new Home for easy service management and booking..</p>
+           
+        
+          <AppContainer>
+      <h1>Salon Finder</h1>
+      <Button
+            onClick={()=>{findNearestSalon(userLocations)} }
+            disabled={loading}
+            // radius="full"
+            className="bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white shadow-lg  mt-12 rounded-md"
+          >
+            {loading ? 'Loading...' : 'Find Nearest Salon'}
+          </Button>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+      {userLocations && (
+        <MapWrapper>
+          <MapContainer center={userLocations} zoom={13} style={{ height: '100%', width: '100%' }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {salons.map((salon) => (
+              <Marker 
+                key={salon._id} 
+                position={[salon.latitude ? salon.latitude : 0, salon.longitude ? salon.longitude : 0]}
+                icon={salon === NearestSalon ? new L.Icon({
+                  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                  iconSize: [25, 41],
+                  iconAnchor: [12, 41],
+                  popupAnchor: [1, -34],
+                  shadowSize: [41, 41]
+                }) : undefined}
+              >
+                <Popup>{salon.salonName}</Popup>
+              </Marker>
+            ))}
+            <Marker position={userLocations}>
+              <Popup>Your Location</Popup>
+            </Marker>
+          </MapContainer>
+        </MapWrapper>
+      )}
+      {NearestSalon && (
+        <NearestSalonInfo>
+          <h2>Nearest Salon:</h2>
+          <p><strong>Name:</strong> {NearestSalon.salonName}</p>
+          <p><strong>Distance:</strong> {userLocations ? HaversineDistance(userLocations[0], userLocations[1],NearestSalon.latitude ? NearestSalon.latitude :0,NearestSalon.longitude ? NearestSalon.longitude :0).toFixed(2) : 'N/A'} km</p>
+        </NearestSalonInfo>
+      )}
+    </AppContainer>
 
+        </header>
       <h1 className="text-2xl  font-bold  font-mono mt-8 lg:ml-28">For you</h1>
       <div className="  mt-4     bg-slate-200  flex justify-center ">
         {salons?.map((Salon, index) => (

@@ -1,74 +1,177 @@
-// import { useSelector } from "react-redux";
-import UserNavbar from "../../Navbar/userNavbar";
-// import { RootState } from "../../../reduxKit/store";
-// import myimage from "../../../assets/images/15ae9124-5e52-4ec8-b26e-f4839fbacf18(1).jpg";
-import myimage3 from "../../../assets/images/5453a833-f9da-4a36-a51c-1c418f3d733d-ThePodiumSalonBarberCo-SG-Singapore-Singapore-Rochor-Fresha.jpg";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import ImageCarousel from "../../carousels/salonCarousels";
-import SalonFooter from "../../footer/salonFooter";
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+// import L from 'leaflet';
+// import 'leaflet/dist/leaflet.css';
+// import styled from 'styled-components';
 
-function UserHomepage() {
-  // const { role } = useSelector((state: RootState) => state.auth);
-  return (
-    <div>
-      
+// // Fix Leaflet's icon problem
+// delete (L.Icon.Default.prototype as any)._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+//   iconUrl: require('leaflet/dist/images/marker-icon.png'),
+//   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+// });
 
-      <UserNavbar />
-      <ImageCarousel />
-      {/* <div className="w-full h-96 mt-12   bg-slate-200 flex justify-center ">
+// Styled components
+// const AppContainer = styled.div`
+//   padding: 20px;
+//   font-family: Arial, sans-serif;
+// `;
 
-        <div className="w-2/3 rounded-lg  h-full ">
-        <img className="w-full h-full rounded-lg shadow-2xl" src={myimage} alt="" /></div>
-      </div> */}
-      {/* <p>this is the home page of the {role}</p> */}
+// const Button = styled.button`
+//   padding: 10px 15px;
+//   background-color: #4CAF50;
+//   color: white;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   font-size: 16px;
 
-      <h1 className="text-2xl  font-bold  font-mono mt-8 lg:ml-28">For you</h1>
-      <div className="  mt-4     bg-slate-200  flex justify-center ">
-        <div className="relative  ml-4 flex shadow-lg flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-80">
-          <div className="relative  p-2 sh h-72 overflow-hidden rounded-lg bg-clip-border">
-            <img
-              src={myimage3}
-              alt="card-image"
-              className="h-full w-full object-cover rounded-md"
-            />
-          </div>
-          <div className="p-4">
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-slate-800 text-xl font-semibold">
-                Apple AirPods
-              </p>
-              <p className="text-cyan-600 text-xl font-semibold">$95.00</p>
-            </div>
-            <p className="text-slate-600 leading-normal font-light">
-              With plenty of talk and listen time, voice-activated Siri access,
-              and an available wireless charging case.
-            </p>
-            <div className="felx justify-center  ">
-              <button
-                className="rounded-md mt-6 bg-blue-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-              >
-                <span className="flex items-center">
-                  Get
-                  <FaMapMarkerAlt size={20} className="ml-2" />{" "}
-                  {/* Map marker icon */}
-                </span>
-              </button>
-              <button
-                className="rounded-md  ml-16 bg-gradient-to-b from-green-500 via-green-700 to-green-900 py-2 px-4 border  text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-              >
-                Book Your Slote
-              </button>
-            </div>
-          </div>
-        </div>
-       
-      </div>
+//   &:disabled {
+//     background-color: #cccccc;
+//     cursor: not-allowed;
+//   }
+// `;
 
-      <SalonFooter />
-    </div>
-  );
-}
+// const ErrorMessage = styled.p`
+//   color: red;
+//   font-weight: bold;
+// `;
 
-export default UserHomepage;
+// const MapWrapper = styled.div`
+//   height: 400px;
+//   width: 100%;
+//   margin-top: 20px;
+// `;
+
+// const NearestSalonInfo = styled.div`
+//   margin-top: 20px;
+//   padding: 15px;
+//   background-color: #f0f0f0;
+//   border-radius: 4px;
+// `;
+
+// // Interfaces
+// interface Salon {
+//   _id: string;
+//   name: string;
+//   lat: number;
+//   lon: number;
+// }
+
+// // Haversine distance calculation function
+// function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+//   const R = 6371; // Earth's radius in kilometers
+//   const dLat = (lat2 - lat1) * Math.PI / 180;
+//   const dLon = (lon2 - lon1) * Math.PI / 180;
+//   const a = 
+//     Math.sin(dLat/2) * Math.sin(dLat/2) +
+//     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+//     Math.sin(dLon/2) * Math.sin(dLon/2);
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+//   return R * c; // Distance in kilometers
+// }
+
+// const App: React.FC = () => {
+//   const [salons, setSalons] = useState<Salon[]>([]);
+//   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+//   const [nearestSalon, setNearestSalon] = useState<Salon | null>(null);
+//   const [loading, setLoading] = useState<boolean>(false);
+//   const [error, setError] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     fetchSalons();
+//   }, []);
+
+//   const fetchSalons = async () => {
+//     try {
+//       setLoading(true);
+//       const response = await axios.get<Salon[]>('http://your-backend-url/api/salons');
+//       setSalons(response.data);
+//     } catch (err) {
+//       setError('Error fetching salons');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const getUserLocation = () => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const userLoc: [number, number] = [position.coords.latitude, position.coords.longitude];
+//           setUserLocation(userLoc);
+//           findNearestSalon(userLoc);
+//         },
+//         (error) => {
+//           setError("Error getting user location: " + error.message);
+//         }
+//       );
+//     } else {
+//       setError("Geolocation is not supported by this browser.");
+//     }
+//   };
+
+//   const findNearestSalon = (location: [number, number]) => {
+//     if (salons.length === 0) return;
+
+//     let nearest = salons[0];
+//     let shortestDistance = haversineDistance(location[0], location[1], nearest.lat, nearest.lon);
+
+//     for (const salon of salons) {
+//       const distance = haversineDistance(location[0], location[1], salon.lat, salon.lon);
+//       if (distance < shortestDistance) {
+//         shortestDistance = distance;
+//         nearest = salon;
+//       }
+//     }
+
+//     setNearestSalon(nearest);
+//   };
+
+//   return (
+//     <AppContainer>
+//       <h1>Salon Finder</h1>
+//       <Button onClick={getUserLocation} disabled={loading}>
+//         {loading ? 'Loading...' : 'Find Nearest Salon'}
+//       </Button>
+//       {error && <ErrorMessage>{error}</ErrorMessage>}
+//       {userLocation && (
+//         <MapWrapper>
+//           <MapContainer center={userLocation} zoom={13} style={{ height: '100%', width: '100%' }}>
+//             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+//             {salons.map((salon) => (
+//               <Marker 
+//                 key={salon._id} 
+//                 position={[salon.lat, salon.lon]}
+//                 icon={salon === nearestSalon ? new L.Icon({
+//                   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+//                   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+//                   iconSize: [25, 41],
+//                   iconAnchor: [12, 41],
+//                   popupAnchor: [1, -34],
+//                   shadowSize: [41, 41]
+//                 }) : undefined}
+//               >
+//                 <Popup>{salon.name}</Popup>
+//               </Marker>
+//             ))}
+//             <Marker position={userLocation}>
+//               <Popup>Your Location</Popup>
+//             </Marker>
+//           </MapContainer>
+//         </MapWrapper>
+//       )}
+//       {nearestSalon && (
+//         <NearestSalonInfo>
+//           <h2>Nearest Salon:</h2>
+//           <p><strong>Name:</strong> {nearestSalon.name}</p>
+//           <p><strong>Distance:</strong> {userLocation ? haversineDistance(userLocation[0], userLocation[1], nearestSalon.lat, nearestSalon.lon).toFixed(2) : 'N/A'} km</p>
+//         </NearestSalonInfo>
+//       )}
+//     </AppContainer>
+//   );
+// };
+
+// export default App;

@@ -11,12 +11,15 @@ import { useEffect, useState } from "react";
 
   
     useEffect(() => {
+      
       if ("geolocation" in navigator) {
         setLoading(true)
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
+            
+            console.log("the gioloaction going my ",lat,lng);
             setLocation({ lat, lng });
             setLoading(false); // Stop loading once location is fetched
           },
