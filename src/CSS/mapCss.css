@@ -1,0 +1,7 @@
+
+
+.custom-icon {
+    border-radius: 50%; /* Make the icon circular */
+    border: 2px solid #fff; /* Optional: add a white border around the icon */
+    overflow: hidden; /* Ensure the image doesn't overflow */
+  }

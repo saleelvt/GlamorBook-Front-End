@@ -16,20 +16,28 @@ import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 import { useUserLocation } from "./useUserLocation";
 import { useNavigate } from "react-router-dom";
+import salonProifleImage from "../../../assets/images/marker.png"
+import "../../../CSS/mapCss.css"
 // import { Button } from '@nextui-org/react';
 import  {HaversineDistance}  from "../../mapComponent/haversineDistance";
 import {MapContainer,TileLayer,Marker,Popup} from 'react-leaflet';
-import L from "leaflet"
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import styled from 'styled-components';
 // import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+const customIcon = new L.Icon({
+  iconUrl: `${salonProifleImage}`, // Dynamic salon profile image URL
+  iconSize: [30, 40],         // Adjust the icon size to a smaller, rounded profile
+  iconAnchor: [20, 40],       // Adjust anchor point for better positioning
+  popupAnchor: [0, -40],      // Position of the popup relative to the icon
+  shadowSize: [50, 64],       // Size of the shadow (optional)
+  className: 'custom-icon'    // CSS class for additional styling
 });
+
+
+
+
 const AppContainer = styled.div`
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -78,19 +86,6 @@ function UserHomepage() {
 
   const { location } = useUserLocation(setLoading);
   const navigate=useNavigate()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -171,7 +166,7 @@ function UserHomepage() {
            
         
           <AppContainer>
-      <h1>Salon Finder</h1>
+      
       <Button
             onClick={()=>{findNearestSalon(userLocations)} }
             disabled={loading}
@@ -183,22 +178,36 @@ function UserHomepage() {
           {error && <ErrorMessage>{error}</ErrorMessage>}
       {userLocations && (
         <MapWrapper>
-          <MapContainer center={userLocations} zoom={13} style={{ height: '100%', width: '100%' }}>
+          <MapContainer center={userLocations} zoom={15} style={{ height: '100%', width: '70%',marginLeft:"15%"  ,border:"1px solid black",borderRadius:'10px'  }}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {salons.map((salon) => (
               <Marker 
+              
                 key={salon._id} 
                 position={[salon.latitude ? salon.latitude : 0, salon.longitude ? salon.longitude : 0]}
-                icon={salon === NearestSalon ? new L.Icon({
-                  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                  iconSize: [25, 41],
-                  iconAnchor: [12, 41],
-                  popupAnchor: [1, -34],
-                  shadowSize: [41, 41]
-                }) : undefined}
+                icon={customIcon}
               >
-                <Popup>{salon.salonName}</Popup>
+                 <Popup>
+              <div>
+                <strong>{salon.salonName}</strong>
+                <br />
+                <button
+                  onClick={() => navigate(`/salonDetails/${salon._id}`)} // Navigate to the salon details page
+                  style={{
+                    backgroundColor: 'green',
+                    color: 'white',
+                    border: 'none',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    marginTop: '5px',
+                  }}
+                >
+                  View Details
+                </button>
+              </div>
+            </Popup>
+            
               </Marker>
             ))}
             <Marker position={userLocations}>
@@ -209,9 +218,9 @@ function UserHomepage() {
       )}
       {NearestSalon && (
         <NearestSalonInfo>
-          <h2>Nearest Salon:</h2>
-          <p><strong>Name:</strong> {NearestSalon.salonName}</p>
-          <p><strong>Distance:</strong> {userLocations ? HaversineDistance(userLocations[0], userLocations[1],NearestSalon.latitude ? NearestSalon.latitude :0,NearestSalon.longitude ? NearestSalon.longitude :0).toFixed(2) : 'N/A'} km</p>
+          <h2 className="text-black font-semibold"></h2>
+          <p className="text-black font-semibold" >Nearest Salon Name:{NearestSalon.salonName}</p>
+          <p className="text-black font-semibold"><strong>Distance:</strong> {userLocations ? HaversineDistance(userLocations[0], userLocations[1],NearestSalon.latitude ? NearestSalon.latitude :0,NearestSalon.longitude ? NearestSalon.longitude :0).toFixed(2) : 'N/A'} km</p>
         </NearestSalonInfo>
       )}
     </AppContainer>
