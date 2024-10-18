@@ -115,7 +115,8 @@ function SalonVerifyOtp() {
 
 useEffect(()=>{
 
-  let countdown:number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let countdown:any
 
   if(timer>0){
     countdown= setTimeout(()=> setTimer((prev)=> { 

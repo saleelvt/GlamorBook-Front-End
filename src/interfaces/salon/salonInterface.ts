@@ -1,3 +1,5 @@
+import { ServiceInterface } from "./serviceInterface";
+
 export  interface SalonInterface {
   _id?: string;
   userName: string 
@@ -18,6 +20,7 @@ export  interface SalonInterface {
   seat?: { seatNumber: number; description?: string }[]; // Structured array for seats
   latitude?: number | null; // Add latitude
   longitude?: number | null; // Add longitude
+  services?:ServiceInterface
 }
 
 

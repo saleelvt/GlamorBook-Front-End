@@ -1,7 +1,7 @@
 import React from "react";
 import { ClipLoader } from "react-spinners"; // Optional, only if using react-spinners
 
- export const Loader: React.FC = () => {
+  const Loader: React.FC = () => {
   return (
     <div style={styles.loaderContainer}>
       {/* Spinner from react-spinners, customize size and color */}
@@ -29,3 +29,4 @@ const styles: { [key: string]: React.CSSProperties } = {
 };
 
 
+export default Loader;

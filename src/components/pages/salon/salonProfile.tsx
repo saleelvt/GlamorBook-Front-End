@@ -66,7 +66,7 @@ export const SalonProfilePage: React.FC = () => {
 
   
   return (
-    <div className="max-w-4xl mx-auto p-6 lg:mt-14 bg-white shadow-lg rounded-lg">
+    <div className="max-w-4xl mx-auto p-6 lg:mt-14 scrollable-div bg-white shadow-lg rounded-lg">
       {/* Profile Header */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Profile Picture */}
@@ -108,7 +108,7 @@ export const SalonProfilePage: React.FC = () => {
               {myProfile?.licenseDocument || "N/A"}
             </span>
           </p> */}
-           <div className="w-64 h-64 rounded-xl overflow-hidden border border-gray-300">
+           <div className="w-64 h-64 rounded-xl  overflow-y-auto border border-gray-300">
           {myProfile?.licenseDocument ? (
             <img
               src={myProfile?.licenseDocument}

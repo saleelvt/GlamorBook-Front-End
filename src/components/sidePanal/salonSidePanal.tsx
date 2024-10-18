@@ -10,16 +10,17 @@ import {
   FaCog,
 } from "react-icons/fa";
 
-import  {SalonProfilePage} from "../pages/salon/salonProfile"
+import { SalonProfilePage } from "../pages/salon/salonProfile";
+import SalonServiceList from "../pages/salon/salonServiceList";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reduxKit/store";
 
- export const SalonSidebar: React.FC = () => {
+export const SalonSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true); // Sidebar starts open
   const [activeComponent, setActiveComponent] = useState<any>(null);
 
-  const {role,userData}=useSelector((state:RootState)=> state.auth)
-  const {email}:any=userData
+  const { role, userData } = useSelector((state: RootState) => state.auth);
+  const { email }: any = userData;
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -49,7 +50,7 @@ import { RootState } from "../../reduxKit/store";
           <div className="w-12 h-12 rounded-full bg-gray-400"></div>
           <div>
             <h2 className="text-lg font-semibold"> {` Role:${role}`}</h2>
-            <span className="text-sm font-medium text-gray-300">{`Email: ${email }`}</span>
+            <span className="text-sm font-medium text-gray-300">{`Email: ${email}`}</span>
           </div>
         </div>
 
@@ -76,31 +77,25 @@ import { RootState } from "../../reduxKit/store";
           >
             <FaListAlt className="mr-3" /> Booking List
           </NavLink>
-          <NavLink
-            to="/adminSalonList"
-            className={({ isActive }) =>
-              `flex items-center px-4 py-3  rounded-xl text-gray-800 hover:bg-gray-700 hover:text-white transition-all duration-300 ${
-                isActive ? "bg-gray-700" : ""
-              }`
-            }
-          >
-            <FaListAlt className="mr-3" /> Service List
-          </NavLink>
+          <div className=" ">
+            <button
+              className="flex items-center px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-700 w-64 hover:text-white transition-all duration-300"
+              onClick={() => setActiveComponent("salonServiceList")}
+            >
+              <FaUser className="mr-3" /> Service List
+            </button>
+            {/* Add other side panel buttons if needed */}
+          </div>
 
-
-
-
-    <div className=" ">
-        <button
-          className="flex items-center px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-700 w-64 hover:text-white transition-all duration-300"
-          onClick={() => setActiveComponent("profile")}
-        >
-          <FaUser className="mr-3" /> Profile
-        </button>
-        {/* Add other side panel buttons if needed */}
-      </div>
-
-
+          <div className=" ">
+            <button
+              className="flex items-center px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-700 w-64 hover:text-white transition-all duration-300"
+              onClick={() => setActiveComponent("profile")}
+            >
+              <FaUser className="mr-3" /> Profile
+            </button>
+            {/* Add other side panel buttons if needed */}
+          </div>
 
           <NavLink
             to="/salonSettings"
@@ -117,49 +112,20 @@ import { RootState } from "../../reduxKit/store";
         {/* Logout Section */}
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       {/* Main Content */}
-      <div className="flex-1 p-16">
-
-        <div className="p-6 rounded-lg  bg-slate-200 shadow-md">
+      <div className="flex-auto p-5 ">
+        <div className="p-6 rounded-lg  bg-slate-100   shadow-md">
           {/* Replace with actual content */}
-          <h2 className="text-2xl font-semibold mb-4">
-            Welcome to the Salon Panel
-          </h2>
-          
+   
 
-          <div className="w-3/3 p-4">
-        {activeComponent === "profile" && <SalonProfilePage />} {/* Conditionally render Profile component */}
-      </div>
-
+        
+            {activeComponent === "profile" && <SalonProfilePage />}{" "}
+            {/* Conditionally render Profile component */}
+            {activeComponent === "salonServiceList" && (
+              <SalonServiceList />
+            )}{" "}
+            {/* Conditionally render Profile component */}
+       
         </div>
       </div>
     </div>

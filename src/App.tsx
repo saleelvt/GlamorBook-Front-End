@@ -10,11 +10,13 @@ import UserEmailVerify from "./components/Forms/user/UserEmailVerify";
 import UserHomepage from "./components/pages/user/userHomepage";
 import UserResetPassword from "./components/pages/user/userResetPassword";
 import { SalonProfilePage } from "./components/pages/salon/salonProfile";
+import AddServiceForm from "./components/pages/salon/addService";
 
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
 import AdminSalonList from "./components/pages/admin/adminSalonList";
 import SalonDetailsPage from "./components/pages/admin/salonDetailsPage";
+import  SalonServiceList  from "./components/pages/salon/salonServiceList";
 
 import SalonHomePage from "./components/pages/salon/salonHomePage";
 import SalonSignUp from "./components/Forms/salon/salonSignup";
@@ -101,6 +103,8 @@ const  userId :any =userData?._id
         <Route path="/forgotPassword" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonForgotPassword />} />
         <Route path="/salonResetPassword" element={isLogged && role === 'salon' ? <SalonHomePage /> : <SalonResetPassword />} />
         <Route path="/salonProfile" element={isLogged && role === 'salon' ? <SalonProfilePage /> : <SalonLogin />} />
+        <Route path="/salonServiceList" element={isLogged && role === 'salon' ? <SalonServiceList /> : <SalonLogin />} />
+        <Route path="/addService" element={isLogged && role === 'salon' ? <AddServiceForm /> : <SalonLogin />} />
  
         {/* Admin Routes */}
         <Route path="/adminHomepage" element={isLogged && role === 'admin' ? <AdminHomePage /> : <AdminLogin />} />
