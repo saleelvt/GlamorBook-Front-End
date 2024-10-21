@@ -47,12 +47,10 @@ const Button = styled.button`
     cursor: not-allowed;
   }
 `;
-
 const ErrorMessage = styled.p`
   color: red;
   font-weight: bold;
 `;
-
 const MapWrapper = styled.div`
   height: 400px;
   width: 100%;
@@ -286,7 +284,7 @@ function UserHomepage() {
 
               <div className="felx justify-center  ">
                 <button
-                  className="rounded-md mt-6 bg-blue-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  className="buttonGet rounded-md mt-6 bg-blue-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   type="button"
                 >
                   <span className="flex items-center">
@@ -296,7 +294,7 @@ function UserHomepage() {
                   </span>
                 </button>
                 <button
-                  className="rounded-md  ml-16 bg-gradient-to-b from-green-500 via-green-700 to-green-900 py-2 px-4 border  text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  className="buttonBook rounded-md  ml-16 bg-gradient-to-b from-green-500 via-green-700 to-green-900 py-2 px-4 border  text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   type="button"
                 >
                   Book Your Slote

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {validationSchema} from "../../../validations/salon/addServiceValidation"
 import Navbar from "../../Navbar/salonNavbar";
+
+
 
 
 // Define the initial form values
@@ -12,21 +14,25 @@ interface FormValues {
   duration: number;
 }
 
-const AddServiceForm: React.FC = () => {
+const AddServiceForm: React.FC = React.memo(() => {
   const navigate = useNavigate();
 
-
   // Handle form submission
-  const handleSubmit = (values: FormValues, { setSubmitting,resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
-    // Perform the form submission (e.g., send data to API)
+  const handleSubmit = useCallback((values: FormValues, { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
     setSubmitting(true);
+    
+    // Simulate an API call with a timeout
+ 
+      console.log(values,'fdddddfdfdvvvvvvvvvvvvvvvvvvvdddddd');
+      resetForm(); // Reset the form after submission
+      setSubmitting(false); // Turn off the loading indicator
+ 
+  }, []);
+  
 
-    console.log(values);
-    setSubmitting(false);
-    resetForm()
-   // Reset the form after submission
-  };
-
+  const backpage=  useCallback(()=>{
+             navigate(-1)
+  },[])
   return (
 <div className="">
         <Navbar/>
@@ -98,8 +104,8 @@ const AddServiceForm: React.FC = () => {
                   {/* Back Button */}
                   <button
                     type="button"
-                    onClick={() => navigate(-1)}
-                    className="p-2 text-sm font-bold bg-gradient-to-b from-gray-500 via-gray-700 to-gray-900 rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out text-white"
+                    onClick={backpage}
+                    className="backbutton p-2 text-sm font-bold bg-gradient-to-b from-gray-500 via-gray-700 to-gray-900 rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out text-white"
                   >
                     Back
                   </button>
@@ -112,6 +118,6 @@ const AddServiceForm: React.FC = () => {
     </div>
     </div>
   );
-};
+})
 
 export default AddServiceForm;
