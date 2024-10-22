@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import axios from "axios";
 import { URL, config } from "../../../config/constants";
+// import { ServiceInterface } from "../../../interfaces/salon/serviceInterface";
 
 export const signupSalon = createAsyncThunk(
   "salon/signup",
@@ -72,27 +74,29 @@ export const salonOtpVerify = createAsyncThunk(
         profilePicture,
         seat,
         salonName,
-        state,
+        state
       );
 
       const { data } = await axios.post(
         `${URL}/salon/verify-otp`,
-        { otp,
-        email,
-        userName,
-        password,
-        role,
-        status,
-        city,
-        images,
-        latitude,
-        longitude,
-        licenseDocument,
-        phone,
-        profilePicture,
-        seat,
-        salonName,
-        state,},
+        {
+          otp,
+          email,
+          userName,
+          password,
+          role,
+          status,
+          city,
+          images,
+          latitude,
+          longitude,
+          licenseDocument,
+          phone,
+          profilePicture,
+          seat,
+          salonName,
+          state,
+        },
         config
       );
 
@@ -133,3 +137,19 @@ export const salonForgotPassword = createAsyncThunk(
     }
   }
 );
+
+
+export const SalonAddService = createAsyncThunk(
+  "addService",
+  async({_id,serviceName,price,duration}:any,{rejectWithValue})=>{
+   
+    try {
+     console.log( 'goiing ot axios post hte ', _id,serviceName,price,duration);
+
+     await axios.post(`${URL},salon/addSalonService`,{_id,serviceName,price,duration},config)
+     
+    }  catch (error: any) {
+      return rejectWithValue("Failed to reset password");
+    }
+  }
+)

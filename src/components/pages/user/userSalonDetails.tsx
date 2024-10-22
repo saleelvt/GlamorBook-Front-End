@@ -79,3 +79,8 @@ const UserSalonDetailsPage: React.FC = () => {
 };
 
 export default UserSalonDetailsPage;
+
+
+
+
+

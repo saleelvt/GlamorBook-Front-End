@@ -12,7 +12,7 @@ export const SalonProfilePage: React.FC = () => {
 
  const [myProfile,setMyProfile]=useState<SalonInterface|null>(null)
 
-    const {role,userData}=useSelector((state:RootState)=> state.auth,)
+    const {role,userData}=useSelector((state:RootState)=> state.auth)
      const salonIdForPorpuse = userData?._id 
     //   migth be id is null 
     console.log("thi data for the salonProfile page ", role,salonIdForPorpuse);

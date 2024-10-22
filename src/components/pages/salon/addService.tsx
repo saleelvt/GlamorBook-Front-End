@@ -3,36 +3,39 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {validationSchema} from "../../../validations/salon/addServiceValidation"
 import Navbar from "../../Navbar/salonNavbar";
-
-
-
-
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../reduxKit/store";
+import { SalonAddService } from "../../../reduxKit/actions/salon/salonActions";
+import { useDispatch } from "react-redux";
+import { ServiceInterface } from "../../../interfaces/salon/serviceInterface";
 // Define the initial form values
-interface FormValues {
-  serviceName: string;
-  price: number;
-  duration: number;
-}
+
 
 const AddServiceForm: React.FC = React.memo(() => {
+  const dispatch= useDispatch<AppDispatch>()
   const navigate = useNavigate();
+  const {userData}=useSelector((state:RootState)=> state.auth)
+     const _id = userData?._id 
+     console.log("saleelis44444444 a",_id);
+     
 
   // Handle form submission
-  const handleSubmit = useCallback((values: FormValues, { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
+  const handleSubmit = useCallback((values: ServiceInterface, { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
     setSubmitting(true);
     
     // Simulate an API call with a timeout
- 
-      console.log(values,'fdddddfdfdvvvvvvvvvvvvvvvvvvvdddddd');
+      const  a = {_id,...values}
+      console.log(a,'fdddddfdfdvvvvvvvvvvvvvvvvvvvdddddd');
+      
+      dispatch(SalonAddService({_id,...values}))
       resetForm(); // Reset the form after submission
       setSubmitting(false); // Turn off the loading indicator
  
   }, []);
-  
-
   const backpage=  useCallback(()=>{
              navigate(-1)
   },[])
+
   return (
 <div className="">
         <Navbar/>
