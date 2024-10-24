@@ -30,7 +30,7 @@ export const SalonSidebar: React.FC = () => {
     <div className="flex h-screen rounded-lg  bg-white ">
       {/* Sidebar */}
       <div
-        className={`flex flex-col  rounded-lg  text-white w-64 h-full transition-transform transform ${
+        className={`flex flex-col  border  border-gray-300   rounded-lg  text-white w-64 h-full transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:w-64  z-50 shadow-2xl`}
       >
@@ -47,7 +47,7 @@ export const SalonSidebar: React.FC = () => {
 
         {/* Profile Section */}
         <div className="flex justify-center  p-4 space-x-4  shadow-lg  rounded-md w-56  lg:ml-3 lg:mt-4 border border-gray-600 bg-gradient-to-b from-green-500 via-green-700 to-green-900">
-          <div className="w-12 h-12 rounded-full bg-gray-400"></div>
+          <div className="w-12 h-12 rounded-full bg-gray-200"></div>
           <div>
             <h2 className="text-lg font-semibold"> {` Role:${role}`}</h2>
             <span className="text-sm font-medium text-gray-300">{`Email: ${email}`}</span>
@@ -114,7 +114,7 @@ export const SalonSidebar: React.FC = () => {
 
       {/* Main Content */}
       <div className="flex-auto p-5 ">
-        <div className="p-6 rounded-lg  bg-slate-100   shadow-md">
+        <div className="p-6 rounded-lg  bg-slate-100 border  border-gray-300   shadow-md">
           {/* Replace with actual content */}
    
 

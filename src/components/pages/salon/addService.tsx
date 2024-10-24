@@ -8,6 +8,9 @@ import { AppDispatch, RootState } from "../../../reduxKit/store";
 import { SalonAddService } from "../../../reduxKit/actions/salon/salonActions";
 import { useDispatch } from "react-redux";
 import { ServiceInterface } from "../../../interfaces/salon/serviceInterface";
+import toast from "react-hot-toast";
+// import { setTimeout } from "timers";
+
 // Define the initial form values
 
 
@@ -20,30 +23,46 @@ const AddServiceForm: React.FC = React.memo(() => {
      
 
   // Handle form submission
-  const handleSubmit = useCallback((values: ServiceInterface, { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
+  const handleSubmit = useCallback(async(values: ServiceInterface, { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
     setSubmitting(true);
-    
     // Simulate an API call with a timeout
       const  a = {_id,...values}
       console.log(a,'fdddddfdfdvvvvvvvvvvvvvvvvvvvdddddd');
+
+     try {
+       await dispatch(SalonAddService(a)).unwrap()
+       toast.success("Service added successfully done ");
+      //  setTimeout(()=>{
+
+         resetForm(); // Reset the form after submission
+         navigate(-1)
+      //  },1000)
+    
+
+     } catch (error) {
+      console.error("Error adding service:", error);
+    } finally {
+     
+        setSubmitting(false); // End the loading state after delay
+     
+    }
       
-      dispatch(SalonAddService({_id,...values}))
-      resetForm(); // Reset the form after submission
-      setSubmitting(false); // Turn off the loading indicator
+   
  
-  }, []);
+  }, [_id, dispatch]);
+
   const backpage=  useCallback(()=>{
              navigate(-1)
-  },[])
+  },[navigate])
 
   return (
 <div className="">
         <Navbar/>
     <div className="p-6 max-w-2xl mx-auto ">
       {/* Form Container */}
-      <div className="shadow-lg px-4 bg-white border border-gray-400 rounded-lg overflow-hidden">
+      <div className="shadow-lg px-4 bg-green-50 border border-gray-400 rounded-lg overflow-hidden">
         <div className="p-5">
-          <h2 className="text-xl font-bold text-gray-800 mb-3">Add Service</h2>
+          <h2 className="text-xl font-serif text-gray-800 mb-3">Add Service</h2>
 
           <Formik
             initialValues={{ serviceName: "", price: 0, duration: 0 }}
@@ -99,7 +118,7 @@ const AddServiceForm: React.FC = React.memo(() => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="p-2 text-sm font-bold bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out text-white"
+                    className="p-2 text-sm font-serif bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out text-white"
                   >
                     {isSubmitting ? "Adding..." : "Add Service"}
                   </button>
@@ -108,7 +127,7 @@ const AddServiceForm: React.FC = React.memo(() => {
                   <button
                     type="button"
                     onClick={backpage}
-                    className="backbutton p-2 text-sm font-bold bg-gradient-to-b from-gray-500 via-gray-700 to-gray-900 rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out text-white"
+                    className="backbutton p-2 text-sm font-serif bg-gradient-to-b from-gray-500 via-gray-700 to-gray-900 rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out text-white"
                   >
                     Back
                   </button>

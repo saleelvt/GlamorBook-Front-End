@@ -248,14 +248,14 @@ function UserHomepage() {
           )}
         </AppContainer>
       </header>
-      <h1 className="text-2xl  font-bold  font-mono mt-8 lg:ml-28">For you</h1>
-      <div className="  mt-4     bg-slate-200  flex justify-center ">
+      <h1 className="text-2xl    ease-in-out  font-bold  font-mono mt-8 lg:ml-28">For you</h1>
+      <div className="  mt-4      bg-slate-200  flex justify-center ">
         {salons?.map((Salon, index) => (
           <div
             key={index}
-            className="relative  ml-4 flex shadow-lg flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-80"
+            className="relative   ml-4 flex shadow-lg flex-col my-6 bg-white shadow-sm border  ease-in-out border-slate-200 rounded-lg w-80"
           >
-            <div className="relative  p-2 sh h-72 overflow-hidden rounded-lg bg-clip-border">
+            <div className="relative hover:scale-105 transition-transform duration-300 ease-in-out   p-2 sh h-72 overflow-hidden rounded-lg bg-clip-border">
               <img
                 onClick={() => navigate(`/salonDetails/${Salon._id}`)}
                 src={Salon.profilePicture!}
@@ -294,7 +294,7 @@ function UserHomepage() {
                   </span>
                 </button>
                 <button
-                  className="buttonBook rounded-md  ml-16 bg-gradient-to-b from-green-500 via-green-700 to-green-900 py-2 px-4 border  text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  className="buttonBook rounded-md hover:scale-105 transition-transform duration-100 ease-in-out  ml-16 bg-gradient-to-b from-green-500 via-green-700 to-green-900 py-2 px-4 border  text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   type="button"
                 >
                   Book Your Slote

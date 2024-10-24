@@ -146,7 +146,7 @@ export const SalonAddService = createAsyncThunk(
     try {
      console.log( 'goiing ot axios post hte ', _id,serviceName,price,duration);
 
-     await axios.post(`${URL},salon/addSalonService`,{_id,serviceName,price,duration},config)
+     await axios.post(`${URL}/salon/addSalonService`,{_id,serviceName,price,duration},config)
      
     }  catch (error: any) {
       return rejectWithValue("Failed to reset password");

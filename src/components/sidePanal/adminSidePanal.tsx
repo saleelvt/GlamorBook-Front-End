@@ -87,7 +87,6 @@ const AdminSidebar: React.FC = () => {
             <FaCog className="mr-3" /> Settings
           </NavLink>
         </nav>
-
         {/* Logout Section */}
       </div>
 

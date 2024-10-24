@@ -25,13 +25,13 @@ const UserSalonDetailsPage: React.FC = () => {
       }
     };
     fetchSalonDetails();
-  }, [salonId]);
+  }, [salonId]);  
 
   return (
     <div className="">
       <UserNavbar />
       <div className="flex flex-col items-center justify-center min-h-screen p-6 ">
-        <div className="w-full max-w-4xl mx-auto bg-green-100  lg:mb-24 rounded-lg shadow-xl p-8 transition  transform hover:-translate-y-1 hover:scale-105">
+        <div className="w-full max-w-4xl mx-auto border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50  lg:mb-24 rounded-md shadow-xl p-8 transition  transform hover:-translate-y-1 hover:scale-100 duration-100">
           <div className="flex flex-col md:flex-row items-center">
             {/* Salon Profile Picture */}
             <div className="w-full md:w-1/3 mb-6 md:mb-0 md:mr-8">
