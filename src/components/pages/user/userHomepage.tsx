@@ -7,7 +7,7 @@ import { Loading } from "../Loading";
 import { FaPhoneAlt } from "react-icons/fa";
 import ImageCarousel from "../../carousels/salonCarousels";
 import SalonFooter from "../../footer/salonFooter";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
 import { SalonInterface } from "../../../interfaces/salon/salonInterface";
@@ -21,6 +21,9 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import styled from "styled-components";
+
+import toast from "react-hot-toast";
+
 const customIcon = new L.Icon({
   iconUrl: `${salonProifleImage}`, // Dynamic salon profile image URL
   iconSize: [30, 40], // Adjust the icon size to a smaller, rounded profile
@@ -97,17 +100,13 @@ function UserHomepage() {
   const userLocations: [number, number] = [userLatitude, userLongitude];
   console.log("this is the all salons ===========  ", salons);
   console.log("this is the all userLocations ===========  ", userLocations);
-
-  const findNearestSalon = (location: [number | null, number | null]) => {
+  const findNearestSalon =  useCallback((location: [number | null, number | null]) => {
     setLoading(true);
-
     if (salons?.length === 0) {
       setError("the salon is null or undifined ");
-
       return;
     }
     let nearest = salons[0];
-
     console.log(
       "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn,",
       location,
@@ -137,7 +136,17 @@ function UserHomepage() {
     }
     setNearestSalon(nearest);
     setLoading(false);
-  };
+  },[location])
+
+   function getTheDirection ( salon:SalonInterface|null){
+  if(userLatitude && userLongitude && salon?.latitude && salon?.longitude){
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLatitude},${userLongitude}&destination=${salon?.latitude},${salon?.longitude}&travelmode=driving`;
+    window.open(googleMapsUrl,"_blank")
+  }else{
+    toast.error("Error while fetching the direction ");
+  }
+}
+
   if (loading) return <Loading />;
   return (
     <div>
@@ -163,6 +172,7 @@ function UserHomepage() {
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {userLocations && (
             <MapWrapper>
+         
               <MapContainer
                 center={userLocations}
                 zoom={15}
@@ -286,6 +296,7 @@ function UserHomepage() {
                 <button
                   className="buttonGet rounded-md mt-6 bg-blue-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   type="button"
+                  onClick={()=>getTheDirection(Salon)}
                 >
                   <span className="flex items-center">
                     Get
