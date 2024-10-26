@@ -11,6 +11,7 @@ import UserHomepage from "./components/pages/user/userHomepage";
 import UserResetPassword from "./components/pages/user/userResetPassword";
 import { SalonProfilePage } from "./components/pages/salon/salonProfile";
 import AddServiceForm from "./components/pages/salon/addService";
+import ChatWindow from "./components/Chat/ChatWindow";
 
 import AdminHomePage from "./components/pages/admin/adminHomePage";
 import AdminLogin from "./components/Forms/admin/adminLoginPage";
@@ -51,13 +52,11 @@ const getRoleBasedRedirect = (isLogged: boolean, role: string | null) => {
     default:
       return <UserWelcomePage />;
   }
-
 };
 
 function App() {
   // Getting state from redux store
   const { role, isLogged ,userData } = useSelector((state: RootState) => state.auth);
-  
   const dispatch=useDispatch<ExtendedAppDispatch>()
   const [status,setStatus]= useState<any>(null)
   if(status){
@@ -95,6 +94,8 @@ const  userId :any =userData?._id
         <Route path="/userHomepage" element={isLogged && role === 'user' ? <UserHomepage /> : <Navigate to="/" />} />
         <Route path="/salonDetails/:salonId" element={isLogged && role === 'user' ? <UserSalonDetailsPage /> : <Navigate to="/" />} />
         <Route path="/userResetPassword" element={<UserResetPassword />} />
+        <Route path="/userChatPage" element={isLogged && role === 'user' ? <ChatWindow /> : <Navigate to="/" />} />
+        
         {/* Salon Routes */}
         <Route path="/salonLogin" element={isLogged && role === 'salon' ? <Navigate to="/salonHome" /> : <SalonLogin />} />
         <Route path="/salonHome" element={isLogged && role === 'salon' ? <SalonHomePage /> : <Navigate to="/salonLogin" />} />

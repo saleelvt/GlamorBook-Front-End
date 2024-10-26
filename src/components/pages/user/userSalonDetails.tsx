@@ -1,11 +1,12 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SalonInterface } from "../../../interfaces/salon/salonInterface";
 import { useParams, useNavigate } from "react-router-dom";
 import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
 import { FaClock } from "react-icons/fa";
 // import {}
-const UserNavbar = lazy(() => import("../../Navbar/userNavbar"));
+// const UserNavbar = lazy(() => import("../../Navbar/userNavbar"));
+import UserNavbar from "../../Navbar/userNavbar";
 // import UserNavbar from  lazy(()=> "../../Navbar/userNavbar")
 import { ServiceInterface } from "../../../interfaces/salon/serviceInterface";
 // import toast from "react-hot-toast";
@@ -86,7 +87,7 @@ const UserSalonDetailsPage: React.FC = () => {
             </div>
             
           </div>
-          <div className=" py-4 grid lg:grid-cols-2 place-items-center  gap-4  sm:grid-cols-1     ">
+          <div  className=" py-4 grid lg:grid-cols-2 place-items-center   gap-4  sm:grid-cols-1">
                 {services.length > 0
                   ? services.map((x, index) => (
                       <div className="shadow-lg     grid  w-10/12  border bg-white  border-gray-300 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
@@ -96,6 +97,7 @@ const UserSalonDetailsPage: React.FC = () => {
                             {" "}
                             {x?.serviceName}
                           </h2>
+
                           {/* Service Price */}
                           <p className="text-gray-600 mb-2">
                             <span className="font-semibold">

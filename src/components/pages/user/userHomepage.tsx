@@ -138,6 +138,19 @@ function UserHomepage() {
     setLoading(false);
   },[location])
 
+
+
+
+   const getchat = useCallback(()=>{
+
+    navigate('/userChatPage')
+
+   },[])
+
+
+
+
+
    function getTheDirection ( salon:SalonInterface|null){
   if(userLatitude && userLongitude && salon?.latitude && salon?.longitude){
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLatitude},${userLongitude}&destination=${salon?.latitude},${salon?.longitude}&travelmode=driving`;
@@ -146,6 +159,7 @@ function UserHomepage() {
     toast.error("Error while fetching the direction ");
   }
 }
+
 
   if (loading) return <Loading />;
   return (
@@ -278,9 +292,10 @@ function UserHomepage() {
                 <p className="text-slate-800 text-xl font-semibold">
                   {Salon.salonName}
                 </p>
-                <p className="text-4xl font-semibold">
+                <p  onClick={getchat} className="text-4xl font-semibold">
                   <BiMessageRoundedDetail />
                 </p>
+
               </div>
               <p className="text-slate-600 leading-normal font-light">
                 {`${Salon.city},${Salon.state}`}
