@@ -1,14 +1,33 @@
 import React, { useCallback, useState } from "react";
+import socket from "../../config/socket";
+import { IMessageData } from "../../interfaces/user/IMessageInterface";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reduxKit/store";
 
 const MessageInput: React.FC = React.memo(() => {
+  const { role,userData } = useSelector((state: RootState) => state.auth);
+  const currentUserId= userData?._id
   const [message, setMessage] = useState("");
+
+
+
   const handleSendMessage = useCallback(() => {
+    console.log("first call of chat function ",currentUserId);
     if (message.trim()) {
       // this is the logic section for cteate the message time
-      console.log("Messege sended from input ", message);
+      const sender = role === "salon" ? "salon" : "user";
+      console.log("Messege sended from input ", message, sender); 
+
+      const Message :IMessageData ={
+
+        content: message,timestamp: new Date(),userId:currentUserId
+
+      }
+      socket.emit("send_message", Message);
+      // socket.emit("send_message", { content: message, sender });
       setMessage("");
     }
-  }, []);
+  }, [message]);
 
   return (
     <div className="flex items-center p-3 border-t border-green-300">
