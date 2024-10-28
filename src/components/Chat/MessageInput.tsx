@@ -35,6 +35,10 @@ const MessageInput: React.FC = React.memo(() => {
     }
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target?.value);
+    socket.emit("typing", currentUserId); // Emit typing event when typing
+  };
   return (
     <div className="flex items-center p-1 border-t border-gray-300">
       <input
@@ -42,7 +46,7 @@ const MessageInput: React.FC = React.memo(() => {
         className="flex-1 p-2  text-xs rounded-md border border-gray-300 focus:outline-none   "
         placeholder=" Type a Message"
         value={message}
-        onChange={(e) => setMessage(e.target?.value)}
+        onChange={handleChange}
         onKeyDown={handleEnter}
       />
       
