@@ -12,7 +12,11 @@ export default {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      screens:{
+        "xs":"375px"
+      }
+    },
   },
   plugins: [],
 }

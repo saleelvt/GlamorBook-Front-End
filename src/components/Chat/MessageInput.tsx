@@ -3,13 +3,12 @@ import socket from "../../config/socket";
 import { IMessageData } from "../../interfaces/user/IMessageInterface";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reduxKit/store";
+import { FaPaperPlane } from 'react-icons/fa';
 
 const MessageInput: React.FC = React.memo(() => {
   const { role,userData } = useSelector((state: RootState) => state.auth);
   const currentUserId= userData?._id
   const [message, setMessage] = useState("");
-
-
 
   const handleSendMessage = useCallback(() => {
     console.log("first call of chat function ",currentUserId);
@@ -21,7 +20,6 @@ const MessageInput: React.FC = React.memo(() => {
       const Message :IMessageData ={
 
         content: message,timestamp: new Date(),userId:currentUserId
-
       }
       socket.emit("send_message", Message);
       // socket.emit("send_message", { content: message, sender });
@@ -29,21 +27,31 @@ const MessageInput: React.FC = React.memo(() => {
     }
   }, [message]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleEnter = (e:any)=>{
+    if(e.key==="Enter"){
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
   return (
-    <div className="flex items-center p-3 border-t border-green-300">
+    <div className="flex items-center p-1 border-t border-gray-300">
       <input
         type="text"
-        className="flex-1 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Type a Message"
+        className="flex-1 p-2  text-xs rounded-md border border-gray-300 focus:outline-none   "
+        placeholder=" Type a Message"
         value={message}
         onChange={(e) => setMessage(e.target?.value)}
+        onKeyDown={handleEnter}
       />
-
+      
       <button
         onClick={handleSendMessage}
-        className="ml-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none"
+       
+        className="ml-1 bg-gradient-to-b from-green-500 via-green-700 to-green-900 text-white p-2 text-sm rounded-md  focus:outline-none"
       >
-        Send
+        <FaPaperPlane />
       </button>
     </div>
   );
