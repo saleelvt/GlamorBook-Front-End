@@ -49,7 +49,6 @@ const MessageInput: React.FC = React.memo(() => {
         onChange={handleChange}
         onKeyDown={handleEnter}
       />
-      
       <button
         onClick={handleSendMessage}
        

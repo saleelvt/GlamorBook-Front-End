@@ -12,6 +12,7 @@ import {
 
 import { SalonProfilePage } from "../pages/salon/salonProfile";
 import SalonServiceList from "../pages/salon/salonServiceList";
+import { UserList } from "../pages/salon/userList";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reduxKit/store";
 
@@ -96,6 +97,15 @@ export const SalonSidebar: React.FC = () => {
             </button>
             {/* Add other side panel buttons if needed */}
           </div>
+          <div className=" ">
+            <button
+              className="flex items-center px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-700 w-64 hover:text-white transition-all duration-300"
+              onClick={() => setActiveComponent("userList")}
+            >
+              <FaUser className="mr-3" /> User List
+            </button>
+            {/* Add other side panel buttons if needed */}
+          </div>
 
           <NavLink
             to="/salonSettings"
@@ -119,12 +129,10 @@ export const SalonSidebar: React.FC = () => {
    
 
         
-            {activeComponent === "profile" && <SalonProfilePage />}{" "}
-            {/* Conditionally render Profile component */}
-            {activeComponent === "salonServiceList" && (
-              <SalonServiceList />
-            )}{" "}
-            {/* Conditionally render Profile component */}
+            {activeComponent === "profile" && <SalonProfilePage />}
+            {activeComponent === "salonServiceList" && ( <SalonServiceList /> )}
+            {activeComponent === "userList" && ( <UserList/> )}
+
        
         </div>
       </div>
