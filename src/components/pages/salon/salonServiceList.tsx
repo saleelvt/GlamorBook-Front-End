@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -7,6 +8,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../reduxKit/store";
 import { config } from "../../../config/constants";
 import { FaClock } from "react-icons/fa";
+import toast from "react-hot-toast";
+
 
 
 const SalonServiceList: FC = React.memo(() => {
@@ -35,6 +38,21 @@ const SalonServiceList: FC = React.memo(() => {
   }, [salonIdForPorpuse, role]);
   console.log("vavevaaveeeeeeeeeveevevaaaavaaavvaaaaa", services);
 
+
+
+  const hadleDelete = async (id:any) => {
+    try {
+      if (id) {
+        await commonRequest("DELETE",`/salon/deleteService/${id}`,config)
+        toast.success('Service Successfully Deleted')
+        SetServices(services.filter((x)=> x._id !== id))
+      }
+    } catch (error) {
+      console.log(error, "muy roirri");
+    }
+  }
+
+
   return (
     <div className="">
       <div className="  py-4 ">
@@ -52,16 +70,23 @@ const SalonServiceList: FC = React.memo(() => {
                 <span className="font-semibold"> Price ₹{x?.price}</span>
               </p>
               <p className="text-gray-600 ">
-                <span className="font-semibold flex items-center "><FaClock className="mr-1 text-green-900"/>{x?.duration}:00 Min</span>
+                <span className="font-semibold flex items-center ">
+                  <FaClock className="mr-1 text-green-900" />
+                  {x?.duration}:00 Min
+                </span>
               </p>
-            
-            <div className="flex justify-end  bg-green-50">
 
-              <button className="text-sm font-serif bg-gradient-to-b  from-green-500 via-green-700 to-green-900 rounded-md  hover:scale-105 transition-transform duration-300 ease-in-out   p-1">Update</button>
-              <button className="text-sm font-serif bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md ml-4  hover:scale-105 transition-transform duration-300 ease-in-out  ">delete</button>
-
-              {/* Available Seats */}
-            </div>
+              <div className="flex justify-end  bg-green-50">
+                <button
+                  className="text-sm font-serif px-2 bg-gradient-to-b  from-green-500 via-green-700 to-green-900 rounded-md  hover:scale-105 transition-transform duration-300 ease-in-out   p-1"
+                >
+                  Update
+                </button>
+                <button   onClick={() => {hadleDelete(x._id)}} className="text-sm px-2 font-serif bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md ml-4  hover:scale-105 transition-transform duration-300 ease-in-out  ">
+                  delete
+                </button>
+                {/* Available Seats */}
+              </div>
             </div>
           </div>
         ))}

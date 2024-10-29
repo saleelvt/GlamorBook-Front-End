@@ -10,10 +10,11 @@ export const UserList: React.FC = React.memo(() => {
   const navigate= useNavigate()
   const [users, setUsers] = useState<UserSignupdata[]>([]);
  
+  
+
   const getchat = useCallback(()=>{
     navigate('/userChatPage')
    },[])
-
   useEffect(() => {
     const getAllUsers = async () => {
       try {
@@ -26,7 +27,7 @@ export const UserList: React.FC = React.memo(() => {
     getAllUsers();
   }, []);
   return (
-    <div className="rounded-sm p-1 bg-green-200">
+    <div className="rounded-sm p-1 grid  bg-green-200">
       <table className=" break-words h-96 bg-white border shadow-sm border-gray-300 rounded-md">
         <thead className="border h-12 border-gray-300">
           <tr className="text-center font-serif">
@@ -37,6 +38,7 @@ export const UserList: React.FC = React.memo(() => {
           </tr>
         </thead>
         <tbody>
+
           {users.map((User, index) => (
             <tr key={index} className="border bg-green-100 text-center">
               <td className="p-4 border border-gray-300">{User.userName}</td>

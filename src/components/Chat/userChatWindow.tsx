@@ -3,6 +3,7 @@ import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import { IMessageData } from "../../interfaces/user/IMessageInterface";
 
+
 interface UserChatWindowProps {
   messages: IMessageData[];
   onlineUsers: string[];
@@ -16,6 +17,8 @@ export const UserChatWindow: React.FC<UserChatWindowProps> = ({
   headerTitle,
   typingUserId,
 }) => {
+
+  
   return (
     <div className="xs:w-80 shadow-lg rounded-md border bg-slate-100 my-5 overflow-hidden">
       <div className="bg-gray-300 p-1">
