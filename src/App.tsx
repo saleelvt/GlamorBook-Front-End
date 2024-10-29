@@ -94,7 +94,7 @@ const  userId :any =userData?._id
         <Route path="/userHomepage" element={isLogged && role === 'user' ? <UserHomepage /> : <Navigate to="/" />} />
         <Route path="/salonDetails/:salonId" element={isLogged && role === 'user' ? <UserSalonDetailsPage /> : <Navigate to="/" />} />
         <Route path="/userResetPassword" element={<UserResetPassword />} />
-        <Route path="/userChatPage" element={isLogged && role === 'user' ? <ChatWindow /> : <Navigate to="/" />} />
+        <Route path="/userChatPage" element={isLogged && role === 'user' || isLogged && role==="salon" ? <ChatWindow /> : <Navigate to="/" />} />
         
         {/* Salon Routes */}
         <Route path="/salonLogin" element={isLogged && role === 'salon' ? <Navigate to="/salonHome" /> : <SalonLogin />} />

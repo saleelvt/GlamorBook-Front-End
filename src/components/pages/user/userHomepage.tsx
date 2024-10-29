@@ -142,9 +142,7 @@ function UserHomepage() {
 
 
    const getchat = useCallback(()=>{
-
     navigate('/userChatPage')
-
    },[])
 
 
