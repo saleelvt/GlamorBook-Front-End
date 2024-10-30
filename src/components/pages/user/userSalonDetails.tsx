@@ -113,13 +113,10 @@ const UserSalonDetailsPage: React.FC = () => {
                           </p>
 
                           <div className="flex justify-end ">
-                            <button className="text-sm font-serif bg-gradient-to-b  from-green-500 via-green-700 to-green-900 rounded-md  hover:scale-105 transition-transform duration-300 ease-in-out   p-1">
-                              Update
+                           
+                            <button className="text-sm font-serif px-3 py-1 bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md ml-4  hover:scale-105 transition-transform duration-300 ease-in-out  ">
+                              Book now 
                             </button>
-                            <button className="text-sm font-serif bg-gradient-to-b from-green-500 via-green-700 to-green-900 rounded-md ml-4  hover:scale-105 transition-transform duration-300 ease-in-out  ">
-                              delete
-                            </button>
-
                             {/* Available Seats */}
                           </div>
                         </div>

@@ -49,20 +49,20 @@ const SalonLogin: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen  bg-cover bg-center">
       <div className="flex flex-col md:flex-row items-center p-6">
-        <div className="p-6 rounded shadow-md w-full max-w-md bg-gray-200">
-          <h2 className="text-2xl font-bold mb-6 text-center text-gray-950">
+        <div className="p-6 rounded-sm border border-gray-300 shadow-sm  w-full max-w-md bg-green-50">
+          <h2 className="text-2xl font-serif  mb-6 text-center text-gray-950">
             LogIn Your Salon Account
           </h2>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-950 text-start">
+              <label htmlFor="email" className="block font-serif text-gray-950 text-start">
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 {...formik.getFieldProps("email")}
-                className="w-full p-2 border border-gray-400 rounded mt-1 text-gray-950"
+                className="w-full p-2 border border-gray-300 font-mono text-sm rounded mt-1 text-gray-950"
               />
               {formik.touched.email && formik.errors.email ? (
                 <div className="text-red-500 text-sm">
@@ -74,7 +74,7 @@ const SalonLogin: React.FC = () => {
             <div className="mb-4 relative">
               <label
                 htmlFor="password"
-                className="block text-gray-950 text-start"
+                className="block text-gray-950   font-serif text-start"
               >
                 Password
               </label>
@@ -82,10 +82,10 @@ const SalonLogin: React.FC = () => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 {...formik.getFieldProps("password")}
-                className="w-full p-2 border border-gray-400 rounded mt-1 text-gray-950"
+                className="w-full p-2 border border-gray-300  font-mono text-sm rounded mt-1 text-gray-950"
               />
               <span
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="absolute inset-y-0 right-0 pr-3 mt-7 flex items-center cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (

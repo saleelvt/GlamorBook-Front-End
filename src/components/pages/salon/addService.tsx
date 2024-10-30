@@ -9,9 +9,6 @@ import { SalonAddService } from "../../../reduxKit/actions/salon/salonActions";
 import { useDispatch } from "react-redux";
 import { ServiceInterface } from "../../../interfaces/salon/serviceInterface";
 import toast from "react-hot-toast";
-// import { setTimeout } from "timers";
-
-// Define the initial form values
 
 
 const AddServiceForm: React.FC = React.memo(() => {
@@ -20,7 +17,6 @@ const AddServiceForm: React.FC = React.memo(() => {
   const {userData}=useSelector((state:RootState)=> state.auth)
      const _id = userData?._id 
      console.log("saleelis44444444 a",_id);
-     
 
   // Handle form submission
   const handleSubmit = useCallback(async(values: ServiceInterface, { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void; }) => {
@@ -28,29 +24,20 @@ const AddServiceForm: React.FC = React.memo(() => {
     // Simulate an API call with a timeout
       const  a = {_id,...values}
       console.log(a,'fdddddfdfdvvvvvvvvvvvvvvvvvvvdddddd');
-
      try {
        await dispatch(SalonAddService(a)).unwrap()
        toast.success("Service added successfully done ");
       //  setTimeout(()=>{
-
          resetForm(); // Reset the form after submission
          navigate(-1)
       //  },1000)
-    
-
      } catch (error) {
       console.error("Error adding service:", error);
     } finally {
-     
         setSubmitting(false); // End the loading state after delay
      
     }
-      
-   
- 
   }, [_id, dispatch]);
-
   const backpage=  useCallback(()=>{
              navigate(-1)
   },[navigate])
